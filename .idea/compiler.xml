@@ -8,11 +8,13 @@
         <outputRelativeToContentRoot value="true" />
         <module name="OrderService" />
         <module name="UserService" />
+        <module name="AdminService" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="AdminService" options="-parameters" />
       <module name="OrderService" options="-parameters" />
       <module name="UserService" options="-parameters" />
     </option>
