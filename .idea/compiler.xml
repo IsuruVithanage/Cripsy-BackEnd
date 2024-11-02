@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="AdminService" />
         <module name="UserService" />
+        <module name="DeliveryService" />
         <module name="ProductService" />
         <module name="OrderService" />
         <module name="AuthenticationService" />
@@ -22,6 +23,7 @@
       <module name="ApiGateway" options="-parameters" />
       <module name="AuthenticationService" options="-parameters" />
       <module name="ChatService" options="-parameters" />
+      <module name="DeliveryService" options="-parameters" />
       <module name="OrderService" options="-parameters" />
       <module name="ProductService" options="-parameters" />
       <module name="UserService" options="-parameters" />
