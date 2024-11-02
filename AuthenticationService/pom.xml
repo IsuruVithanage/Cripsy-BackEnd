@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.cripsy</groupId>
-    <artifactId>ChatService</artifactId>
+    <artifactId>AuthenticationService</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>ChatService</name>
-    <description>ChatService</description>
+    <name>AuthenticationService</name>
+    <description>AuthenticationService</description>
     <url/>
     <licenses>
         <license/>
@@ -53,12 +53,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>3.1.0</version>
-            <scope>compile</scope>
         </dependency>
     </dependencies>
 

@@ -1,4 +1,4 @@
-package org.cripsy.chatservice;
+package org.cripsy.deliveryservice;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class ChatServiceApplication {
+public class DeliveryServiceApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(ChatServiceApplication.class, args);
+        SpringApplication.run(DeliveryServiceApplication.class, args);
     }
 
     @Bean

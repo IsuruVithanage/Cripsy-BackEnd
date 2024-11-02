@@ -7,10 +7,12 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="AdminService" />
-        <module name="OrderService" />
         <module name="UserService" />
-        <module name="ApiGateway" />
         <module name="ProductService" />
+        <module name="OrderService" />
+        <module name="AuthenticationService" />
+        <module name="ApiGateway" />
+        <module name="ChatService" />
       </profile>
     </annotationProcessing>
   </component>
@@ -18,6 +20,8 @@
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="AdminService" options="-parameters" />
       <module name="ApiGateway" options="-parameters" />
+      <module name="AuthenticationService" options="-parameters" />
+      <module name="ChatService" options="-parameters" />
       <module name="OrderService" options="-parameters" />
       <module name="ProductService" options="-parameters" />
       <module name="UserService" options="-parameters" />
