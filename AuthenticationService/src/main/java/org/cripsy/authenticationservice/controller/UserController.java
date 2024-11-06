@@ -19,7 +19,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String loginUser(@RequestBody Users user) {it add
+    public String loginUser(@RequestBody Users user) {
         return userService.verifyUser(user);
     }
 }
