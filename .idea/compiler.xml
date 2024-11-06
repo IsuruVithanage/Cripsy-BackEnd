@@ -7,8 +7,8 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="CustomerService" />
         <module name="AdminService" />
-        <module name="UserService" />
         <module name="DeliveryService" />
         <module name="ProductService" />
         <module name="OrderService" />
@@ -17,6 +17,9 @@
         <module name="ChatService" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="UserService" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
@@ -24,6 +27,7 @@
       <module name="ApiGateway" options="-parameters" />
       <module name="AuthenticationService" options="-parameters" />
       <module name="ChatService" options="-parameters" />
+      <module name="CustomerService" options="-parameters" />
       <module name="DeliveryService" options="-parameters" />
       <module name="OrderService" options="-parameters" />
       <module name="ProductService" options="-parameters" />
