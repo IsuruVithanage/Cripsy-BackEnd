@@ -15,6 +15,7 @@
         <module name="AuthenticationService" />
         <module name="ApiGateway" />
         <module name="ChatService" />
+        <module name="ExampleService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
@@ -29,6 +30,7 @@
       <module name="ChatService" options="-parameters" />
       <module name="CustomerService" options="-parameters" />
       <module name="DeliveryService" options="-parameters" />
+      <module name="ExampleService" options="-parameters" />
       <module name="OrderService" options="-parameters" />
       <module name="ProductService" options="-parameters" />
       <module name="UserService" options="-parameters" />

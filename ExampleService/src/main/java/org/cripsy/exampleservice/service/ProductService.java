@@ -1,8 +1,8 @@
 package org.cripsy.exampleservice.service;
 
-import com.example.demo.dto.ProductDTO;
-import com.example.demo.model.Product;
-import com.example.demo.repository.ProductRepository;
+import org.cripsy.exampleservice.dto.ProductDTO;
+import org.cripsy.exampleservice.model.Product;
+import org.cripsy.exampleservice.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
