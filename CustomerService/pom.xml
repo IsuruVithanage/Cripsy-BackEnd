@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>org.cripsy</groupId>
-    <artifactId>exampleService</artifactId>
+    <artifactId>CustomerService</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>exampleService</name>
-    <description>exampleService</description>
+    <name>CustomerService</name>
+    <description>CustomerService</description>
     <url/>
     <licenses>
         <license/>
