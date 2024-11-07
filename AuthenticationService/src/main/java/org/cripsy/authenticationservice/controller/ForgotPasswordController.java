@@ -45,6 +45,11 @@ public class ForgotPasswordController {
         Users user = usersRepository.findByEmail(email)
                 .orElseThrow(() -> new UsernameNotFoundException("Please provide a valid email"));
 
+        Optional<ForgotPassword> existingOtp = forgotPasswordRepository.findByUser(user);
+        existingOtp.ifPresent(forgotPassword -> forgotPasswordRepository.deleteById(forgotPassword.getPasswordId()));
+
+        int otp = otpGenerator();
+
         MailBody mailBody = MailBody.builder()
                 .to(email)
                 .body("This is the OTP for your Forgot Password Request. " + otp)
@@ -53,7 +58,7 @@ public class ForgotPasswordController {
 
         ForgotPassword forgotPassword = ForgotPassword.builder()
                 .otp(otp)
-                .expirationTime(new Date(System.currentTimeMillis() + 60 * 10 * 1000))
+                .expirationTime(new Date(System.currentTimeMillis() + 60 * 5 * 1000))
                 .user(user)
                 .build();
 
@@ -88,10 +93,6 @@ public class ForgotPasswordController {
 
         String encodedPassword = passwordEncoder.encode(changePassword.password());
         usersRepository.updatePassword(email, encodedPassword);
-
-        Users user = usersRepository.findByEmail(email)
-                .orElseThrow(() -> new UsernameNotFoundException("Please provide a valid email"));
-        forgotPasswordRepository.deleteForgotPasswordByUser(user);
 
         return ResponseEntity.ok("Password has been changed!");
     }
