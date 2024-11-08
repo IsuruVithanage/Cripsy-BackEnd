@@ -2,8 +2,8 @@ package org.cripsy.productservice.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
-import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.Data;
 
 @Data
 @Entity
@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer productId;
+    private int productId;
     private String name;
     private String description;
     private double price;
-    private Integer stock = 0;
-    private double discount = 0;
-    private double rating = 0;
-    private Integer ratingCount = 0;
+    private int stock;
+    private double discount;
+    private double rating;
+    private int ratingCount;
 }
