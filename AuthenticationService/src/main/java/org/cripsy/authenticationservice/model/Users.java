@@ -1,10 +1,9 @@
 package org.cripsy.authenticationservice.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Entity
 @Data
@@ -12,13 +11,20 @@ import lombok.*;
 @NoArgsConstructor
 public class Users {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_sequence")
+    @SequenceGenerator(name = "user_sequence", sequenceName = "user_sequence", allocationSize = 1)
     private int id;
+
+    @Column(nullable = false)
     private String username;
+
+    @Column(nullable = false)
     private String email;
-    private String contactNo;
-    private String gender;
-    private int age;
+
+    @Column(nullable = false)
     private String password;
+
+    @OneToMany(mappedBy = "user")
+    private List<ForgotPassword> forgotPassword;
 
 }
