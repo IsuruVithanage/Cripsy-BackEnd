@@ -6,10 +6,10 @@ import org.cripsy.productservice.model.Product;
 import org.cripsy.productservice.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -20,14 +20,20 @@ public class ProductService {
     public List<ProductDTO> getAllProducts() {
         List<Product> productList = productRepo.findAll();
         return modelMapper.map(
-                productList,
-                new TypeToken<List<ProductDTO>>() {}.getType()
+            productList,
+            new TypeToken<List<ProductDTO>>() {
+            }.getType()
         );
     }
 
-    public String addProduct(ProductDTO product){
-        productRepo.save(modelMapper.map(product, Product.class));
+    public String addProduct(ProductDTO productDTO){
+        productRepo.save(modelMapper.map(productDTO, Product.class));
         return "Product saved";
+    }
+
+    public String updateProduct(ProductDTO productDTO){
+        productRepo.save(modelMapper.map(productDTO, Product.class));
+        return "Product Updated";
     }
 
 }
