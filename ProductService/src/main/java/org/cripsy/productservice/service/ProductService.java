@@ -35,8 +35,8 @@ public class ProductService {
         return "Product updated";
     }
 
-    public String deleteProduct(Integer id){
-        productRepo.deleteById(id);
+    public String deleteProduct(Integer productId){
+        productRepo.deleteById(productId);
         return "Product deleted";
     }
 

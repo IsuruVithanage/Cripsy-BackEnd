@@ -14,26 +14,26 @@ public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/getAll")
-    @Operation(summary = "Get All Products", description = "Fetch a list of all available products.")
+    @Operation(summary = "Get All Products", description = "Fetch a list of all available products.", tags = "All Users")
     public List<ProductDTO> getAllProducts() {
         return productService.getAllProducts();
     }
 
     @PostMapping("/add")
-    @Operation(summary = "Add a new product", description = "Add a new product to the system.")
-    public String addProduct(@RequestBody ProductDTO product) {
-        return productService.addProduct(product);
+    @Operation(summary = "Add a new product", description = "Add a new product to the system.", tags = "Admin")
+    public String addProduct(@RequestBody ProductDTO productDTO) {
+        return productService.addProduct(productDTO);
     }
 
     @PutMapping("/update")
-    @Operation(summary = "Update an product", description = "Update the details of an existing product.")
+    @Operation(summary = "Update an product", description = "Update the details of an existing product.", tags = "Admin")
     public String updateProduct(@RequestBody ProductDTO productDTO){
         return productService.updateProduct(productDTO);
     }
 
-    @DeleteMapping("/{id}")
-    @Operation(summary = "Delete a product", description = "Delete a product specified by its ID.")
-    public String deleteProduct(@PathVariable Integer id){
-        return productService.deleteProduct(id);
+    @DeleteMapping("/{productId}")
+    @Operation(summary = "Delete a product", description = "Delete a product specified by its ID.", tags = "Admin")
+    public String deleteProduct(@PathVariable Integer productId){
+        return productService.deleteProduct(productId);
     }
 }
