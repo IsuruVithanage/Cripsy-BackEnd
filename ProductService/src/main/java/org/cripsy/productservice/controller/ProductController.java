@@ -28,4 +28,9 @@ public class ProductController {
     public String updateProduct(@RequestBody ProductDTO productDTO){
         return productService.updateProduct(productDTO);
     }
+
+    @DeleteMapping("/{id}")
+    public String deleteProduct(@PathVariable Integer id){
+        return productService.deleteProduct(id);
+    }
 }

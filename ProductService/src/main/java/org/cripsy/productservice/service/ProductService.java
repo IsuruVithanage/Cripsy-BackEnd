@@ -33,7 +33,12 @@ public class ProductService {
 
     public String updateProduct(ProductDTO productDTO){
         productRepo.save(modelMapper.map(productDTO, Product.class));
-        return "Product Updated";
+        return "Product updated";
+    }
+
+    public String deleteProduct(Integer id){
+        productRepo.deleteById(id);
+        return "Product deleted";
     }
 
 }
