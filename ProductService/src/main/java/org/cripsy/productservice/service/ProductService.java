@@ -25,4 +25,9 @@ public class ProductService {
         );
     }
 
+    public String addProduct(ProductDTO product){
+        productRepo.save(modelMapper.map(product, Product.class));
+        return "Product saved";
+    }
+
 }
