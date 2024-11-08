@@ -6,10 +6,8 @@ import org.cripsy.productservice.model.Product;
 import org.cripsy.productservice.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
