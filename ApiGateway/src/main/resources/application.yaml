@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: productService
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/products/**
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+
+
+
