@@ -8,9 +8,5 @@ import java.util.Optional;
 
 public interface AdminRepository extends JpaRepository<Admin, Integer>{
 
-    //Admin  find  by ID  SQL Query
-    @Query(value = "SELECT * FROM student WHERE id = ?1", nativeQuery = true)
-    Admin getAdminById(Integer id);
 
-    Optional<Admin> findById(Integer id);
 }

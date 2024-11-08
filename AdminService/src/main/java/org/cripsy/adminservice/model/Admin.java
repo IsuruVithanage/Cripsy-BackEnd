@@ -12,7 +12,6 @@ import lombok.*;
 @NoArgsConstructor
 public class Admin {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
     private String name;
     private String email;

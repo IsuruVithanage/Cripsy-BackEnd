@@ -70,7 +70,7 @@ public class AdminService {
 
     //Find Admin by ID Service function
     public AdminDTO getAdminById(Integer id){
-        Admin admin = adminRepository.getAdminById(id);
+        Optional<Admin> admin = adminRepository.findById(id);
         return modelMapper.map(admin,AdminDTO.class);
     }
 
