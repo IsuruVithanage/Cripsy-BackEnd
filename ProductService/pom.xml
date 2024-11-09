@@ -18,7 +18,13 @@
         <license/>
     </licenses>
     <developers>
-        <developer/>
+        <developer>
+            <name>AshanSalinda</name>
+            <email>ashansalinda5@gmail.com</email>
+        </developer>
+        <developer>
+            <name>AchalaImesh</name>
+        </developer>
     </developers>
     <scm>
         <connection/>
