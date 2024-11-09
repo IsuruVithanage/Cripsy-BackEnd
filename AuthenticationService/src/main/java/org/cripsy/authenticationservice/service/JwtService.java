@@ -19,13 +19,13 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private String secretKey = "";
+    private String secretKey = "TjFi9qfRQFz9Ydq6AeatTuojzhdgBbadomU28z19rJg=";
 
-    public JwtService() throws NoSuchAlgorithmException {
-        KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
-        SecretKey sk = keyGen.generateKey();
-        secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
-    }
+//    public JwtService() throws NoSuchAlgorithmException {
+//        KeyGenerator keyGen = KeyGenerator.getInstance("HmacSHA256");
+//        SecretKey sk = keyGen.generateKey();
+//        secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
+//    }
 
     public String generateToken(String username) {
 
