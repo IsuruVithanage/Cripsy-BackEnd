@@ -1,4 +1,4 @@
-package org.cripsy.chatservice;
+package org.cripsy.chatservice.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
