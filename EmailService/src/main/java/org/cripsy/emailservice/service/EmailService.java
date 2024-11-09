@@ -1,6 +1,7 @@
 package org.cripsy.emailservice.service;
 
 import jakarta.mail.internet.MimeMessage;
+import org.cripsy.emailservice.dto.PayloadDTO;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
@@ -18,19 +19,21 @@ public class EmailService {
         this.mailSender = mailSender;
     }
 
-    public ResponseEntity<String> sendEmail(){
+    public ResponseEntity<String> sendEmail(PayloadDTO payload){
         try {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-            helper.setTo("cripsy.app@gmail.com");
-            helper.setSubject("This is the mail Subject");
-            helper.setText("This is mail Body");
+            helper.setTo(payload.getReceiverAddress());
+            helper.setSubject(payload.getSubject());
+            helper.setText(payload.getBody(), payload.isHtml());
             helper.setFrom(senderEmail, "Cripsy");
             mailSender.send(message);
 
             return ResponseEntity.ok("Email Sent") ;
-        } catch (Exception e){
+        }
+
+        catch (Exception e){
             System.out.println("Email sending failed" + e);
             return ResponseEntity.status(500).body("Email sending failed");
         }
