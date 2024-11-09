@@ -1,7 +1,7 @@
-package org.cripsy.exampleservice.controller;
+package org.cripsy.OrderService.controller;
 
-import org.cripsy.exampleservice.dto.ProductDTO;
-import org.cripsy.exampleservice.service.ProductService;
+import org.cripsy.OrderService.dto.ProductDTO;
+import org.cripsy.OrderService.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

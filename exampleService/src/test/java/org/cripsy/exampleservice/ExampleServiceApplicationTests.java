@@ -1,4 +1,4 @@
-package org.cripsy.exampleservice;
+package org.cripsy.OrderService;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

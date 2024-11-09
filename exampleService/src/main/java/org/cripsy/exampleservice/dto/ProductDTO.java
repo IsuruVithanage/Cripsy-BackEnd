@@ -1,4 +1,4 @@
-package org.cripsy.exampleservice.dto;
+package org.cripsy.OrderService.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

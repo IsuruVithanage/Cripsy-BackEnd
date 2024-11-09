@@ -1,4 +1,4 @@
-package org.cripsy.orderservice;
+package org.cripsy.OrderService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
