@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: productService
+          uri: http://localhost:8082
+          predicates:
+            - Path=/api/product/**
+          filters:
+            - name: JwtAuthenticationFilter
+
+
+jwt:
+  secret: "TjFi9qfRQFz9Ydq6AeatTuojzhdgBbadomU28z19rJg="
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+
+
+
