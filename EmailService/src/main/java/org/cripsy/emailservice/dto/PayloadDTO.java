@@ -11,9 +11,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class PayloadDTO {
-    @NotBlank(message = "receiverAddress must not be empty")
-    @Email(message = "receiverAddress must be a valid Email Address")
-    private String receiverAddress;
+    @NotBlank(message = "receiverEmail must not be empty")
+    @Email(message = "receiverEmail must be a valid Email Address")
+    private String receiverEmail;
 
     @NotBlank(message = "subject must not be empty")
     private String subject;
