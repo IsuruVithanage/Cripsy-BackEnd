@@ -13,9 +13,6 @@ spring:
             - name: JwtAuthenticationFilter
 
 
-jwt:
-  secret: "TjFi9qfRQFz9Ydq6AeatTuojzhdgBbadomU28z19rJg="
-
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG

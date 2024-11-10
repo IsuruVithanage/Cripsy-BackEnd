@@ -1,8 +1,9 @@
 package org.cripsy.apigateway.filters;
 
+
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.HttpHeaders;
@@ -10,53 +11,53 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
 
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 @Component
 public class JwtAuthenticationFilter extends AbstractGatewayFilterFactory<Object> {
 
-    // Replace this with your actual secret key
-    private static final String SECRET_KEY = "TjFi9qfRQFz9Ydq6AeatTuojzhdgBbadomU28z19rJg=";
+    @Value("${jwt.secret}")
+    private String SECRET_KEY;
 
-    public JwtAuthenticationFilter() {
-        super(Object.class);
-    }
+    private static final Logger logger = LoggerFactory.getLogger(JwtAuthenticationFilter.class);
 
     @Override
     public GatewayFilter apply(Object config) {
         return (exchange, chain) -> {
-            // Check for the presence of the Authorization header
+            logger.info("Entering JwtAuthenticationFilter");
+
             if (!exchange.getRequest().getHeaders().containsKey(HttpHeaders.AUTHORIZATION)) {
-                // Respond with 401 Unauthorized if header is missing
+                logger.warn("Authorization header is missing");
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             }
 
-            // Extract the token from the Authorization header
             String token = exchange.getRequest().getHeaders().getFirst(HttpHeaders.AUTHORIZATION);
             if (token != null && token.startsWith("Bearer ")) {
                 token = token.substring(7);
+                logger.info("Token extracted successfully: {}", token);
             } else {
-                // If token format is incorrect, respond with 401 Unauthorized
+                logger.warn("Invalid token format");
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             }
 
             try {
-                // Validate and parse the JWT token
-                Claims claims = Jwts.parser()
+                Claims claims = Jwts.parserBuilder()
                         .setSigningKey(SECRET_KEY)
+                        .build()
                         .parseClaimsJws(token)
                         .getBody();
+                logger.info("Token validated successfully, claims: {}", claims);
 
-                // Optionally, set the claims in the request attributes for downstream use
                 exchange.getAttributes().put("claims", claims);
-
-            } catch (SignatureException e) {
-                // If token validation fails, respond with 401 Unauthorized
+            } catch (Exception e) {
+                logger.error("Token validation failed: {}", e.getMessage());
                 exchange.getResponse().setStatusCode(HttpStatus.UNAUTHORIZED);
                 return exchange.getResponse().setComplete();
             }
 
-            // Continue to the next filter in the chain
             return chain.filter(exchange);
         };
     }
