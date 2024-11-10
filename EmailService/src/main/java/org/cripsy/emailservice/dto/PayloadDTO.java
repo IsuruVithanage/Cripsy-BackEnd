@@ -3,7 +3,6 @@ package org.cripsy.emailservice.dto;
 import io.swagger.v3.oas.annotations.media.Schema;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,8 +19,6 @@ public class PayloadDTO {
     private String subject;
 
     @NotBlank(message = "body must not be empty")
+    @Schema(example = "String or <html>")
     private String body;
-
-    @Schema(description = "specify that body is html or not (optional)")
-    private boolean html;
 }
