@@ -30,7 +30,7 @@ public class EmailService {
             Path template = Paths.get("src/main/resources/templates/emailTemplate.html");
             String body = Files.readString(template).replace("{{body}}", payload.getBody());
 
-            helper.setTo(payload.getReceiverAddress());
+            helper.setTo(payload.getReceiverEmail());
             helper.setSubject(payload.getSubject());
             helper.setText(body, true);
             helper.setFrom(senderEmail, "Cripsy");
