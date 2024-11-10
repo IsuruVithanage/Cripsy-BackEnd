@@ -2,14 +2,13 @@ package org.cripsy.productservice.service;
 
 import lombok.AllArgsConstructor;
 import org.cripsy.productservice.dto.ProductDTO;
+import org.cripsy.productservice.dto.ProductRatingDTO;
 import org.cripsy.productservice.model.Product;
 import org.cripsy.productservice.repository.ProductRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -37,8 +36,15 @@ public class ProductService {
         return "Product updated";
     }
 
-    public String deleteProduct(Integer id){
-        productRepo.deleteById(id);
+    public String rateProduct(ProductRatingDTO ratingDTO){
+        int productId = ratingDTO.getProductId();
+        int rating = ratingDTO.getRating();
+        int affectedRows = productRepo.updateProductRating(productId, rating);
+        return affectedRows == 0 ? "Product Not Found" : "Rated " + rating;
+    }
+
+    public String deleteProduct(Integer productId){
+        productRepo.deleteById(productId);
         return "Product deleted";
     }
 

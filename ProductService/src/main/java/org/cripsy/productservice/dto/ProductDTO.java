@@ -3,6 +3,7 @@ package org.cripsy.productservice.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -16,4 +17,5 @@ public class ProductDTO {
     private Double discount;
     private Double rating;
     private Integer ratingCount;
+    private List<String> imageUrls;
 }
