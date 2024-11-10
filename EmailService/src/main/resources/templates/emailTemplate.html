@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="x-apple-disable-message-reformatting" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Schoolbell&display=swap" rel="stylesheet">
+    <title>Cripsy Email</title>
+    <style>  
+        .main-container {
+            background-color: #ededed;
+            margin: 0;
+            padding-top: 0.5%;
+            border-radius: 15px;
+        }
+
+        .inner-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+        }
+
+        .top-container {
+            min-height: 350px; 
+            padding: 2% 5%;
+            color: #323232;
+        }
+
+        .bottom-container {
+            padding: 7% 3% 2% 3%;
+            border-bottom-left-radius: 12px;
+            border-bottom-right-radius: 12px;
+            background-color: #000000 !important;
+        }
+
+        .link-container {
+            width: fit-content;
+            text-align: left;
+            margin: auto;
+        }
+
+        .link-container div {
+            display: flex;
+            align-items: center;
+            margin: 5% 0;
+        }
+
+        .link {
+            color: #aaaaaa !important;
+            text-decoration: none;
+            margin-left: 6%;
+            font-family: "Inter", sans-serif;
+            font-weight: 400;
+            font-size: 75%;
+            letter-spacing: 0.1vw;
+        }
+
+        .link:hover {
+            color: #FFA0A0 !important;
+            text-decoration: underline;
+        }
+
+        .icon {
+            width: 1em;
+            height: auto;
+        }
+
+        .logo {
+            width: 30%;
+            height: auto;
+        }
+
+        .title {
+            margin: 3% 0;
+            font-weight: 400;
+            font-family: "Schoolbell", cursive;
+            font-size: 75%;
+            color: #a3a7a5;
+            display: block;
+        }
+
+        .footer {
+            font-family: "Inter", sans-serif;
+            color: #717070;
+            margin-bottom: 0;
+            font-weight: 400;
+            font-size: 75%;
+        }
+
+        td {
+            text-align: center;
+        }
+
+
+        @media only screen and (min-width: 600px) {
+            .inner-container {
+                font-size: 18px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .inner-container {
+                font-size: 3vw;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="main-container">
+        
+        <div class="inner-container" >
+            <div class="top-container">
+                {{body}}
+            </div>
+
+            <div class="bottom-container">
+                <table style="width: 100%;">
+                    <tr>
+                        <td style="width: 47%;">
+                            <img src="logo.svg" alt="Cripsy" class="logo" />
+                            <p class="title">Crisp Deals, Every Day</p>
+                        </td>
+
+                        <td style="width: 53%; border-left: 1px solid #FF5757;">
+                            <div class="link-container">
+                                <div>
+                                    <img class="icon" src="https://img.icons8.com/FF5757/new-post.png" alt="email">
+                                    <a href="mailto:cripsy.app@gmail.com" class="link"> cripsy.app@gmail.com </a>
+                                </div>
+                                <div>
+                                    <img class="icon" src="https://img.icons8.com/FF5757/globe--v1.png" alt="website"/>
+                                    <a href="http://localhost:3000" class="link"> https://cripsy.com </a>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="border-bottom: 2px solid #FF5757; height: 20px"></td>
+                    </tr>
+
+                    <tr>
+                        <td colspan="2">
+                            <p class="footer" >Cripsy Email Service</p>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
