@@ -23,6 +23,5 @@ public class DeliveryService {
         List<Delivery> userList = deliveryRepository.findAll();
         return modelMapper.map(userList, new TypeToken<List<DeliveryDTO>>() {
         }.getType());
-//        hhxhx
     }
 }
