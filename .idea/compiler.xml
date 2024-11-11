@@ -7,6 +7,7 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="EurekaServer" />
         <module name="CustomerService" />
         <module name="AdminService" />
         <module name="DeliveryService" />
@@ -30,6 +31,7 @@
       <module name="ChatService" options="-parameters" />
       <module name="CustomerService" options="-parameters" />
       <module name="DeliveryService" options="-parameters" />
+      <module name="EurekaServer" options="-parameters" />
       <module name="ExampleService" options="-parameters" />
       <module name="OrderService" options="-parameters" />
       <module name="ProductService" options="-parameters" />

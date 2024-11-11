@@ -7,6 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 @Service
 public class EmailService {
@@ -24,9 +27,12 @@ public class EmailService {
             MimeMessage message = mailSender.createMimeMessage();
             MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
 
-            helper.setTo(payload.getReceiverAddress());
+            Path template = Paths.get("src/main/resources/templates/emailTemplate.html");
+            String body = Files.readString(template).replace("{{body}}", payload.getBody());
+
+            helper.setTo(payload.getReceiverEmail());
             helper.setSubject(payload.getSubject());
-            helper.setText(payload.getBody(), payload.isHtml());
+            helper.setText(body, true);
             helper.setFrom(senderEmail, "Cripsy");
             mailSender.send(message);
 
