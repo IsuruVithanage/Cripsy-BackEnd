@@ -18,6 +18,7 @@ public class Delivery {
     private String password;
     private String contact;
     private  boolean availability;
+    // new coment
 }
 
 
