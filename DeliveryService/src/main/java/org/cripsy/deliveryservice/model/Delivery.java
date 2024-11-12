@@ -10,6 +10,8 @@ import lombok.*;
 @NoArgsConstructor
 public class Delivery {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Integer personId;
     private String name;
     private String email;
