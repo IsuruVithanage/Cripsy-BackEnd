@@ -1,0 +1,31 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: api-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: productService
+          uri: lb://productService # Load-balanced URI
+          predicates:
+            - Path=/api/product/**
+
+      default-filters:
+        - name: JwtAuthenticationFilter
+
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    prefer-ip-address: true
+
+
+logging:
+  level:
+    org.springframework.cloud.gateway: DEBUG
+
+

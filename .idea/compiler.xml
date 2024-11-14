@@ -7,19 +7,22 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="EurekaServer" />
+        <module name="CustomerService" />
         <module name="AdminService" />
-        <module name="UserService" />
         <module name="DeliveryService" />
         <module name="ProductService" />
         <module name="OrderService" />
         <module name="AuthenticationService" />
         <module name="ApiGateway" />
         <module name="ChatService" />
+        <module name="ExampleService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="CustomerService" target="1.5" />
-      <module name="ExampleService" target="1.5" />
+
+      <module name="UserService" target="17" />
+
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -28,7 +31,10 @@
       <module name="ApiGateway" options="-parameters" />
       <module name="AuthenticationService" options="-parameters" />
       <module name="ChatService" options="-parameters" />
+      <module name="CustomerService" options="-parameters" />
       <module name="DeliveryService" options="-parameters" />
+      <module name="EurekaServer" options="-parameters" />
+      <module name="ExampleService" options="-parameters" />
       <module name="OrderService" options="-parameters" />
       <module name="ProductService" options="-parameters" />
       <module name="UserService" options="-parameters" />
