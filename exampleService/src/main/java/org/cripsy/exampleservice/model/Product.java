@@ -1,4 +1,4 @@
-package org.cripsy.OrderService.model;
+package org.cripsy.exampleservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;
