@@ -1,2 +1,2 @@
 # Cripsy-BackEnd
-Ecommerce website using Next Js and Spring Boot
+E-commerce website using Next Js and Spring Boot
