@@ -1,4 +1,4 @@
-package org.cripsy.OrderService.model;
+package org.cripsy.RefundService.model;
 
 import jakarta.persistence.*;
 import lombok.*;

@@ -1,7 +1,7 @@
-package org.cripsy.OrderService.controller;
+package org.cripsy.RefundService.controller;
 
-import org.cripsy.OrderService.dto.RefundDTO;
-import org.cripsy.OrderService.service.RefundService;
+import org.cripsy.RefundService.dto.RefundDTO;
+import org.cripsy.RefundService.service.RefundService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 

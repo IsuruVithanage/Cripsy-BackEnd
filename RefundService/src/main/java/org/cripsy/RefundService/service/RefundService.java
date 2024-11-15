@@ -1,8 +1,8 @@
-package org.cripsy.OrderService.service;
+package org.cripsy.RefundService.service;
 
-import org.cripsy.OrderService.dto.RefundDTO;
-import org.cripsy.OrderService.model.Refund;
-import org.cripsy.OrderService.repository.RefundRepository;
+import org.cripsy.RefundService.dto.RefundDTO;
+import org.cripsy.RefundService.model.Refund;
+import org.cripsy.RefundService.repository.RefundRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

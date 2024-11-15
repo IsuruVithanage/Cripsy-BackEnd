@@ -15,6 +15,8 @@
         <option value="$PROJECT_DIR$/CustomerService/pom.xml" />
         <option value="$PROJECT_DIR$/ExampleService/pom.xml" />
         <option value="$PROJECT_DIR$/EurekaServer/pom.xml" />
+        <option value="$PROJECT_DIR$/RefundService/pom.xml" />
+        <option value="$PROJECT_DIR$/EmailService/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

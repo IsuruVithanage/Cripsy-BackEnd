@@ -1,4 +1,4 @@
-package org.cripsy.OrderService.dto;
+package org.cripsy.RefundService.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
