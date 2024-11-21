@@ -2,8 +2,7 @@ package org.cripsy.productservice.controller;
 
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
-import org.cripsy.productservice.dto.ProductDTO;
-import org.cripsy.productservice.dto.ProductRatingDTO;
+import org.cripsy.productservice.dto.*;
 import org.cripsy.productservice.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
@@ -17,19 +16,19 @@ public class ProductController {
 
     @GetMapping("/getAll")
     @Operation(summary = "Get All Products", description = "Fetch a list of all available products.", tags = "User")
-    public List<ProductDTO> getAllProducts() {
+    public List<ProductCardDTO> getAllProducts() {
         return productService.getAllProducts();
     }
 
     @PostMapping("/add")
     @Operation(summary = "Add a new product", description = "Add a new product to the system.", tags = "Admin")
-    public String addProduct(@RequestBody ProductDTO productDTO) {
+    public String addProduct(@RequestBody CreateProductDTO productDTO) {
         return productService.addProduct(productDTO);
     }
 
     @PutMapping("/update")
     @Operation(summary = "Update an product", description = "Update the details of an existing product.", tags = "Admin")
-    public String updateProduct(@RequestBody ProductDTO productDTO){
+    public String updateProduct(@Valid @RequestBody UpdateProductDTO productDTO){
         return productService.updateProduct(productDTO);
     }
 
