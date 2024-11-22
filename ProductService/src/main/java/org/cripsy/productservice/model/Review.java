@@ -12,20 +12,29 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Review {
-    @Id
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
-    private Product product;
 
-    @Id
-    @Column(name = "\"user\"")
-    private String user;
+
+    @EmbeddedId
+    private ReviewKey id;
+
     private String comment;
     private int rating;
     private LocalDate ratedDate;
 
+    public void setUser(String user){
+        this.id.setUser(user);
+    }
+
+    public void setComment(String comment){
+        if(comment != null && !comment.trim().isEmpty()){
+            this.comment = comment.trim();
+        }
+    }
+
     @PrePersist
     public void onPrePersist() {
-        this.ratedDate = LocalDate.now(Clock.systemUTC());
+        if(this.comment != null) {
+            this.ratedDate = LocalDate.now(Clock.systemUTC());
+        }
     }
 }

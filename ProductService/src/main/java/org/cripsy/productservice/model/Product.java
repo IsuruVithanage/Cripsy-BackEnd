@@ -30,7 +30,7 @@ public class Product {
     @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Ratings ratings;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id.productId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Review> reviews;
 
 

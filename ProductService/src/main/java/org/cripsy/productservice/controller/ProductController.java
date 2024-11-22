@@ -32,10 +32,10 @@ public class ProductController {
         return productService.updateProduct(productDTO);
     }
 
-    @PutMapping("/rate")
+    @PostMapping("/rate")
     @Operation(summary = "Rate a product", description = "Add a Rating to an existing product", tags = "User")
-    public String rateProduct(@Valid @RequestBody ProductRatingDTO ratingDTO){
-        return productService.rateProduct(ratingDTO);
+    public String rateProduct(@Valid @RequestBody ReviewDTO reviewDTO){
+        return productService.rateProduct(reviewDTO);
     }
 
     @DeleteMapping("/{productId}")

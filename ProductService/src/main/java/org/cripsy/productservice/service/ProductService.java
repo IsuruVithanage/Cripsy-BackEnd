@@ -3,7 +3,9 @@ package org.cripsy.productservice.service;
 import lombok.AllArgsConstructor;
 import org.cripsy.productservice.dto.*;
 import org.cripsy.productservice.model.Product;
+import org.cripsy.productservice.model.Review;
 import org.cripsy.productservice.repository.ProductRepository;
+import org.cripsy.productservice.repository.ReviewRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductService {
     private final ProductRepository productRepo;
+    private final ReviewRepository reviewRepo;
     private final ModelMapper modelMapper;
 
     public List<ProductCardDTO> getAllProducts() {
@@ -39,12 +42,13 @@ public class ProductService {
         return "Product updated";
     }
 
-    public String rateProduct(ProductRatingDTO ratingDTO){
-        int productId = ratingDTO.getProductId();
-        int rating = ratingDTO.getRating();
+    public String rateProduct(ReviewDTO reviewDTO){
+//        int productId = reviewDTO.getProductId();
+//        int rating = reviewDTO.getRating();
 //        int affectedRows = productRepo.updateProductRating(productId, rating);
 //        return affectedRows == 0 ? "Product Not Found" : "Rated " + rating;
-        return "Rated" + rating;
+        reviewRepo.save(modelMapper.map(reviewDTO, Review.class));
+        return "Rated";
     }
 
     public String deleteProduct(Integer productId){
