@@ -8,9 +8,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class RatingStatsDTO {
-    private int rating1;
-    private int rating2;
-    private int rating3;
-    private int rating4;
-    private int rating5;
+    private Long rating5;
+    private Long rating4;
+    private Long rating3;
+    private Long rating2;
+    private Long rating1;
 }

@@ -20,6 +20,12 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+
+    @GetMapping("/ratings")
+    public RatingStatsDTO getRatings(){
+        return productService.getRatings();
+    }
+
     @PostMapping("/add")
     @Operation(summary = "Add a new product", description = "Add a new product to the system.", tags = "Admin")
     public String addProduct(@RequestBody CreateProductDTO productDTO) {

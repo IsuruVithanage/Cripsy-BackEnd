@@ -19,5 +19,13 @@ public class ReviewDTO {
     @Max(5)
     private int rating;
     private String comment;
+
+    public void setComment(String comment){
+        if(comment != null && !comment.trim().isEmpty()){
+            this.comment = comment.trim();
+        } else {
+            this.comment = null;
+        }
+    }
 }
 

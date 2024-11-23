@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,27 +11,29 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "product")
 public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
-
     private String name;
     private String description;
     private double price;
     private int stock;
     private double discount;
 
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
+    @Column(updatable = false)
+    private long ratingCount;
+
+    @Column(updatable = false)
+    private double avgRatings;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImageUrls> imageUrls;
 
-    @OneToOne(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Ratings ratings;
 
-    @OneToMany(mappedBy = "id.productId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Review> reviews;
-
+    public double getAvgRatings(){
+        return Math.round(this.avgRatings * 10.0) / 10.0;
+    }
 
 
     public List<String> getImageUrls() {

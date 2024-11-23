@@ -1,0 +1,89 @@
+package org.cripsy.productservice.config;
+
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+
+@Component
+public class TriggerInitializer {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @PostConstruct
+    public void createOrUpdateTriggers() {
+        this.deleteRatingsWhenProductDelete();
+        this.update_product_ratings();
+    }
+
+    private void deleteRatingsWhenProductDelete(){
+        /*
+            This will delete all related records from ratings table
+            when an item delete from product table
+        */
+
+        String dropAndCreateTriggerSQL = """
+           CREATE OR REPLACE FUNCTION delete_product_ratings()
+           RETURNS TRIGGER AS $$
+           BEGIN
+               DELETE FROM ratings WHERE product_id = OLD.product_id;
+               RETURN OLD;
+           END;
+           $$ LANGUAGE plpgsql;
+
+           CREATE OR REPLACE TRIGGER before_product_delete
+           BEFORE DELETE ON product
+           FOR EACH ROW
+           EXECUTE FUNCTION delete_product_ratings();
+        """;
+
+        try {
+            jdbcTemplate.execute(dropAndCreateTriggerSQL);
+        } catch (Exception e) {
+            System.out.println("Failed to create deleteRatingsWhenProductDelete trigger: " + e.getMessage());
+        }
+    }
+
+    private void update_product_ratings(){
+        /*
+            This will update overall rating details
+            on product table when adding new review
+        */
+
+        String updateRatingDetailsSQL = """
+            CREATE OR REPLACE FUNCTION update_product_ratings()
+            RETURNS TRIGGER AS $$
+            DECLARE
+                rating_stats RECORD;
+            BEGIN
+                SELECT COUNT(*) AS total_count, AVG(rating) AS average_rating
+                INTO rating_stats
+                FROM ratings
+                WHERE product_id = NEW.product_id;
+            
+                UPDATE product
+                SET
+                    rating_count = rating_stats.total_count,
+                    avg_ratings = rating_stats.average_rating
+                WHERE product_id = NEW.product_id;
+            
+                RETURN NULL;
+            END;
+            $$ LANGUAGE plpgsql;
+            
+            CREATE OR REPLACE TRIGGER before_rating_insert
+            AFTER INSERT ON ratings
+            FOR EACH ROW
+            EXECUTE FUNCTION update_product_ratings();
+        """;
+
+        try {
+            jdbcTemplate.execute(updateRatingDetailsSQL);
+        } catch (Exception e) {
+            System.out.println("Failed to create updateRatingDetails trigger: " + e.getMessage());
+        }
+    }
+}
+

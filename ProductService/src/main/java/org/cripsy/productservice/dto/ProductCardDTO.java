@@ -12,8 +12,8 @@ public class ProductCardDTO {
     private Integer productId;
     private String name;
     private double price;
-    private double overallRatings;
-    private int ratingCount;
     private boolean isAddedToFavorites;
+    private long ratingCount;
+    private double avgRatings;
     private List<String> imageUrls;
 }

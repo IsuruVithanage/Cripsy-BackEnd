@@ -14,12 +14,11 @@ public class ProductItemDTO {
     private String name;
     private Double price;
     private String description;
-    private Double overallRatings;
-    private Integer ratingCount;
-    private Integer totalReviewsCount;
     private Integer stock;
     private Double discount;
     private boolean isAddedToFavorites;
+    private long ratingCount;
+    private double avgRatings;
     private List<String> imageUrls;
     private List<RatingStatsDTO> ratings;
     private List<ReviewDTO> reviews;

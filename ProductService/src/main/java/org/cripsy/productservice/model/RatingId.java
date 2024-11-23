@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
 import java.io.Serializable;
 
 
@@ -12,9 +11,9 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
-public class ReviewKey implements Serializable {
-    @ManyToOne
-    @JoinColumn(name = "product_id", nullable = false)
+public class RatingId implements Serializable {
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "product_id")
     private Product productId;
 
     @Column(name = "\"user\"")
