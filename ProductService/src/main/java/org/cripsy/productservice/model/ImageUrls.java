@@ -11,8 +11,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class ImageUrls {
     @Id
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "product_id", nullable = false)
+    @ManyToOne()
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @Id

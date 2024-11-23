@@ -12,40 +12,8 @@ public class TriggerInitializer {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+
     @PostConstruct
-    public void createOrUpdateTriggers() {
-        this.deleteRatingsWhenProductDelete();
-        this.update_product_ratings();
-    }
-
-    private void deleteRatingsWhenProductDelete(){
-        /*
-            This will delete all related records from ratings table
-            when an item delete from product table
-        */
-
-        String dropAndCreateTriggerSQL = """
-           CREATE OR REPLACE FUNCTION delete_product_ratings()
-           RETURNS TRIGGER AS $$
-           BEGIN
-               DELETE FROM ratings WHERE product_id = OLD.product_id;
-               RETURN OLD;
-           END;
-           $$ LANGUAGE plpgsql;
-
-           CREATE OR REPLACE TRIGGER before_product_delete
-           BEFORE DELETE ON product
-           FOR EACH ROW
-           EXECUTE FUNCTION delete_product_ratings();
-        """;
-
-        try {
-            jdbcTemplate.execute(dropAndCreateTriggerSQL);
-        } catch (Exception e) {
-            System.out.println("Failed to create deleteRatingsWhenProductDelete trigger: " + e.getMessage());
-        }
-    }
-
     private void update_product_ratings(){
         /*
             This will update overall rating details

@@ -12,7 +12,7 @@ import java.io.Serializable;
 @NoArgsConstructor
 @Embeddable
 public class RatingId implements Serializable {
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne()
     @JoinColumn(name = "product_id")
     private Product productId;
 

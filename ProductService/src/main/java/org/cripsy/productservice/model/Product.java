@@ -30,6 +30,9 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImageUrls> imageUrls;
 
+    @OneToMany(mappedBy = "id.productId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Ratings> ratings;
+
 
     public double getAvgRatings(){
         return Math.round(this.avgRatings * 10.0) / 10.0;
