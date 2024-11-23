@@ -21,10 +21,12 @@ public class ProductController {
     }
 
 
-    @GetMapping("/ratings")
-    public RatingStatsDTO getRatings(){
-        return productService.getRatings();
+    @GetMapping("/{productId}/{userName}")
+    @Operation(summary = "Get a Product", description = "Fetch the details of a single product.", tags = "User")
+    public ProductItemDTO getProductById(@PathVariable Integer productId, @PathVariable String userName){
+        return productService.getProductById(productId, userName);
     }
+
 
     @PostMapping("/add")
     @Operation(summary = "Add a new product", description = "Add a new product to the system.", tags = "Admin")
@@ -32,17 +34,20 @@ public class ProductController {
         return productService.addProduct(productDTO);
     }
 
+
     @PutMapping("/update")
     @Operation(summary = "Update an product", description = "Update the details of an existing product.", tags = "Admin")
     public String updateProduct(@Valid @RequestBody UpdateProductDTO productDTO){
         return productService.updateProduct(productDTO);
     }
 
+
     @PostMapping("/rate")
     @Operation(summary = "Rate a product", description = "Add a Rating to an existing product", tags = "User")
-    public String rateProduct(@Valid @RequestBody ReviewDTO reviewDTO){
-        return productService.rateProduct(reviewDTO);
+    public String rateProduct(@Valid @RequestBody RateProductDTO rateProductDTO){
+        return productService.rateProduct(rateProductDTO);
     }
+
 
     @DeleteMapping("/{productId}")
     @Operation(summary = "Delete a product", description = "Delete a product specified by its ID.", tags = "Admin")

@@ -18,4 +18,9 @@ public class RatingId implements Serializable {
 
     @Column(name = "\"user\"")
     private String user;
+
+    @SuppressWarnings("unused")
+    public int getProductId(){
+        return this.productId.getProductId();
+    }
 }
