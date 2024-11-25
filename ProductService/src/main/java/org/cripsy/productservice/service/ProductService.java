@@ -42,10 +42,12 @@ public class ProductService {
         ProductItemDTO productItem = modelMapper.map(product, ProductItemDTO.class);
         RatingStatsDTO ratingStats = ratingsRepo.getRatingsSummary(productId);
         List<ReviewDTO> reviews = ratingsRepo.findReviewsByProductId(productId, PageRequest.of(0, 2));
+        long reviewCount = ratingsRepo.getReviewCount(productId);
         boolean isUserRated = !user.isEmpty() && ratingsRepo.existsById(new RatingId(product, user));
         productItem.setRatingStats(ratingStats);
         productItem.setInitialReviews(reviews);
         productItem.setIsUserRated(isUserRated);
+        productItem.setReviewCount(reviewCount);
         return productItem;
     }
 

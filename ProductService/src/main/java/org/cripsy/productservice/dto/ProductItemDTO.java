@@ -19,6 +19,7 @@ public class ProductItemDTO {
     private Boolean isAddedToFavorites;
     private Boolean isUserRated;
     private long ratingCount;
+    private long reviewCount;
     private double avgRatings;
     private RatingStatsDTO ratingStats;
     private List<String> imageUrls;

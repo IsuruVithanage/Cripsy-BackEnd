@@ -31,6 +31,15 @@ public interface RatingsRepository extends JpaRepository<Ratings, RatingId>{
     RatingStatsDTO getRatingsSummary(@Param("productId") int productId);
 
 
+    @Query("""
+        SELECT COUNT(r)
+        FROM Ratings r
+        WHERE r.id.productId.productId = :productId
+        AND r.comment IS NOT NULL
+    """)
+    long getReviewCount(@Param("productId") int productId);
+
+
     @Query(value = """
         SELECT new org.cripsy.productservice.dto.ReviewDTO(
             r.id.productId.productId, r.id.user, r.rating, r.comment, r.ratedDate
