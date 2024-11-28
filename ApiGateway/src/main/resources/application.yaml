@@ -8,7 +8,7 @@ spring:
     gateway:
       routes:
         - id: productService
-          uri: lb://productService # Load-balanced URI
+          uri: lb://productService
           predicates:
             - Path=/api/product/**
 
