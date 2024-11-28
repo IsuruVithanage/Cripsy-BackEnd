@@ -14,13 +14,13 @@ import java.io.Serializable;
 public class RatingId implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "product_id")
-    private Product productId;
+    private Product product;
 
     @Column(name = "\"user\"")
     private String user;
 
     @SuppressWarnings("unused")
     public int getProductId(){
-        return this.productId.getProductId();
+        return this.product.getProductId();
     }
 }

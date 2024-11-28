@@ -30,15 +30,11 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ImageUrls> imageUrls;
 
-    @OneToMany(mappedBy = "id.productId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ratings> ratings;
 
 
-    public double getAvgRatings(){
-        return Math.round(this.avgRatings * 10.0) / 10.0;
-    }
-
-
+    @SuppressWarnings("unused")
     public List<String> getImageUrls() {
     /*
       This method transforms the list of `ImageUrls` entities associated with this object
@@ -49,6 +45,7 @@ public class Product {
                 .collect(Collectors.toList());
     }
 
+    @SuppressWarnings("unused")
     public void setImageUrls(List<String> imageUrls) {
     /*
         This method takes a list of URL strings and converts them into `ImageUrls` entities,

@@ -3,7 +3,6 @@ package org.cripsy.productservice.service;
 import lombok.AllArgsConstructor;
 import org.cripsy.productservice.dto.*;
 import org.cripsy.productservice.model.Product;
-import org.cripsy.productservice.model.RatingId;
 import org.cripsy.productservice.repository.ProductRepository;
 import org.cripsy.productservice.repository.RatingsRepository;
 import org.modelmapper.ModelMapper;
@@ -32,22 +31,18 @@ public class ProductService {
 
 
     public ProductItemDTO getProductById(Integer productId, String user) {
-        Optional<Product> productOptional = productRepo.findById(productId);
+        Optional<ProductItemDTO> productOptional = productRepo.findProductItemDetails(productId, user);
 
         if(productOptional.isEmpty()){
             throw new RuntimeException("Product Not Found");
         }
 
-        Product product = productOptional.get();
-        ProductItemDTO productItem = modelMapper.map(product, ProductItemDTO.class);
-        RatingStatsDTO ratingStats = ratingsRepo.getRatingsSummary(productId);
+        ProductItemDTO productItem = productOptional.get();
+        List<String> imageUrls = productRepo.findImageUrls(productId);
         List<ReviewDTO> reviews = ratingsRepo.findReviewsByProductId(productId, PageRequest.of(0, 2));
-        long reviewCount = ratingsRepo.getReviewCount(productId);
-        boolean isUserRated = !user.isEmpty() && ratingsRepo.existsById(new RatingId(product, user));
-        productItem.setRatingStats(ratingStats);
+
         productItem.setInitialReviews(reviews);
-        productItem.setIsUserRated(isUserRated);
-        productItem.setReviewCount(reviewCount);
+        productItem.setImageUrls(imageUrls);
         return productItem;
     }
 
