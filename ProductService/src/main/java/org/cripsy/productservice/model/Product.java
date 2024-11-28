@@ -1,0 +1,60 @@
+package org.cripsy.productservice.model;
+
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import java.util.List;
+import java.util.stream.Collectors;
+
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+@Entity
+public class Product {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int productId;
+    private String name;
+    private String description;
+    private double price;
+    private int stock;
+    private double discount;
+
+    @Column(updatable = false)
+    private long ratingCount;
+
+    @Column(updatable = false)
+    private double avgRatings;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ImageUrls> imageUrls;
+
+    @OneToMany(mappedBy = "id.productId", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Ratings> ratings;
+
+
+    public double getAvgRatings(){
+        return Math.round(this.avgRatings * 10.0) / 10.0;
+    }
+
+
+    public List<String> getImageUrls() {
+    /*
+      This method transforms the list of `ImageUrls` entities associated with this object
+      into a list of their corresponding URL strings for easier access.
+    */
+        return imageUrls.stream()
+                .map(ImageUrls::getUrl)
+                .collect(Collectors.toList());
+    }
+
+    public void setImageUrls(List<String> imageUrls) {
+    /*
+        This method takes a list of URL strings and converts them into `ImageUrls` entities,
+    */
+        this.imageUrls = imageUrls.stream()
+                .map(url -> new ImageUrls(this, url))
+                .collect(Collectors.toList());
+    }
+}
