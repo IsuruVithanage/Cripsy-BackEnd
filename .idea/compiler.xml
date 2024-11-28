@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="EurekaServer" />
+        <module name="CustomerService" />
+        <module name="AdminService" />
+        <module name="DeliveryService" />
+        <module name="ProductService" />
+        <module name="RefundService" />
+        <module name="EmailService" />
+        <module name="OrderService" />
+        <module name="AuthenticationService" />
+        <module name="ApiGateway" />
+        <module name="ChatService" />
+        <module name="ExampleService" />
+      </profile>
+    </annotationProcessing>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="AdminService" options="-parameters" />
+      <module name="ApiGateway" options="-parameters" />
+      <module name="AuthenticationService" options="-parameters" />
+      <module name="ChatService" options="-parameters" />
+      <module name="CustomerService" options="-parameters" />
+      <module name="DeliveryService" options="-parameters" />
+      <module name="EmailService" options="-parameters" />
+      <module name="EurekaServer" options="-parameters" />
+      <module name="ExampleService" options="-parameters" />
+      <module name="OrderService" options="-parameters" />
+      <module name="ProductService" options="-parameters" />
+      <module name="RefundService" options="-parameters" />
+    </option>
+  </component>
+</project>
