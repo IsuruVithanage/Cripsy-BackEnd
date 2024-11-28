@@ -1,4 +1,4 @@
-package org.cripsy.orderservice;
+package org.cripsy.RefundService;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;
@@ -8,15 +8,15 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class OrderServiceApplication {
+public class RefundServiceApplication {
 
-    public static void main(String[] args) {
-        SpringApplication.run(OrderServiceApplication.class, args);
-    }
+	public static void main(String[] args) {
+		SpringApplication.run(RefundServiceApplication.class, args);
+	}
 
-    @Bean
-    public ModelMapper modelMapper(){
-        return new ModelMapper();
-    }
+	@Bean
+	public ModelMapper modelMapper(){
+		return new ModelMapper();
+	}
 
 }
