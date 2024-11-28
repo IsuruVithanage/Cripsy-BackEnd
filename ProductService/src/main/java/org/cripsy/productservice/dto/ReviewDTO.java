@@ -11,7 +11,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class ReviewDTO {
 
-    private int productId;
     private String user;
     private int rating;
     private String comment;

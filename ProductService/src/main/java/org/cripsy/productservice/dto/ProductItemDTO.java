@@ -16,11 +16,17 @@ public class ProductItemDTO {
     private String description;
     private Integer stock;
     private Double discount;
-    private Boolean isAddedToFavorites;
+    private Double avgRatings;
+    private Long ratingCount;
+    private Long reviewCount;
     private Boolean isUserRated;
-    private long ratingCount;
-    private double avgRatings;
+    //    private Boolean isAddedToFavorites;
     private RatingStatsDTO ratingStats;
     private List<String> imageUrls;
     private List<ReviewDTO> initialReviews;
+
+    @SuppressWarnings("unused")
+    public double getAvgRatings(){
+        return Math.round(this.avgRatings * 10.0) / 10.0;
+    }
 }

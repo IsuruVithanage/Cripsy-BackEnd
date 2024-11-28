@@ -16,4 +16,9 @@ public class ProductCardDTO {
     private long ratingCount;
     private double avgRatings;
     private List<String> imageUrls;
+
+    @SuppressWarnings("unused")
+    public double getAvgRatings(){
+        return Math.round(this.avgRatings * 10.0) / 10.0;
+    }
 }
