@@ -3,6 +3,9 @@ package org.cripsy.productservice.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 
 @Data
@@ -19,4 +22,11 @@ public class CartItemDTO {
     private Integer quantity;
     private Double total;
     private String imageUrl;
+
+    @SuppressWarnings("unused")
+    public String getDescription(){
+        Document document = Jsoup.parse(this.description);
+        Element firstP = document.selectFirst("p");
+        return firstP != null ? firstP.text() : "";
+    }
 }
