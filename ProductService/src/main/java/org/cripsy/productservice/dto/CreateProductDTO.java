@@ -14,5 +14,6 @@ public class CreateProductDTO {
     private String description;
     private int stock;
     private double discount;
+    private int category;
     private List<String> imageUrls;
 }
