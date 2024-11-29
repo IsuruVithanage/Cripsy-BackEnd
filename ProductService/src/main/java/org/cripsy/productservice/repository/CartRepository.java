@@ -24,11 +24,17 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
            c.quantity,
            c.quantity * c.id.product.price * (1 - c.id.product.discount / 100),
            (
+                SELECT COUNT(r)
+                FROM Ratings r
+                WHERE r.id.product.productId = c.id.product.productId
+                AND r.comment IS NOT NULL
+           ),
+           (
                 SELECT i.url
                 FROM ImageUrls i
                 WHERE i.product.productId = c.id.product.productId
                 ORDER BY i.url LIMIT 1
-            )
+           )
        )
        FROM Cart c
        WHERE c.id.userId = :userId

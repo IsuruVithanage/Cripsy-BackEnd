@@ -22,6 +22,7 @@ public class CartItemDTO {
     private Double avgRatings;
     private Integer quantity;
     private Double total;
+    private Long reviewCount;
     private String imageUrl;
 
     @SuppressWarnings("unused")
