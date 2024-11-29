@@ -16,12 +16,12 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
     private String name;
-
-    @Column(columnDefinition = "TEXT")
-    private String description;
     private double price;
     private int stock;
     private double discount;
+
+    @Column(columnDefinition = "TEXT")
+    private String description;
 
     @Column(updatable = false)
     private long ratingCount;
@@ -35,6 +35,9 @@ public class Product {
     @OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Ratings> ratings;
 
+    @OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Cart> cart;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
@@ -46,7 +49,8 @@ public class Product {
       This method transforms the list of `ImageUrls` entities associated with this object
       into a list of their corresponding URL strings for easier access.
     */
-        return imageUrls.stream()
+        return imageUrls
+                .stream()
                 .map(ImageUrls::getUrl)
                 .collect(Collectors.toList());
     }
@@ -56,7 +60,8 @@ public class Product {
     /*
         This method takes a list of URL strings and converts them into `ImageUrls` entities,
     */
-        this.imageUrls = imageUrls.stream()
+        this.imageUrls = imageUrls
+                .stream()
                 .map(url -> new ImageUrls(this, url))
                 .collect(Collectors.toList());
     }

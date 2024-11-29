@@ -29,10 +29,17 @@ public class ProductController {
     }
 
 
-    @GetMapping("/getReviews/{productId}/{pageNo}")
-    @Operation(summary = "Get Reviews", description = "Fetch a set of Reviews of a product with pagination", tags = "User")
+    @GetMapping("/{productId}/reviews/{pageNo}")
+    @Operation(summary = "Get Reviews", description = "Fetch a List of Reviews of a product with pagination", tags = "User")
     public List<ReviewDTO> getReviews(@PathVariable Integer productId, @PathVariable Integer pageNo) {
         return productService.getReviews(productId, pageNo);
+    }
+
+
+    @GetMapping("/cart/{userId}")
+    @Operation(summary = "Get Cart Items", description = "Fetch a List of Cart Items for a User", tags = "User")
+    public List<CartItemDTO> getReviews(@PathVariable Integer userId) {
+        return productService.getCartItems(userId);
     }
 
 

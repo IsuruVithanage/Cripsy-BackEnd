@@ -7,25 +7,23 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 
-import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductCardDTO {
+public class CartItemDTO {
     private Integer productId;
     private String name;
-    private double price;
     private String description;
-    private boolean isAddedToFavorites;
-    private long ratingCount;
-    private double avgRatings;
-    private List<String> imageUrls;
-
-    @SuppressWarnings("unused")
-    public double getAvgRatings(){
-        return Math.round(this.avgRatings * 10.0) / 10.0;
-    }
+    private Double price;
+    private Double discount;
+    private Integer stock;
+    private Long ratingCount;
+    private Double avgRatings;
+    private Integer quantity;
+    private Double total;
+    private Long reviewCount;
+    private String imageUrl;
 
     @SuppressWarnings("unused")
     public String getDescription(){
