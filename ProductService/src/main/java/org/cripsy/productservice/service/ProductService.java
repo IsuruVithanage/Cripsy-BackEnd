@@ -39,11 +39,16 @@ public class ProductService {
 
         ProductItemDTO productItem = productOptional.get();
         List<String> imageUrls = productRepo.findImageUrls(productId);
-        List<ReviewDTO> reviews = ratingsRepo.findReviewsByProductId(productId, PageRequest.of(0, 2));
+        List<ReviewDTO> reviews = ratingsRepo.findReviewsByProductId(productId, PageRequest.of(0, 5));
 
         productItem.setInitialReviews(reviews);
         productItem.setImageUrls(imageUrls);
         return productItem;
+    }
+
+
+    public List<ReviewDTO> getReviews(Integer productId, Integer pageNo){
+        return ratingsRepo.findReviewsByProductId(productId, PageRequest.of(pageNo - 1, 5));
     }
 
 
