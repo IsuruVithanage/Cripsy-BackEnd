@@ -11,7 +11,6 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
-@CrossOrigin(origins = "*")
 @RequestMapping("/api/product")
 public class ProductController {
     private final ProductService productService;

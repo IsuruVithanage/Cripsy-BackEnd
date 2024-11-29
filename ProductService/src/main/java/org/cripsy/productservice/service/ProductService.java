@@ -2,8 +2,10 @@ package org.cripsy.productservice.service;
 
 import lombok.AllArgsConstructor;
 import org.cripsy.productservice.dto.*;
+import org.cripsy.productservice.model.Category;
 import org.cripsy.productservice.model.Product;
 import org.cripsy.productservice.repository.CartRepository;
+import org.cripsy.productservice.repository.CategoryRepository;
 import org.cripsy.productservice.repository.ProductRepository;
 import org.cripsy.productservice.repository.RatingsRepository;
 import org.modelmapper.ModelMapper;
@@ -20,6 +22,7 @@ public class ProductService {
     private final ProductRepository productRepo;
     private final RatingsRepository ratingsRepo;
     private final CartRepository cartRepo;
+    private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
 
     public List<ProductCardDTO> getAllProducts() {
@@ -60,7 +63,18 @@ public class ProductService {
 
 
     public String addProduct(CreateProductDTO productDTO){
-        productRepo.save(modelMapper.map(productDTO, Product.class));
+        Product product = modelMapper.map(productDTO, Product.class);
+
+        // Fetch the existing Category from the database using the categoryId from the DTO
+        Category existingCategory = categoryRepository.findById(productDTO.getCategory())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        // Set the fetched Category in the Product object
+        product.setCategory(existingCategory);
+
+        // Save the Product
+        productRepo.save(product);
+
         return "Product saved";
     }
 

@@ -6,14 +6,26 @@ spring:
     name: api-gateway
   cloud:
     gateway:
+      globalcors:
+        cors-configurations:
+          '[/**]':
+            allowedOrigins: "*"
+            allowedMethods:
+              - GET
+              - POST
+              - PUT
+              - DELETE
+              - OPTIONS
+            allowedHeaders:
+              - "*"
+
       routes:
         - id: productService
-          uri: lb://productService # Load-balanced URI
+          uri: lb://productService
           predicates:
             - Path=/api/product/**
 
-      default-filters:
-        - name: JwtAuthenticationFilter
+
 
 
 eureka:
@@ -23,9 +35,6 @@ eureka:
   instance:
     prefer-ip-address: true
 
-
 logging:
   level:
     org.springframework.cloud.gateway: DEBUG
-
-

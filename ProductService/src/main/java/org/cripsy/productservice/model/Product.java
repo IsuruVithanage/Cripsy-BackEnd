@@ -38,6 +38,10 @@ public class Product {
     @OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cart> cart;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
 
     @SuppressWarnings("unused")
     public List<String> getImageUrls() {
