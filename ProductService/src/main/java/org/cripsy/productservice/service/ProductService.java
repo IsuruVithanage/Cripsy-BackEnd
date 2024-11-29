@@ -3,6 +3,7 @@ package org.cripsy.productservice.service;
 import lombok.AllArgsConstructor;
 import org.cripsy.productservice.dto.*;
 import org.cripsy.productservice.model.Product;
+import org.cripsy.productservice.repository.CartRepository;
 import org.cripsy.productservice.repository.ProductRepository;
 import org.cripsy.productservice.repository.RatingsRepository;
 import org.modelmapper.ModelMapper;
@@ -18,6 +19,7 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepo;
     private final RatingsRepository ratingsRepo;
+    private final CartRepository cartRepo;
     private final ModelMapper modelMapper;
 
     public List<ProductCardDTO> getAllProducts() {
@@ -49,6 +51,11 @@ public class ProductService {
 
     public List<ReviewDTO> getReviews(Integer productId, Integer pageNo){
         return ratingsRepo.findReviewsByProductId(productId, PageRequest.of(pageNo - 1, 5));
+    }
+
+
+    public List<CartItemDTO> getCartItems(Integer userId){
+        return cartRepo.findByIdUserId(userId);
     }
 
 
