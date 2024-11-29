@@ -17,11 +17,12 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
            c.id.product.name,
            c.id.product.description,
            c.id.product.price,
+           c.id.product.discount,
            c.id.product.stock,
            c.id.product.ratingCount,
            c.id.product.avgRatings,
            c.quantity,
-           c.quantity * c.id.product.price,
+           c.quantity * c.id.product.price * (1 - c.id.product.discount / 100),
            (
                 SELECT i.url
                 FROM ImageUrls i

@@ -16,6 +16,7 @@ public class CartItemDTO {
     private String name;
     private String description;
     private Double price;
+    private Double discount;
     private Integer stock;
     private Long ratingCount;
     private Double avgRatings;
