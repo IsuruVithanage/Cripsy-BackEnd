@@ -16,6 +16,8 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int productId;
     private String name;
+
+    @Column(columnDefinition = "TEXT")
     private String description;
     private double price;
     private int stock;

@@ -11,6 +11,7 @@ import java.util.List;
 
 @RestController
 @AllArgsConstructor
+@CrossOrigin(origins = "*")
 @RequestMapping("/api/product")
 public class ProductController {
     private final ProductService productService;
@@ -26,6 +27,13 @@ public class ProductController {
     @Operation(summary = "Get a Product", description = "Fetch the details of a single product.", tags = "User")
     public ProductItemDTO getProductById(@PathVariable Integer productId, @PathVariable String userName){
         return productService.getProductById(productId, userName);
+    }
+
+
+    @GetMapping("/getReviews/{productId}/{pageNo}")
+    @Operation(summary = "Get Reviews", description = "Fetch a set of Reviews of a product with pagination", tags = "User")
+    public List<ReviewDTO> getReviews(@PathVariable Integer productId, @PathVariable Integer pageNo) {
+        return productService.getReviews(productId, pageNo);
     }
 
 
