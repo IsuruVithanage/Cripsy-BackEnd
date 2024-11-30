@@ -83,4 +83,11 @@ public class ProductController {
     public String deleteProduct(@PathVariable Integer productId){
         return productService.deleteProduct(productId);
     }
+
+
+    @DeleteMapping("/cart/{productId}/{userId}")
+    @Operation(summary = "Delete a Cart Item", description = "Delete a Cart item specified by its ProductId and UserID.", tags = "Admin")
+    public List<CartItemDTO> removeFromCart(@PathVariable Integer productId, @PathVariable Integer userId){
+        return productService.removeFromCart(productId, userId);
+    }
 }
