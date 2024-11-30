@@ -43,10 +43,17 @@ public class ProductController {
     }
 
 
-    @PostMapping("/cart/add")
+    @PostMapping("/cart")
     @Operation(summary = "Add to Cart", description = "Add a product to the user cart.", tags = "User")
     public String addToCart(@RequestBody AddToCartDTO addToCartDTO) {
         return productService.addToCart(addToCartDTO);
+    }
+
+
+    @PutMapping("/cart")
+    @Operation(summary = "Update Cart", description = "Update the quantity for a product in user cart.", tags = "User")
+    public List<CartItemDTO> updateCartQuantity(@RequestBody AddToCartDTO addToCartDTO) {
+        return productService.updateCartQuantity(addToCartDTO);
     }
 
 

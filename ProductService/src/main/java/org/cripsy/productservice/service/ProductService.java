@@ -64,8 +64,14 @@ public class ProductService {
 
 
     public String addToCart(AddToCartDTO addToCartDTO){
-        cartRepo.addToCart(addToCartDTO);
+        cartRepo.upsertCart(addToCartDTO);
         return "Added to cart";
+    }
+
+
+    public List<CartItemDTO> updateCartQuantity(AddToCartDTO addToCartDTO){
+        cartRepo.upsertCart(addToCartDTO);
+        return this.getCartItems(addToCartDTO.getUserId());
     }
 
 
