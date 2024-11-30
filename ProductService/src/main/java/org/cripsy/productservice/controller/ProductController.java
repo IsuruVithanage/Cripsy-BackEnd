@@ -38,8 +38,15 @@ public class ProductController {
 
     @GetMapping("/cart/{userId}")
     @Operation(summary = "Get Cart Items", description = "Fetch a List of Cart Items for a User", tags = "User")
-    public List<CartItemDTO> getReviews(@PathVariable Integer userId) {
+    public List<CartItemDTO> getCartItems(@PathVariable Integer userId) {
         return productService.getCartItems(userId);
+    }
+
+
+    @PostMapping("/cart/add")
+    @Operation(summary = "Add to Cart", description = "Add a product to the user cart.", tags = "User")
+    public String addToCart(@RequestBody AddToCartDTO addToCartDTO) {
+        return productService.addToCart(addToCartDTO);
     }
 
 
