@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import org.cripsy.productservice.dto.*;
 import org.cripsy.productservice.model.Category;
 import org.cripsy.productservice.model.Product;
-import org.cripsy.productservice.repository.CartRepository;
 import org.cripsy.productservice.repository.CategoryRepository;
 import org.cripsy.productservice.repository.ProductRepository;
 import org.cripsy.productservice.repository.RatingsRepository;
@@ -21,9 +20,9 @@ import java.util.Optional;
 public class ProductService {
     private final ProductRepository productRepo;
     private final RatingsRepository ratingsRepo;
-    private final CartRepository cartRepo;
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
+
 
     public List<ProductCardDTO> getAllProducts() {
         List<Product> productList = productRepo.findAll();
@@ -54,23 +53,6 @@ public class ProductService {
 
     public List<ReviewDTO> getReviews(Integer productId, Integer pageNo){
         return ratingsRepo.findReviewsByProductId(productId, PageRequest.of(pageNo - 1, 5));
-    }
-
-
-    public List<CartItemDTO> getCartItems(Integer userId){
-        return cartRepo.findByUserId(userId);
-    }
-
-
-    public String addToCart(AddToCartDTO addToCartDTO){
-        cartRepo.upsertCart(addToCartDTO);
-        return "Added to cart";
-    }
-
-
-    public List<CartItemDTO> updateCartQuantity(AddToCartDTO addToCartDTO){
-        cartRepo.upsertCart(addToCartDTO);
-        return this.getCartItems(addToCartDTO.getUserId());
     }
 
 
@@ -108,10 +90,4 @@ public class ProductService {
         productRepo.deleteById(productId);
         return "Product deleted";
     }
-
-    public List<CartItemDTO> removeFromCart(Integer productId, Integer userId){
-        cartRepo.removeFromCart(productId, userId);
-        return this.getCartItems(userId);
-    }
-
 }

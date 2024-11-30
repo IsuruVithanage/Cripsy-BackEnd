@@ -36,27 +36,6 @@ public class ProductController {
     }
 
 
-    @GetMapping("/cart/{userId}")
-    @Operation(summary = "Get Cart Items", description = "Fetch a List of Cart Items for a User", tags = "User")
-    public List<CartItemDTO> getCartItems(@PathVariable Integer userId) {
-        return productService.getCartItems(userId);
-    }
-
-
-    @PostMapping("/cart")
-    @Operation(summary = "Add to Cart", description = "Add a product to the user cart.", tags = "User")
-    public String addToCart(@RequestBody AddToCartDTO addToCartDTO) {
-        return productService.addToCart(addToCartDTO);
-    }
-
-
-    @PutMapping("/cart")
-    @Operation(summary = "Update Cart", description = "Update the quantity for a product in user cart.", tags = "User")
-    public List<CartItemDTO> updateCartQuantity(@RequestBody AddToCartDTO addToCartDTO) {
-        return productService.updateCartQuantity(addToCartDTO);
-    }
-
-
     @PostMapping("/add")
     @Operation(summary = "Add a new product", description = "Add a new product to the system.", tags = "Admin")
     public String addProduct(@RequestBody CreateProductDTO productDTO) {
@@ -82,12 +61,5 @@ public class ProductController {
     @Operation(summary = "Delete a product", description = "Delete a product specified by its ID.", tags = "Admin")
     public String deleteProduct(@PathVariable Integer productId){
         return productService.deleteProduct(productId);
-    }
-
-
-    @DeleteMapping("/cart/{productId}/{userId}")
-    @Operation(summary = "Delete a Cart Item", description = "Delete a Cart item specified by its ProductId and UserID.", tags = "Admin")
-    public List<CartItemDTO> removeFromCart(@PathVariable Integer productId, @PathVariable Integer userId){
-        return productService.removeFromCart(productId, userId);
     }
 }
