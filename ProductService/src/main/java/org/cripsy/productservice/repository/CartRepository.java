@@ -58,6 +58,15 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
         DO UPDATE
         SET quantity = EXCLUDED.quantity
     """, nativeQuery = true)
-    void addToCart( @Param("addToCartDTO") AddToCartDTO addToCartDTO );
+    void upsertCart( @Param("addToCartDTO") AddToCartDTO addToCartDTO );
+
+    @Transactional
+    @Modifying
+    @Query("""
+        DELETE FROM Cart c
+        WHERE c.id.product.productId = :productId
+        AND c.id.userId = :userId
+    """)
+    void removeFromCart(@Param("productId") Integer productId, @Param("userId") Integer userId);
 
 }

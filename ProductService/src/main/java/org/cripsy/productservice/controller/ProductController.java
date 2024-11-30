@@ -43,10 +43,17 @@ public class ProductController {
     }
 
 
-    @PostMapping("/cart/add")
+    @PostMapping("/cart")
     @Operation(summary = "Add to Cart", description = "Add a product to the user cart.", tags = "User")
     public String addToCart(@RequestBody AddToCartDTO addToCartDTO) {
         return productService.addToCart(addToCartDTO);
+    }
+
+
+    @PutMapping("/cart")
+    @Operation(summary = "Update Cart", description = "Update the quantity for a product in user cart.", tags = "User")
+    public List<CartItemDTO> updateCartQuantity(@RequestBody AddToCartDTO addToCartDTO) {
+        return productService.updateCartQuantity(addToCartDTO);
     }
 
 
@@ -75,5 +82,12 @@ public class ProductController {
     @Operation(summary = "Delete a product", description = "Delete a product specified by its ID.", tags = "Admin")
     public String deleteProduct(@PathVariable Integer productId){
         return productService.deleteProduct(productId);
+    }
+
+
+    @DeleteMapping("/cart/{productId}/{userId}")
+    @Operation(summary = "Delete a Cart Item", description = "Delete a Cart item specified by its ProductId and UserID.", tags = "Admin")
+    public List<CartItemDTO> removeFromCart(@PathVariable Integer productId, @PathVariable Integer userId){
+        return productService.removeFromCart(productId, userId);
     }
 }

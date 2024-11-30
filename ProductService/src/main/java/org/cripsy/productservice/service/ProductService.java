@@ -2,7 +2,6 @@ package org.cripsy.productservice.service;
 
 import lombok.AllArgsConstructor;
 import org.cripsy.productservice.dto.*;
-import org.cripsy.productservice.model.Cart;
 import org.cripsy.productservice.model.Category;
 import org.cripsy.productservice.model.Product;
 import org.cripsy.productservice.repository.CartRepository;
@@ -64,8 +63,14 @@ public class ProductService {
 
 
     public String addToCart(AddToCartDTO addToCartDTO){
-        cartRepo.addToCart(addToCartDTO);
+        cartRepo.upsertCart(addToCartDTO);
         return "Added to cart";
+    }
+
+
+    public List<CartItemDTO> updateCartQuantity(AddToCartDTO addToCartDTO){
+        cartRepo.upsertCart(addToCartDTO);
+        return this.getCartItems(addToCartDTO.getUserId());
     }
 
 
@@ -102,6 +107,11 @@ public class ProductService {
     public String deleteProduct(Integer productId){
         productRepo.deleteById(productId);
         return "Product deleted";
+    }
+
+    public List<CartItemDTO> removeFromCart(Integer productId, Integer userId){
+        cartRepo.removeFromCart(productId, userId);
+        return this.getCartItems(userId);
     }
 
 }
