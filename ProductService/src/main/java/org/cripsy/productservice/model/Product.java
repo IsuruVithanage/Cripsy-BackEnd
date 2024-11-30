@@ -49,6 +49,9 @@ public class Product {
       This method transforms the list of `ImageUrls` entities associated with this object
       into a list of their corresponding URL strings for easier access.
     */
+        if(this.imageUrls == null){
+            return null;
+        }
         return imageUrls
                 .stream()
                 .map(ImageUrls::getUrl)

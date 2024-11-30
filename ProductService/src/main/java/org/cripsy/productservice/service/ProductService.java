@@ -2,6 +2,7 @@ package org.cripsy.productservice.service;
 
 import lombok.AllArgsConstructor;
 import org.cripsy.productservice.dto.*;
+import org.cripsy.productservice.model.Cart;
 import org.cripsy.productservice.model.Category;
 import org.cripsy.productservice.model.Product;
 import org.cripsy.productservice.repository.CartRepository;
@@ -58,7 +59,13 @@ public class ProductService {
 
 
     public List<CartItemDTO> getCartItems(Integer userId){
-        return cartRepo.findByIdUserId(userId);
+        return cartRepo.findByUserId(userId);
+    }
+
+
+    public String addToCart(AddToCartDTO addToCartDTO){
+        cartRepo.addToCart(addToCartDTO);
+        return "Added to cart";
     }
 
 

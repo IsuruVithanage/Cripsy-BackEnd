@@ -1,9 +1,12 @@
 package org.cripsy.productservice.repository;
 
+import jakarta.transaction.Transactional;
+import org.cripsy.productservice.dto.AddToCartDTO;
 import org.cripsy.productservice.dto.CartItemDTO;
 import org.cripsy.productservice.model.Cart;
 import org.cripsy.productservice.model.CartId;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -39,5 +42,22 @@ public interface CartRepository extends JpaRepository<Cart, CartId> {
        FROM Cart c
        WHERE c.id.userId = :userId
     """)
-    List<CartItemDTO> findByIdUserId(@Param("userId") Integer userId);
+    List<CartItemDTO> findByUserId(@Param("userId") Integer userId);
+
+
+    @Transactional
+    @Modifying
+    @Query(value = """
+        INSERT INTO cart (product_id, user_id, quantity)
+        VALUES (
+            :#{#addToCartDTO.productId},
+            :#{#addToCartDTO.userId},
+            :#{#addToCartDTO.quantity}
+        )
+        ON CONFLICT (product_id, "user_id")
+        DO UPDATE
+        SET quantity = EXCLUDED.quantity
+    """, nativeQuery = true)
+    void addToCart( @Param("addToCartDTO") AddToCartDTO addToCartDTO );
+
 }
