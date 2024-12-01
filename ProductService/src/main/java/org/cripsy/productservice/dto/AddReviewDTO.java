@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RateProductDTO {
+public class AddReviewDTO {
     private int productId;
     @NotBlank
     private String user;

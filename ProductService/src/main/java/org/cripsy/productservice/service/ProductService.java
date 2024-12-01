@@ -80,9 +80,9 @@ public class ProductService {
     }
 
 
-    public String rateProduct(RateProductDTO rateProduct){
-        ratingsRepo.saveRating(rateProduct);
-        return "Rated";
+    public List<ReviewDTO> addReview(AddReviewDTO addReviewDTO){
+        ratingsRepo.saveRating(addReviewDTO);
+        return this.getReviews(addReviewDTO.getProductId(), 1);
     }
 
 

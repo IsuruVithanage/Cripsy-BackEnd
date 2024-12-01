@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 
 @Entity
 @Data
@@ -16,5 +16,5 @@ public class Ratings {
     private RatingId id;
     private String comment;
     private int rating;
-    private LocalDate ratedDate;
+    private ZonedDateTime ratedDate;
 }
