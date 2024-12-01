@@ -20,5 +20,13 @@ public class Message {
     private Integer conversationId;
     private String sender;
     private String message;
+    @Column(nullable = false)
     private LocalDateTime dateTime;
+
+    @PrePersist
+    public void prePersist() {
+        if (dateTime == null) {
+            dateTime = LocalDateTime.now();
+        }
+    }
 }
