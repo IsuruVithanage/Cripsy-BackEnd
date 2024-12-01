@@ -19,7 +19,7 @@ import java.util.UUID;
 
 @RestController
 @RequestMapping("/payment")
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:3000")
 public class PaymentController {
 
     @Value("${payhere.merchant_id}")
@@ -41,13 +41,7 @@ public class PaymentController {
         String currency = request.getCurrency();
 
         // Generate MD5 hash for the start payment request
-        String hash = paymentService.generateHash(
-                MERCHANT_ID +
-                      orderId +
-                      amount +
-                      currency +
-                      paymentService.generateHash(MERCHANT_SECRET).toUpperCase()
-        ).toUpperCase();
+        String hash = paymentService.generateHash(MERCHANT_ID + orderId + amount + currency + paymentService.generateHash(MERCHANT_SECRET).toUpperCase()).toUpperCase();
 
         return ResponseEntity.ok(new PaymentResponse(MERCHANT_ID, hash));
     }
@@ -60,7 +54,6 @@ public class PaymentController {
                     notification.getOrder_id().trim() +
                     notification.getPayhere_amount().trim() +
                     notification.getPayhere_currency().trim() +
-
                     paymentService.generateHash(MERCHANT_SECRET).toUpperCase();
 
             // Generate MD5 signature for the notification

@@ -9,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface UsersRepository extends JpaRepository<Users, Integer> {
-    Users findByUsername(String username);
+    Users findUserByUsername(String username);
     Optional<Users> findByEmail(String email);
 
     @Transactional
