@@ -1,6 +1,7 @@
 package org.cripsy.chatservice.service;
 
 import lombok.AllArgsConstructor;
+import org.cripsy.chatservice.dto.ConversationDTO;
 import org.cripsy.chatservice.model.Conversation;
 import org.cripsy.chatservice.repository.ConversationRepository;
 import org.modelmapper.ModelMapper;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -18,17 +20,23 @@ public class ConversationService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public Conversation createConversation(Conversation conversation){
-        return conversationRepository.save(conversation);
+    public ConversationDTO createConversation(ConversationDTO conversationDTO){
+        Conversation conversation = modelMapper.map(conversationDTO, Conversation.class);
+        Conversation savedConversation = conversationRepository.save(conversation);
+        return modelMapper.map(savedConversation, ConversationDTO.class);
     }
 
-    public Conversation getConversationById(Integer conversationId){
-        return conversationRepository.findById(conversationId)
+    public ConversationDTO getConversationById(Integer conversationId){
+        Conversation conversation = conversationRepository.findById(conversationId)
                 .orElseThrow(() -> new RuntimeException("Conversation not found with id: " + conversationId));
+        return modelMapper.map(conversation, ConversationDTO.class);
     }
 
-    public List<Conversation> getAllConversations(){
-        return conversationRepository.findAll();
+    public List<ConversationDTO> getAllConversations(){
+        List<Conversation> conversationList= conversationRepository.findAll();
+        return conversationList.stream()
+                .map(conversation -> modelMapper.map(conversationList, ConversationDTO.class))
+                .collect(Collectors.toList());
     }
 
     public void deleteConversation(Integer conversationId){
