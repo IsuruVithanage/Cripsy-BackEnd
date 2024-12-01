@@ -7,6 +7,5 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface AdminRepository extends JpaRepository<Admin, Integer>{
-
-
+    Admin findByEmail(String email);
 }
