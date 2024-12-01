@@ -23,7 +23,7 @@ public interface RatingsRepository extends JpaRepository<Ratings, RatingId>{
         )
         FROM Ratings r
         WHERE r.id.product.productId = :productId AND r.comment IS NOT NULL
-        ORDER BY r.id.user
+        ORDER BY r.ratedDate, r.id.user
     """)
     List<ReviewDTO> findReviewsByProductId(
             @Param("productId") int productId,

@@ -23,6 +23,7 @@ public class ProductService {
     private final CategoryRepository categoryRepository;
     private final ModelMapper modelMapper;
 
+
     public List<ProductCardDTO> getAllProducts() {
         List<Product> productList = productRepo.findAll();
         return modelMapper.map(
@@ -89,5 +90,4 @@ public class ProductService {
         productRepo.deleteById(productId);
         return "Product deleted";
     }
-
 }
