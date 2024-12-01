@@ -19,7 +19,4 @@ public class Conversation {
     private Integer conversationId;
     private Integer adminId;
     private Integer customerId;
-    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
-    @JoinColumn(name = "conversationId", referencedColumnName = "conversationId")
-    private List<Message> messages;
 }

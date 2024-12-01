@@ -13,5 +13,4 @@ public class ConversationDTO {
     private Integer conversationId;
     private Integer adminId;
     private Integer customerId;
-    private List<MessageDTO> messages;
 }
