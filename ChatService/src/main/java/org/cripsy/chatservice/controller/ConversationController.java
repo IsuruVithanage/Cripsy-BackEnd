@@ -15,12 +15,12 @@ public class ConversationController {
     private final ConversationService conversationService;
 
     @PostMapping("/create")
-    public ConversationDTO createConversation(ConversationDTO conversationDTO){
+    public ConversationDTO createConversation(@RequestBody ConversationDTO conversationDTO){
         return conversationService.createConversation(conversationDTO);
     }
 
     @GetMapping("/{conversationId}")
-    public ConversationDTO getConversationById(Integer conversationId){
+    public ConversationDTO getConversationById(@PathVariable Integer conversationId){
         return conversationService.getConversationById(conversationId);
     }
 
@@ -30,7 +30,7 @@ public class ConversationController {
     }
 
     @DeleteMapping("/delete/{conversationId}")
-    public void deleteConversation(Integer conversationId){
+    public void deleteConversation(@PathVariable Integer conversationId){
         conversationService.deleteConversation(conversationId);
     }
 

@@ -22,6 +22,8 @@ public class ConversationService {
 
     public ConversationDTO createConversation(ConversationDTO conversationDTO){
         Conversation conversation = modelMapper.map(conversationDTO, Conversation.class);
+        System.out.println(conversation.getAdminId());
+        System.out.println(conversation.getCustomerId());
         Conversation savedConversation = conversationRepository.save(conversation);
         return modelMapper.map(savedConversation, ConversationDTO.class);
     }
@@ -35,8 +37,8 @@ public class ConversationService {
     public List<ConversationDTO> getAllConversations(){
         List<Conversation> conversationList= conversationRepository.findAll();
         return conversationList.stream()
-                .map(conversation -> modelMapper.map(conversationList, ConversationDTO.class))
-                .collect(Collectors.toList());
+                .map(conversation -> modelMapper.map(conversation, ConversationDTO.class))
+                .toList();
     }
 
     public void deleteConversation(Integer conversationId){
