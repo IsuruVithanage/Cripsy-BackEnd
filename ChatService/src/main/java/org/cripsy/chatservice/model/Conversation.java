@@ -3,6 +3,8 @@ package org.cripsy.chatservice.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "conversation")
@@ -14,7 +16,10 @@ public class Conversation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private Integer id;
+    private Integer conversationId;
     private Integer adminId;
     private Integer customerId;
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "conversationId", referencedColumnName = "conversationId")
+    private List<Message> messages;
 }

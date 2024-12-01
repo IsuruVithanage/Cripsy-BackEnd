@@ -1,21 +1,15 @@
-package org.cripsy.chatservice.model;
+package org.cripsy.chatservice.dto;
 
-import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Data
-@Entity
-@Table(name = "message")
-@Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Message {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+public class MessageDTO {
     private Integer messageId;
     private Integer conversationId;
     private String sender;
