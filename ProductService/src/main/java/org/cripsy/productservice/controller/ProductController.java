@@ -50,10 +50,10 @@ public class ProductController {
     }
 
 
-    @PostMapping("/rate")
+    @PostMapping("/review/add")
     @Operation(summary = "Rate a product", description = "Add a Rating to an existing product", tags = "User")
-    public String rateProduct(@Valid @RequestBody RateProductDTO rateProductDTO){
-        return productService.rateProduct(rateProductDTO);
+    public List<ReviewDTO> addReview(@Valid @RequestBody AddReviewDTO addReviewDTO){
+        return productService.addReview(addReviewDTO);
     }
 
 
