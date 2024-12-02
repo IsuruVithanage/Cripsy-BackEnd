@@ -14,6 +14,7 @@ public class Ratings {
 
     @EmbeddedId
     private RatingId id;
+    private String userName;
     private String comment;
     private int rating;
     private ZonedDateTime ratedDate;

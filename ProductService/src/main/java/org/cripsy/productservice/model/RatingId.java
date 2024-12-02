@@ -16,8 +16,7 @@ public class RatingId implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name = "\"user\"")
-    private String user;
+    private Integer userId;
 
     @SuppressWarnings("unused")
     public int getProductId(){

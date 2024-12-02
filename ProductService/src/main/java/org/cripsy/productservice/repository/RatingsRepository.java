@@ -19,11 +19,11 @@ public interface RatingsRepository extends JpaRepository<Ratings, RatingId>{
 
     @Query(value = """
         SELECT new org.cripsy.productservice.dto.ReviewDTO(
-            r.id.user, r.rating, r.comment, r.ratedDate
+            r.userName, r.rating, r.comment, r.ratedDate
         )
         FROM Ratings r
         WHERE r.id.product.productId = :productId AND r.comment IS NOT NULL
-        ORDER BY r.ratedDate DESC, r.id.user
+        ORDER BY r.ratedDate DESC, r.userName
     """)
     List<ReviewDTO> findReviewsByProductId(
             @Param("productId") int productId,
@@ -34,17 +34,21 @@ public interface RatingsRepository extends JpaRepository<Ratings, RatingId>{
     @Transactional
     @Modifying
     @Query(value = """
-        INSERT INTO ratings (product_id, "user", comment, rating, rated_date)
+        INSERT INTO ratings (product_id, user_id, comment, rating, user_name, rated_date)
         VALUES (
-            :#{#rateProductDTO.productId},
-            :#{#rateProductDTO.user},
-            :#{#rateProductDTO.comment},
-            :#{#rateProductDTO.rating},
+            :#{#addReviewDTO.productId},
+            :#{#addReviewDTO.userId},
+            :#{#addReviewDTO.comment},
+            :#{#addReviewDTO.rating},
             CASE
-                WHEN COALESCE(:#{#rateProductDTO.comment}, '') <> ''
+                WHEN COALESCE(:#{#addReviewDTO.comment}, '') <> ''
+                THEN :#{#addReviewDTO.userName}
+            END,
+            CASE
+                WHEN COALESCE(:#{#addReviewDTO.comment}, '') <> ''
                 THEN CURRENT_TIMESTAMP AT TIME ZONE 'UTC'
             END
         )
     """, nativeQuery = true)
-    void saveRating(@Param("rateProductDTO") AddReviewDTO rateProductDTO);
+    void saveRating(@Param("addReviewDTO") AddReviewDTO addReviewDTO);
 }

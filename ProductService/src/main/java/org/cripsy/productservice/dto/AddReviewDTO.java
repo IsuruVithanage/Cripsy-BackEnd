@@ -2,7 +2,6 @@ package org.cripsy.productservice.dto;
 
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,8 +12,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddReviewDTO {
     private int productId;
-    @NotBlank
-    private String user;
+    private int userId;
+    private String userName;
     @Min(1)
     @Max(5)
     private int rating;

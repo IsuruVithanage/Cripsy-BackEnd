@@ -34,8 +34,8 @@ public class ProductService {
     }
 
 
-    public ProductItemDTO getProductById(Integer productId, String user) {
-        Optional<ProductItemDTO> productOptional = productRepo.findProductItemDetails(productId, user);
+    public ProductItemDTO getProductById(Integer productId, Integer userId) {
+        Optional<ProductItemDTO> productOptional = productRepo.findProductItemDetails(productId, userId);
 
         if(productOptional.isEmpty()){
             throw new RuntimeException("Product Not Found");
