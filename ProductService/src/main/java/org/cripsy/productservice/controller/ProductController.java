@@ -22,10 +22,10 @@ public class ProductController {
     }
 
 
-    @GetMapping("/{productId}/{userName}")
+    @GetMapping("/{productId}/{userId}")
     @Operation(summary = "Get a Product", description = "Fetch the details of a single product.", tags = "User")
-    public ProductItemDTO getProductById(@PathVariable Integer productId, @PathVariable String userName){
-        return productService.getProductById(productId, userName);
+    public ProductItemDTO getProductById(@PathVariable Integer productId, @PathVariable Integer userId){
+        return productService.getProductById(productId, userId);
     }
 
 

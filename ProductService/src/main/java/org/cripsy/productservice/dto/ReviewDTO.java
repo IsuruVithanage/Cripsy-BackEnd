@@ -11,7 +11,7 @@ import java.time.ZonedDateTime;
 @NoArgsConstructor
 public class ReviewDTO {
 
-    private String user;
+    private String userName;
     private int rating;
     private String comment;
     private ZonedDateTime ratedDate;
