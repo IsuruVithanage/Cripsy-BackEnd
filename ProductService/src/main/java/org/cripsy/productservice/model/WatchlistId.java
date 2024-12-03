@@ -12,7 +12,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
-public class CartId implements Serializable {
+public class WatchlistId implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "product_id")
     private Product product;
@@ -23,4 +23,3 @@ public class CartId implements Serializable {
         return this.product.getProductId();
     }
 }
-
