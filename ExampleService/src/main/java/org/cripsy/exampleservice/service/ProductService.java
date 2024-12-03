@@ -26,10 +26,15 @@ public class ProductService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public List<CustomerDTO> getAllProducts() {
+    public List<ProductDTO> getAllProducts() {
+        List<Product> userList = productRepository.findAll();
+        return modelMapper.map(userList, new TypeToken<List<ProductDTO>>() {
+        }.getType());
+    }
+
+    public List<CustomerDTO> getAllProductCust() {
 
         List<CustomerDTO> customers = getAllCustomers();
-
         return modelMapper.map(customers, new TypeToken<List<CustomerDTO>>() {}.getType());
     }
 
