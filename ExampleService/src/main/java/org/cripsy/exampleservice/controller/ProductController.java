@@ -1,5 +1,6 @@
 package org.cripsy.exampleservice.controller;
 
+import org.cripsy.exampleservice.dto.CustomerDTO;
 import org.cripsy.exampleservice.dto.ProductDTO;
 import org.cripsy.exampleservice.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -20,12 +21,8 @@ public class ProductController {
 
     @GetMapping("/getAllProducts")
     @Operation(summary = "Get All Products", description = "Fetch a list of all available products.", tags = "User")
-    public List<ProductDTO> getAllProducts() {
+    public List<CustomerDTO> getAllProducts() {
         return productService.getAllProducts();
     }
 
-    @QueryMapping
-    public List<ProductDTO> getProduct() {
-        return productService.getAllProducts();
-    }
 }
