@@ -4,7 +4,6 @@ import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.cripsy.productservice.dto.*;
 import org.cripsy.productservice.service.CartService;
-import org.cripsy.productservice.service.ProductService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -38,7 +37,7 @@ public class CartController {
 
 
     @DeleteMapping("/cart/{productId}/{userId}")
-    @Operation(summary = "Delete a Cart Item", description = "Delete a Cart item specified by its ProductId and UserID.", tags = "Admin")
+    @Operation(summary = "Remove Cart Item", description = "Delete a Cart item specified by its ProductId and UserID.", tags = "User")
     public List<CartItemDTO> removeFromCart(@PathVariable Integer productId, @PathVariable Integer userId){
         return cartService.removeFromCart(productId, userId);
     }

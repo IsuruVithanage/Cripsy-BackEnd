@@ -24,6 +24,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             p.ratingCount,
             (SELECT COUNT(r) FROM Ratings r WHERE r.id.product = p AND r.comment IS NOT NULL),
             (CASE WHEN EXISTS (SELECT r FROM Ratings r WHERE r.id.product = p AND r.id.userId = :userId) THEN true ELSE false END),
+            (CASE WHEN EXISTS (SELECT f FROM Favourites f WHERE f.id.product = p AND f.id.userId = :userId) THEN true ELSE false END),
             new org.cripsy.productservice.dto.RatingStatsDTO(
                 (SELECT COUNT(r) FROM Ratings r WHERE r.id.product = p AND r.rating = 5),
                 (SELECT COUNT(r) FROM Ratings r WHERE r.id.product = p AND r.rating = 4),
