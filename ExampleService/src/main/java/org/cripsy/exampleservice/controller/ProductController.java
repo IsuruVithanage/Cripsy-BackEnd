@@ -21,8 +21,13 @@ public class ProductController {
 
     @GetMapping("/getAllProducts")
     @Operation(summary = "Get All Products", description = "Fetch a list of all available products.", tags = "User")
-    public List<CustomerDTO> getAllProducts() {
+    public List<ProductDTO> getAllProducts() {
         return productService.getAllProducts();
+    }
+
+    @GetMapping("/getAllProductCust")
+    public List<CustomerDTO> getAllProductCust() {
+        return productService.getAllProductCust();
     }
 
 }
