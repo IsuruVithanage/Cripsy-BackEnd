@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Favourites {
+public class Watchlist {
 
     @EmbeddedId
-    private FavouriteId id;
+    private WatchlistId id;
 }

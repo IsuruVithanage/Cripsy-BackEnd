@@ -19,7 +19,7 @@ public class RatingId implements Serializable {
     private Integer userId;
 
     @SuppressWarnings("unused")
-    public int getProductId(){
+    public int getProduct(){
         return this.product.getProductId();
     }
 }
