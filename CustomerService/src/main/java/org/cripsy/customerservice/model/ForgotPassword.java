@@ -1,8 +1,7 @@
-package org.cripsy.authenticationservice.model;
+package org.cripsy.customerservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
@@ -23,7 +22,7 @@ public class ForgotPassword {
     private Date expirationTime;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private Users user;
+    @JoinColumn(name = "customer_id")
+    private Customer customer;
 
 }

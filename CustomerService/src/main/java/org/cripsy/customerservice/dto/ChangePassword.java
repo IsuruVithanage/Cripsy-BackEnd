@@ -1,4 +1,4 @@
-package org.cripsy.authenticationservice.dto;
+package org.cripsy.customerservice.dto;
 
 public record ChangePassword (String password, String repeatPassword){
 }

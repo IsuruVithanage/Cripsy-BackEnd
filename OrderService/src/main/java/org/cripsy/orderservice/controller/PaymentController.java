@@ -36,6 +36,7 @@ public class PaymentController {
 
     @PostMapping("/start")
     public ResponseEntity<PaymentResponse> startPayment(@RequestBody PaymentRequest request) throws NoSuchAlgorithmException {
+
         String orderId = request.getOrder_id();
         String amount = request.getAmount();
         String currency = request.getCurrency();

@@ -1,7 +1,8 @@
 package org.cripsy.customerservice.service;
 
+import org.cripsy.authenticationservice.dto.AuthDTO;
 import org.cripsy.customerservice.dto.CustomerDTO;
-import org.cripsy.customerservice.model.customer;
+import org.cripsy.customerservice.model.Customer;
 import org.cripsy.customerservice.repository.CustomerRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -21,25 +22,34 @@ public class CustomerService {
     @Autowired
     private ModelMapper modelMapper;
 
+    public void saveCustomer(AuthDTO request) {
+        Customer customer = new Customer();
+        customer.setUsername(request.getUsername());
+        customer.setEmail(request.getEmail());
+        customer.setPassword(request.getPassword()); // Encoded password
+
+        customerRepository.save(customer);
+    }
+
     public List<CustomerDTO> getAllCustomers() {
-        List<customer> customers = customerRepository.findAll();
+        List<Customer> customers = customerRepository.findAll();
         return modelMapper.map(customers, new TypeToken<List<CustomerDTO>>() {}.getType());
     }
 
     public CustomerDTO getCustomerById(Long id) {
-        Optional<customer> customer = customerRepository.findById(id);
+        Optional<Customer> customer = customerRepository.findById(id);
         return customer.map(value -> modelMapper.map(value, CustomerDTO.class)).orElse(null);
     }
 
     public CustomerDTO createCustomer(CustomerDTO customerDTO) {
-        customer customer = modelMapper.map(customerDTO, customer.class);
+        Customer customer = modelMapper.map(customerDTO, Customer.class);
         customer = customerRepository.save(customer);
         return modelMapper.map(customer, CustomerDTO.class);
     }
 
     public CustomerDTO updateCustomer(Long id, CustomerDTO customerDTO) {
         if (customerRepository.existsById(id)) {
-            customer customer = modelMapper.map(customerDTO, customer.class);
+            Customer customer = modelMapper.map(customerDTO, Customer.class);
             customer.setId(id);
             customer = customerRepository.save(customer);
             return modelMapper.map(customer, CustomerDTO.class);
