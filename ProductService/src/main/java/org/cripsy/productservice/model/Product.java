@@ -39,7 +39,7 @@ public class Product {
     private List<Cart> cart;
 
     @OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Favourites> favourites;
+    private List<Watchlist> watchlist;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)

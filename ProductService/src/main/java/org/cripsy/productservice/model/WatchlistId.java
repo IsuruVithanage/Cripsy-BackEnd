@@ -12,20 +12,14 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Embeddable
-public class FavouriteId  implements Serializable {
+public class WatchlistId implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "product_id")
     private Product product;
     private Integer userId;
 
-
     @SuppressWarnings("unused")
-    public Product getProduct(){
-        Product product = this.product;
-        product.setFavourites(null);
-        product.setRatings(null);
-        product.setCart(null);
-        product.setImageUrls(null);
-        return product;
+    public int getProduct(){
+        return this.product.getProductId();
     }
 }
