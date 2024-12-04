@@ -1,18 +1,19 @@
 package org.cripsy.productservice.dto;
 
-import jakarta.validation.constraints.Max;
-import jakarta.validation.constraints.Min;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import java.time.ZonedDateTime;
+
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductRatingDTO {
-    private int productId;
+public class ReviewDTO {
 
-    @Min(1)
-    @Max(5)
+    private String userName;
     private int rating;
+    private String comment;
+    private ZonedDateTime ratedDate;
 }
+

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+
 @Configuration
 public class OpenApiConfig {
 
@@ -20,4 +21,5 @@ public class OpenApiConfig {
                 .version("v1.0")
                 .description("This is the API documentation for the " + applicationName));
     }
+
 }

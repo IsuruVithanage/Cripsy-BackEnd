@@ -1,12 +1,9 @@
 package org.cripsy.deliveryservice.controller;
 
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.cripsy.deliveryservice.dto.DeliveryDTO;
 import org.cripsy.deliveryservice.service.DeliveryService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -14,11 +11,31 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/delivery")
 public class DeliveryController {
+
     private final DeliveryService deliveryService;
 
     @GetMapping("/getAll")
-    @Operation(summary = "Get All Delivery Persons", description = "Fetch a list of all Delivery Persons.", tags = "Admin")
     public List<DeliveryDTO> getAll() {
-        return deliveryService.getAll();
+        return deliveryService.getAllDeliveryPersons();
+    }
+
+    @GetMapping("/{id}")
+    public DeliveryDTO getDeliveryPersonById(@PathVariable Integer id) {
+        return deliveryService.getDeliveryPersonById(id);
+    }
+
+    @PostMapping
+    public DeliveryDTO createDeliveryPerson(@RequestBody DeliveryDTO deliveryDTO) {
+        return deliveryService.createDeliveryPerson(deliveryDTO);
+    }
+
+    @PutMapping("/{id}")
+    public DeliveryDTO updateDeliveryPerson(@PathVariable Integer id, @RequestBody DeliveryDTO deliveryDTO) {
+        return deliveryService.updateDeliveryPerson(id, deliveryDTO);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean deleteDeliveryPerson(@PathVariable Integer id) {
+        return deliveryService.deleteDeliveryPerson(id);
     }
 }

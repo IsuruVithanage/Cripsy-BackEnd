@@ -8,14 +8,12 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDTO {
-    private Integer productId;
+public class CreateProductDTO {
     private String name;
+    private double price;
     private String description;
-    private Integer stock;
-    private Double price;
-    private Double discount;
-    private Double rating;
-    private Integer ratingCount;
+    private int stock;
+    private double discount;
+    private int category;
     private List<String> imageUrls;
 }

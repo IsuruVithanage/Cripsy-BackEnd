@@ -1,14 +1,17 @@
 package org.cripsy.authenticationservice.controller;
 
-import org.cripsy.authenticationservice.dto.UsersDTO;
 import org.cripsy.authenticationservice.model.Users;
+import org.cripsy.authenticationservice.service.JwtService;
 import org.cripsy.authenticationservice.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/auth")
 public class UserController {
+
+    @Autowired
+    private JwtService jwtService;
 
     @Autowired
     private UserService userService;
