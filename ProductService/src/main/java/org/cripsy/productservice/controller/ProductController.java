@@ -21,13 +21,17 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
+    @GetMapping("/getAllProductsDetails")
+    @Operation(summary = "Get All Products", description = "Fetch a list of all available products.", tags = "Product")
+    public List<UpdateProductDTO> getAllProductsDetails() {
+        return productService.getAllProductsDetails();
+    }
 
     @GetMapping("/{productId}/{userId}")
     @Operation(summary = "Get a Product", description = "Fetch the details of a single product.", tags = "Product")
     public ProductItemDTO getProductById(@PathVariable Integer productId, @PathVariable Integer userId){
         return productService.getProductById(productId, userId);
     }
-
 
     @GetMapping("/reviews/{productId}/{pageNo}")
     @Operation(summary = "Get Reviews", description = "Fetch a List of Reviews of a product with pagination", tags = "Reviews")

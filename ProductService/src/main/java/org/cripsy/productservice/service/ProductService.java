@@ -11,6 +11,8 @@ import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -27,17 +29,43 @@ public class ProductService {
     public List<ProductCardDTO> getAllProducts() {
         List<Product> productList = productRepo.findAll();
         return modelMapper.map(
-            productList,
-            new TypeToken<List<ProductCardDTO>>() {
-            }.getType()
+                productList,
+                new TypeToken<List<ProductCardDTO>>() {
+                }.getType()
         );
+    }
+
+    public List<UpdateProductDTO> getAllProductsDetails() {
+        List<Product> productList = productRepo.findAll();
+        List<UpdateProductDTO> productDTOList = new ArrayList<>();
+
+        for (Product product : productList) {
+            UpdateProductDTO dto = new UpdateProductDTO();
+            dto.setProductId(product.getProductId());
+            dto.setName(product.getName());
+            dto.setDescription(product.getDescription());
+            dto.setPrice(product.getPrice());
+            dto.setStock(product.getStock());
+            dto.setDiscount(product.getDiscount());
+            dto.setCategory(product.getCategory().getCategoryId());
+
+            List<String> imageUrls = productRepo.findImageUrls(dto.getProductId());
+
+            dto.setImageUrls(imageUrls);
+
+            productDTOList.add(dto);
+        }
+
+        return productDTOList;
+
+
     }
 
 
     public ProductItemDTO getProductById(Integer productId, Integer userId) {
         Optional<ProductItemDTO> productOptional = productRepo.findProductItemDetails(productId, userId);
 
-        if(productOptional.isEmpty()){
+        if (productOptional.isEmpty()) {
             throw new RuntimeException("Product Not Found");
         }
 
@@ -51,15 +79,14 @@ public class ProductService {
     }
 
 
-    public List<ReviewDTO> getReviews(Integer productId, Integer pageNo){
+    public List<ReviewDTO> getReviews(Integer productId, Integer pageNo) {
         return ratingsRepo.findReviewsByProductId(productId, PageRequest.of(pageNo - 1, 5));
     }
 
-
-    public String addProduct(CreateProductDTO productDTO){
+    public String addProduct(CreateProductDTO productDTO) {
         Product product = modelMapper.map(productDTO, Product.class);
 
-        // Fetch the existing Category from the database using the categoryId from the DTO
+
         Category existingCategory = categoryRepository.findById(productDTO.getCategory())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
@@ -73,20 +100,20 @@ public class ProductService {
     }
 
 
-    public String updateProduct(UpdateProductDTO productDTO){
+    public String updateProduct(UpdateProductDTO productDTO) {
         Product product = modelMapper.map(productDTO, Product.class);
         productRepo.save(product);
         return "Product updated";
     }
 
 
-    public List<ReviewDTO> addReview(AddReviewDTO addReviewDTO){
+    public List<ReviewDTO> addReview(AddReviewDTO addReviewDTO) {
         ratingsRepo.saveRating(addReviewDTO);
         return this.getReviews(addReviewDTO.getProductId(), 1);
     }
 
 
-    public String deleteProduct(Integer productId){
+    public String deleteProduct(Integer productId) {
         productRepo.deleteById(productId);
         return "Product deleted";
     }
