@@ -15,8 +15,4 @@ public class AuthConfig {
         return new BCryptPasswordEncoder(10);
     }
 
-    @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder builder) {
-        return builder.build();
-    }
 }

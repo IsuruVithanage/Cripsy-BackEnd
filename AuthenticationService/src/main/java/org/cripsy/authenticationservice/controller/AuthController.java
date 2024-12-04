@@ -21,16 +21,16 @@ public class AuthController {
         return authService.createUser(authDTO);
     }
 
-    @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody Map<String, String> loginRequest) {
-        String username = loginRequest.get("username");
-        String password = loginRequest.get("password");
-
-        try {
-            String token = authService.login(username, password);
-            return ResponseEntity.ok(token);
-        } catch (RuntimeException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
-        }
-    }
+//    @PostMapping("/login")
+//    public ResponseEntity<String> loginUser(@RequestBody Map<String, String> loginRequest) {
+//        String username = loginRequest.get("username");
+//        String password = loginRequest.get("password");
+//
+//        try {
+//            String token = authService.login(username, password);
+//            return ResponseEntity.ok(token);
+//        } catch (RuntimeException e) {
+//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(e.getMessage());
+//        }
+//    }
 }
