@@ -1,6 +1,6 @@
 package org.cripsy.customerservice.service;
 
-import org.cripsy.authenticationservice.dto.AuthDTO;
+import org.cripsy.customerservice.dto.AuthDTO;
 import org.cripsy.customerservice.dto.CustomerDTO;
 import org.cripsy.customerservice.model.Customer;
 import org.cripsy.customerservice.repository.CustomerRepository;
@@ -22,12 +22,8 @@ public class CustomerService {
     @Autowired
     private ModelMapper modelMapper;
 
-    public void saveCustomer(AuthDTO request) {
-        Customer customer = new Customer();
-        customer.setUsername(request.getUsername());
-        customer.setEmail(request.getEmail());
-        customer.setPassword(request.getPassword()); // Encoded password
-
+    public void saveCustomer(AuthDTO authDTO) {
+        Customer customer = modelMapper.map(authDTO, Customer.class);
         customerRepository.save(customer);
     }
 

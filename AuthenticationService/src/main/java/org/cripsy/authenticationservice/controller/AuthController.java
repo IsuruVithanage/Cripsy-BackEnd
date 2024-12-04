@@ -17,7 +17,7 @@ public class AuthController {
     private AuthService authService;
 
     @PostMapping("/signup")
-    public ResponseEntity<String> signup(@RequestBody AuthDTO authDTO) {
+    public String signup(@RequestBody AuthDTO authDTO) {
         return authService.createUser(authDTO);
     }
 

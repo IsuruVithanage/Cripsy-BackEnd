@@ -1,6 +1,6 @@
 package org.cripsy.customerservice.controller;
 
-import org.cripsy.authenticationservice.dto.AuthDTO;
+import org.cripsy.customerservice.dto.AuthDTO;
 import org.cripsy.customerservice.dto.CustomerDTO;
 import org.cripsy.customerservice.service.CustomerService;
 import lombok.AllArgsConstructor;
