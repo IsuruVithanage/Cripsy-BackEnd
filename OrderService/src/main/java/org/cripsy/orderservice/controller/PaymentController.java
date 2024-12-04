@@ -48,7 +48,7 @@ public class PaymentController {
     }
 
     @PostMapping(value = "/notify", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<String> paymentNotification(@ModelAttribute PaymentNotification notification) throws NoSuchAlgorithmException {
+    public ResponseEntity<String> paymentNotification(@ModelAttribute PaymentNotification notification) {
         try {
             // Concatenate all values to create the hash string
             String hashString = MERCHANT_ID +
