@@ -1,5 +1,6 @@
 package org.cripsy.exampleservice.controller;
 
+import org.cripsy.exampleservice.dto.CustomerDTO;
 import org.cripsy.exampleservice.dto.ProductDTO;
 import org.cripsy.exampleservice.service.ProductService;
 import lombok.AllArgsConstructor;
@@ -24,8 +25,9 @@ public class ProductController {
         return productService.getAllProducts();
     }
 
-    @QueryMapping
-    public List<ProductDTO> getProduct() {
-        return productService.getAllProducts();
+    @GetMapping("/getAllProductCust")
+    public List<CustomerDTO> getAllProductCust() {
+        return productService.getAllProductCust();
     }
+
 }

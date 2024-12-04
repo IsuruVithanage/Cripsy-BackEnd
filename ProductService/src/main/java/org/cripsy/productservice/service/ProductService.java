@@ -34,8 +34,8 @@ public class ProductService {
     }
 
 
-    public ProductItemDTO getProductById(Integer productId, String user) {
-        Optional<ProductItemDTO> productOptional = productRepo.findProductItemDetails(productId, user);
+    public ProductItemDTO getProductById(Integer productId, Integer userId) {
+        Optional<ProductItemDTO> productOptional = productRepo.findProductItemDetails(productId, userId);
 
         if(productOptional.isEmpty()){
             throw new RuntimeException("Product Not Found");
@@ -80,9 +80,9 @@ public class ProductService {
     }
 
 
-    public String rateProduct(RateProductDTO rateProduct){
-        ratingsRepo.saveRating(rateProduct);
-        return "Rated";
+    public List<ReviewDTO> addReview(AddReviewDTO addReviewDTO){
+        ratingsRepo.saveRating(addReviewDTO);
+        return this.getReviews(addReviewDTO.getProductId(), 1);
     }
 
 

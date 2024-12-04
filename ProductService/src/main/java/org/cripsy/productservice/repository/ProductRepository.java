@@ -23,7 +23,8 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             p.avgRatings,
             p.ratingCount,
             (SELECT COUNT(r) FROM Ratings r WHERE r.id.product = p AND r.comment IS NOT NULL),
-            (CASE WHEN EXISTS (SELECT r FROM Ratings r WHERE r.id.product = p AND r.id.user = :user) THEN true ELSE false END),
+            (CASE WHEN EXISTS (SELECT r FROM Ratings r WHERE r.id.product = p AND r.id.userId = :userId) THEN true ELSE false END),
+            (CASE WHEN EXISTS (SELECT w FROM Watchlist w WHERE w.id.product = p AND w.id.userId = :userId) THEN true ELSE false END),
             new org.cripsy.productservice.dto.RatingStatsDTO(
                 (SELECT COUNT(r) FROM Ratings r WHERE r.id.product = p AND r.rating = 5),
                 (SELECT COUNT(r) FROM Ratings r WHERE r.id.product = p AND r.rating = 4),
@@ -39,7 +40,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     """)
     Optional<ProductItemDTO> findProductItemDetails(
             @Param("productId") int productId,
-            @Param("user") String user
+            @Param("userId") int userId
     );
 
 
