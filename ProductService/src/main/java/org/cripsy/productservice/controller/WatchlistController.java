@@ -7,6 +7,7 @@ import org.cripsy.productservice.service.WatchlistServiceService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/product")
@@ -36,5 +37,4 @@ public class WatchlistController {
     ){
         return watchlistService.removeFromWatchlist(productId, userId, isResponseExpected);
     }
-
 }
