@@ -33,6 +33,15 @@ public class ProductService {
         );
     }
 
+    /*public List<UpdateProductDTO> getAllProductDetails() {
+        List<Product> productList = productRepo.findAll();
+        return modelMapper.map(
+                productList,
+                new TypeToken<List<UpdateProductDTO>>() {
+                }.getType()
+        );
+    }*/
+
 
     public ProductItemDTO getProductById(Integer productId, Integer userId) {
         Optional<ProductItemDTO> productOptional = productRepo.findProductItemDetails(productId, userId);
@@ -55,11 +64,10 @@ public class ProductService {
         return ratingsRepo.findReviewsByProductId(productId, PageRequest.of(pageNo - 1, 5));
     }
 
-
     public String addProduct(CreateProductDTO productDTO){
         Product product = modelMapper.map(productDTO, Product.class);
 
-        // Fetch the existing Category from the database using the categoryId from the DTO
+
         Category existingCategory = categoryRepository.findById(productDTO.getCategory())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 

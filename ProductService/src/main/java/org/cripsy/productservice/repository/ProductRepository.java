@@ -1,6 +1,7 @@
 package org.cripsy.productservice.repository;
 
 import org.cripsy.productservice.dto.ProductItemDTO;
+import org.cripsy.productservice.dto.UpdateProductDTO;
 import org.cripsy.productservice.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -50,4 +51,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         WHERE i.product.productId = :productId
     """)
     List<String> findImageUrls(@Param("productId") int productId);
+
+
 }
