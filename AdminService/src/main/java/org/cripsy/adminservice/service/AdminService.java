@@ -4,10 +4,13 @@ import org.cripsy.adminservice.dto.AdminDTO;
 import org.cripsy.adminservice.model.Admin;
 import org.cripsy.adminservice.repository.AdminRepository;
 import jakarta.transaction.Transactional;
+import org.cripsy.orderservice.dto.AdminDashbordDTO;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Optional;
@@ -21,6 +24,12 @@ public class AdminService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    private final WebClient webClient;
+
+    public AdminService(WebClient webClient) {
+        this.webClient = webClient;
+    }
 
     // Save the Admin entity Service function
     public AdminDTO saveAdmin(AdminDTO adminDTO) {
@@ -52,5 +61,15 @@ public class AdminService {
     public AdminDTO getAdminById(Integer id) {
         Optional<Admin> admin = adminRepository.findById(id);
         return modelMapper.map(admin, AdminDTO.class);
+    }
+
+
+    //Get the Monthly Revenue
+    public List<AdminDashbordDTO> getMonthlySumTotal() {
+        return webClient.get()
+                .uri("http://localhost:8083/api/orders/getMonthlySumTotal")
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<AdminDashbordDTO>>() {})
+                .block();
     }
 }

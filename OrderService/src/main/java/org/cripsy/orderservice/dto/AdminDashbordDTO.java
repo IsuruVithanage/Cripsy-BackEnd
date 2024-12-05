@@ -7,6 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AdminDashbordDTO {
-    private Double sumTotal ;
+    private String  total;
+    private String month;
+    private String year;
+
 
 }
