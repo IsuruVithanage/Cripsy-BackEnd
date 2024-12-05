@@ -9,7 +9,9 @@ import org.cripsy.productservice.repository.ProductRepository;
 import org.cripsy.productservice.repository.RatingsRepository;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -107,9 +109,19 @@ public class ProductService {
     }
 
 
-    public List<ReviewDTO> addReview(AddReviewDTO addReviewDTO) {
-        ratingsRepo.saveRating(addReviewDTO);
-        return this.getReviews(addReviewDTO.getProductId(), 1);
+    public ResponseEntity<List<ReviewDTO>> addReview(AddReviewDTO addReviewDTO) {
+        int statusCode = 200;
+
+        try {
+            ratingsRepo.saveRating(addReviewDTO);
+        } catch (DataIntegrityViolationException e){
+            statusCode = 409; // User Already added a review
+        } catch (Exception e){
+            statusCode = 500;
+        }
+
+        List<ReviewDTO> reviews = this.getReviews(addReviewDTO.getProductId(), 1);
+        return ResponseEntity.status(statusCode).body(reviews);
     }
 
 
