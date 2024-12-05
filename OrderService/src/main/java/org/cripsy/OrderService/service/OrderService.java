@@ -1,9 +1,11 @@
-package org.cripsy.OrderService.service;
+package org.cripsy.orderservice.service;
 
-import org.cripsy.OrderService.dto.OrderDTO;
-import org.cripsy.OrderService.model.Order;
-import org.cripsy.OrderService.repository.OrderRepository;
+import org.cripsy.orderservice.dto.OrderDTO;
+import org.cripsy.orderservice.dto.AdminDashbordDTO;
+import org.cripsy.orderservice.model.Order;
+import org.cripsy.orderservice.repository.OrderRepository;
 import lombok.AllArgsConstructor;
+import org.cripsy.orderservice.dto.AdminDashbordDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -48,4 +50,9 @@ public class OrderService {
     public void deleteOrder(Integer id) {
         orderRepository.deleteById(id);
     }
+
+    public double getTotalSumOfTotalPrice() {
+        return orderRepository.getTotalSumOfTotalPrice();
+    }
+
 }
