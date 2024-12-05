@@ -55,6 +55,9 @@ package org.cripsy.adminservice.controller;
 import lombok.AllArgsConstructor;
 import org.cripsy.adminservice.dto.AdminDTO;
 import org.cripsy.adminservice.service.AdminService;
+
+import org.cripsy.orderservice.dto.AdminDashbordDTO;
+import org.springframework.graphql.data.method.annotation.QueryMapping;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -96,4 +99,8 @@ public class AdminController {
     public AdminDTO getAdminById(@PathVariable Integer id){
         return adminService.getAdminById(id);
     }
+
+    //Get Total Revenue with Moth and Year
+    @GetMapping("/getMonthlySumTotal")
+    public List<AdminDashbordDTO> getMonthlySumTotal() {return adminService.getMonthlySumTotal();}
 }

@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -42,5 +43,10 @@ public class OrderController {
     @GetMapping("/getSumTotal")
     public Double getTotalSumOfTotalPrice() {
         return orderService.getTotalSumOfTotalPrice();
+    }
+
+    @GetMapping("/getMonthlySumTotal")
+    public List<Map<String, Object>> getMonthlyTotalSumOfTotalPrice() {
+        return orderService.getMonthlyTotalSumOfTotalPrice();
     }
 }
