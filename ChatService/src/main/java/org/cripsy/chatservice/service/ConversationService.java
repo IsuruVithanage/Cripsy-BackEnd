@@ -41,8 +41,8 @@ public class ConversationService {
                 .toList();
     }
 
-    public ConversationDTO findConversationByCustomerId(Integer customerId){
-        Conversation conversation = conversationRepository.findConversationByCustomerId(customerId);
+    public ConversationDTO findMessagesByCustomerId(Integer customerId){
+        Conversation conversation = conversationRepository.findMessagesByCustomerId(customerId);
         return modelMapper.map(conversation, ConversationDTO.class);
     }
 

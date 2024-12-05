@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface ConversationRepository extends JpaRepository<Conversation, Integer> {
 
-    Conversation findConversationByCustomerId(Integer customerId);
+    Conversation findMessagesByCustomerId(Integer customerId);
 }

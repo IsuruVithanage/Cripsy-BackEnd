@@ -2,8 +2,10 @@ package org.cripsy.chatservice.controller;
 
 import lombok.AllArgsConstructor;
 import org.cripsy.chatservice.dto.ConversationDTO;
+import org.cripsy.chatservice.dto.MessageDTO;
 import org.cripsy.chatservice.model.Conversation;
 import org.cripsy.chatservice.service.ConversationService;
+import org.cripsy.chatservice.service.MessageService;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,7 @@ import java.util.List;
 public class ConversationController {
 
     private final ConversationService conversationService;
+    private final MessageService messageService;
     private final SimpMessagingTemplate messagingTemplate;
 
     @PostMapping("/create")
@@ -36,8 +39,9 @@ public class ConversationController {
     }
 
     @GetMapping("/getConversation/{customerId}")
-    public ConversationDTO findConversationByCustomerId(@PathVariable Integer customerId){
-        return conversationService.findConversationByCustomerId(customerId);
+    public List<MessageDTO> findConversationByCustomerId(@PathVariable Integer customerId){
+        ConversationDTO conversationDTO = conversationService.findMessagesByCustomerId(customerId);
+        return messageService.getMessagesByConversationId(conversationDTO.getConversationId());
     }
 
     @DeleteMapping("/delete/{conversationId}")
