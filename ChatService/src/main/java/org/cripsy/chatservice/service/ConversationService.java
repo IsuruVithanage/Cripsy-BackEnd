@@ -41,6 +41,11 @@ public class ConversationService {
                 .toList();
     }
 
+    public ConversationDTO findConversationByCustomerId(Integer customerId){
+        Conversation conversation = conversationRepository.findConversationByCustomerId(customerId);
+        return modelMapper.map(conversation, ConversationDTO.class);
+    }
+
     public void deleteConversation(Integer conversationId){
         if (!conversationRepository.existsById(conversationId)) {
             throw new RuntimeException("Conversation not found with id: " + conversationId);

@@ -13,4 +13,5 @@ public class ConversationDTO {
     private Integer conversationId;
     private Integer adminId;
     private Integer customerId;
+    private String customerName;
 }
