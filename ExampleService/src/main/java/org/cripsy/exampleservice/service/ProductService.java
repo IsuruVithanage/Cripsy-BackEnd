@@ -1,6 +1,6 @@
 package org.cripsy.exampleservice.service;
 
-import org.cripsy.exampleservice.dto.CustomerDTO;
+import org.cripsy.customerservice.dto.CustomerDTO;
 import org.cripsy.exampleservice.dto.ProductDTO;
 import org.cripsy.exampleservice.model.Product;
 import org.cripsy.exampleservice.repository.ProductRepository;

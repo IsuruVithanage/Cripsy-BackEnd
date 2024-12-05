@@ -1,11 +1,17 @@
 package org.cripsy.authenticationservice.service;
 
-import org.cripsy.customerservice.dto.AuthDTO;
+import org.cripsy.authenticationservice.dto.AuthDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class AuthService {
@@ -13,6 +19,8 @@ public class AuthService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private AuthenticationManager authManager;
 
     private final WebClient webClient;
 
@@ -23,7 +31,6 @@ public class AuthService {
     private String adminServiceUrl;
 
     @Value("${delivery.service.url}")
-
     private String deliveryServiceUrl;
 
 
@@ -47,6 +54,7 @@ public class AuthService {
             return "Failed to register customer: " + e.getMessage();
         }
     }
+
 
 
 }
