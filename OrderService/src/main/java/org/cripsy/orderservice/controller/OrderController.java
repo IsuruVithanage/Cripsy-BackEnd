@@ -1,11 +1,12 @@
-package org.cripsy.OrderService.controller;
+package org.cripsy.orderservice.controller;
 
-import org.cripsy.OrderService.dto.OrderDTO;
-import org.cripsy.OrderService.service.OrderService;
+import org.cripsy.orderservice.dto.OrderDTO;
+import org.cripsy.orderservice.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -37,5 +38,15 @@ public class OrderController {
     @DeleteMapping("/deleteOrder/{id}")
     public void deleteOrder(@PathVariable Integer id) {
         orderService.deleteOrder(id);
+    }
+
+    @GetMapping("/getSumTotal")
+    public Double getTotalSumOfTotalPrice() {
+        return orderService.getTotalSumOfTotalPrice();
+    }
+
+    @GetMapping("/getMonthlySumTotal")
+    public List<Map<String, Object>> getMonthlyTotalSumOfTotalPrice() {
+        return orderService.getMonthlyTotalSumOfTotalPrice();
     }
 }

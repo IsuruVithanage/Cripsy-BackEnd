@@ -1,14 +1,15 @@
-package org.cripsy.OrderService.service;
+package org.cripsy.orderservice.service;
 
-import org.cripsy.OrderService.dto.OrderDTO;
-import org.cripsy.OrderService.model.Order;
-import org.cripsy.OrderService.repository.OrderRepository;
+import org.cripsy.orderservice.dto.OrderDTO;
+import org.cripsy.orderservice.dto.AdminDashbordDTO;
+import org.cripsy.orderservice.model.Order;
+import org.cripsy.orderservice.repository.OrderRepository;
 import lombok.AllArgsConstructor;
+import org.cripsy.orderservice.dto.AdminDashbordDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @AllArgsConstructor
@@ -45,7 +46,30 @@ public class OrderService {
         return null;
     }
 
+
+
+
     public void deleteOrder(Integer id) {
         orderRepository.deleteById(id);
     }
+
+    public double getTotalSumOfTotalPrice() {
+        return orderRepository.getTotalSumOfTotalPrice();
+    }
+
+    public List<Map<String, Object>> getMonthlyTotalSumOfTotalPrice() {
+        List<Object[]> results = orderRepository.getMonthlyTotalSumOfTotalPrice();
+        List<Map<String, Object>> monthlySums = new ArrayList<>();
+
+        for (Object[] result : results) {
+            Map<String, Object> monthData = new HashMap<>();
+            monthData.put("year", result[0]); // Year
+            monthData.put("month", result[1]); // Month
+            monthData.put("total", result[2]); // Total sum for that month
+            monthlySums.add(monthData);
+        }
+
+        return monthlySums;
+    }
+
 }

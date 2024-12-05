@@ -1,4 +1,4 @@
-package org.cripsy.OrderService.dto;
+package org.cripsy.orderservice.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,7 +17,6 @@ public class OrderDTO {
     private LocalDate deliveredDate;
     private String orderStatus;
     private Double totalPrice;
-    private List<Integer> itemList; // Assuming itemList is a list of item IDs
+    private List<ItemDTO> items; // Updated to include item details
     private Integer deliveryPersonId;
-
 }

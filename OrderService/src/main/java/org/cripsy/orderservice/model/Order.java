@@ -1,4 +1,4 @@
-package org.cripsy.OrderService.model;
+package org.cripsy.orderservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -25,9 +25,8 @@ public class Order {
     private String orderStatus;
     private Double totalPrice;
 
-    @ElementCollection
-    private List<Integer> itemList; // Define as appropriate if using item IDs or a different structure
-
     private Integer deliveryPersonId;
 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Item> items; // New relationship with the Item entity
 }
