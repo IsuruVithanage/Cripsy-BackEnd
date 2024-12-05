@@ -2,12 +2,12 @@ package org.cripsy.productservice.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
+import org.cripsy.productservice.dto.ReserveItemDTO;
 import org.cripsy.productservice.dto.ReservedStockDTO;
 import org.cripsy.productservice.service.ReservedStockService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
-import java.util.Map;
+
 
 @RestController
 @AllArgsConstructor
@@ -17,7 +17,7 @@ public class ReservedStockController {
 
     @PostMapping("/reserve/initiate")
     @Operation(summary = "Initialize Reservation", description = "Initialize items reservation for list of Products", tags = "Reserve")
-    public Integer initializeReservation (@RequestBody Map<Integer, Integer> reservationDetails){
+    public Integer initializeReservation (@RequestBody List<ReserveItemDTO> reservationDetails){
         return reservedStockService.initializeReservation(reservationDetails);
     }
 

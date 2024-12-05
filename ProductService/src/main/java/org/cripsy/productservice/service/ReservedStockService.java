@@ -1,6 +1,7 @@
 package org.cripsy.productservice.service;
 
 import lombok.AllArgsConstructor;
+import org.cripsy.productservice.dto.ReserveItemDTO;
 import org.cripsy.productservice.dto.ReservedStockDTO;
 import org.cripsy.productservice.model.ReservedStock;
 import org.cripsy.productservice.model.Transaction;
@@ -13,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 @Service
@@ -23,7 +23,7 @@ public class ReservedStockService {
     private final ProductRepository productRepo;
 
     @Transactional
-    public Integer initializeReservation(Map<Integer, Integer> reservationDetails){
+    public Integer initializeReservation(List<ReserveItemDTO> reservationDetails){
         if (reservationDetails == null || reservationDetails.isEmpty()) {
             throw new IllegalArgumentException("Reservation details cannot be null or empty");
         }
@@ -31,9 +31,9 @@ public class ReservedStockService {
         Transaction transaction = new Transaction();
         Transaction savedTransaction = transactionRepo.save(transaction);
 
-        String values = reservationDetails.entrySet().stream().map(entry -> {
-            Integer productId = entry.getKey();
-            Integer quantity = entry.getValue();
+        String values = reservationDetails.stream().map(item -> {
+            Integer productId = item.getProductId();
+            Integer quantity = item.getQuantity();
 
             int updatedRows = productRepo.decrementStock(productId, quantity);
             if (updatedRows == 0) {
@@ -89,10 +89,10 @@ public class ReservedStockService {
     }
 
 
-    @Scheduled(fixedRate = 600000) // Run every 10 minutes
+    @Scheduled(fixedRate = 30000) // Run every 10 minutes 600000
     @Transactional
     public void rollbackExpiredReservations() {
-        ZonedDateTime expiryTime = ZonedDateTime.now(ZoneId.of("UTC")).minusMinutes(10);
+        ZonedDateTime expiryTime = ZonedDateTime.now(ZoneId.of("UTC")).minusMinutes(1);
 
         List<Transaction> expiredTransactions = transactionRepo.findExpiredTransactions(expiryTime);
 
