@@ -14,6 +14,9 @@ public class UpdateProductDTO {
     private double price;
     private String description;
     private int stock;
+    private int category;
     private double discount;
     private List<String> imageUrls;
+
+
 }

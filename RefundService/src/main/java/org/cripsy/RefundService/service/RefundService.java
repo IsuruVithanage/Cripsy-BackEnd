@@ -45,6 +45,22 @@ public class RefundService {
         return null;
     }
 
+    public void updateRefundRequestStatus(Integer refundId, String status) {
+        Optional<Refund> refundOptional = refundRepository.findById(refundId);
+        if (refundOptional.isPresent()) {
+            Refund refund = refundOptional.get();
+            if ("Accept".equalsIgnoreCase(status) || "Reject".equalsIgnoreCase(status)) {
+                refund.setRefundState(status);
+                refundRepository.save(refund);
+            } else {
+                throw new IllegalArgumentException("Invalid status. Must be 'Accept' or 'Reject'.");
+            }
+        } else {
+            throw new IllegalArgumentException("Refund with ID " + refundId + " not found.");
+        }
+    }
+    
+
     public void deleteRefund(Integer id) {
         refundRepository.deleteById(id);
     }
