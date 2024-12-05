@@ -1,4 +1,4 @@
-package org.cripsy.OrderService.config;
+package org.cripsy.orderservice.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
