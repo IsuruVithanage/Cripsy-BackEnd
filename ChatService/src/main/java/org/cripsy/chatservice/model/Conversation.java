@@ -15,8 +15,9 @@ import java.util.List;
 public class Conversation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer conversationId;
     private Integer adminId;
     private Integer customerId;
+    private String customerName;
 }
