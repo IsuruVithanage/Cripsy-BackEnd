@@ -4,6 +4,7 @@ import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.cripsy.productservice.dto.*;
 import org.cripsy.productservice.service.ProductService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import io.swagger.v3.oas.annotations.Operation;
 import java.util.List;
@@ -42,7 +43,7 @@ public class ProductController {
 
     @PostMapping("/review")
     @Operation(summary = "Add a Review", description = "Add a Rating to an existing product", tags = "Reviews")
-    public List<ReviewDTO> addReview(@Valid @RequestBody AddReviewDTO addReviewDTO){
+    public ResponseEntity<List<ReviewDTO>> addReview(@Valid @RequestBody AddReviewDTO addReviewDTO){
         return productService.addReview(addReviewDTO);
     }
 
