@@ -1,4 +1,4 @@
-package org.cripsy.OrderService.config;
+package org.cripsy.orderservice.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
