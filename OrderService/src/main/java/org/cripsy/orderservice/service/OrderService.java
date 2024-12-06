@@ -3,6 +3,7 @@ package org.cripsy.orderservice.service;
 import org.cripsy.orderservice.dto.BestSellingProductDTO;
 import org.cripsy.orderservice.dto.MonthlyTotalPriceDTO;
 import org.cripsy.orderservice.dto.OrderDTO;
+import org.cripsy.orderservice.dto.OrderDetailDTO;
 import org.cripsy.orderservice.model.Order;
 import org.cripsy.orderservice.repository.ItemRepository;
 import org.cripsy.orderservice.repository.OrderRepository;
@@ -11,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -20,16 +22,16 @@ public class OrderService {
     private  final ItemRepository  itemRepository;
     private final ModelMapper modelMapper;
 
-    public List<OrderDTO> getAllOrders() {
+    public List<OrderDetailDTO> getAllOrders() {
         List<Order> orderList = orderRepository.findAll();
         return orderList.stream()
-                .map(order -> modelMapper.map(order, OrderDTO.class))
+                .map(order -> modelMapper.map(order, OrderDetailDTO.class))
                 .toList();
     }
 
-    public OrderDTO getOrderById(Integer id) {
+    public OrderDetailDTO getOrderById(Integer id) {
         Optional<Order> order = orderRepository.findById(id);
-        return order.map(value -> modelMapper.map(value, OrderDTO.class)).orElse(null);
+        return order.map(value -> modelMapper.map(value, OrderDetailDTO.class)).orElse(null);
     }
 
     public OrderDTO createOrder(OrderDTO orderDTO) {
@@ -38,6 +40,14 @@ public class OrderService {
 
         Order savedOrder = orderRepository.save(order);
         return modelMapper.map(savedOrder, OrderDTO.class);
+    }
+
+    public List<OrderDetailDTO> getOrdersByStatus(String status) {
+        List<Order> orders = orderRepository.findByOrderStatus(status);
+        return orders.stream()
+                .map(order -> modelMapper.map(order, OrderDetailDTO.class))
+                .collect(Collectors.toList());
+
     }
 
     public OrderDTO updateOrder(Integer id, OrderDTO orderDTO) {

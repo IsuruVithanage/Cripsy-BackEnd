@@ -3,7 +3,7 @@ package org.cripsy.productservice.controller;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.AllArgsConstructor;
 import org.cripsy.productservice.dto.ProductCardDTO;
-import org.cripsy.productservice.service.WatchlistServiceService;
+import org.cripsy.productservice.service.WatchlistService;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @RequestMapping("/api/product")
 public class WatchlistController {
-    private final WatchlistServiceService watchlistService;
+    private final WatchlistService watchlistService;
 
     @GetMapping("/watchlist/{userId}")
     @Operation(summary = "Get Watchlist Items", description = "Fetch a List of watchlist Items for a User", tags = "Watchlist")

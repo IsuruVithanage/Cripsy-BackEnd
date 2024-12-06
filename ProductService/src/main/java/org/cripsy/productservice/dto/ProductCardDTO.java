@@ -37,6 +37,10 @@ public class ProductCardDTO {
 
     @SuppressWarnings("unused")
     public String getDescription(){
+        if(description == null || description.isEmpty()){
+            return null;
+        }
+
         Document document = Jsoup.parse(this.description);
         Element firstP = document.selectFirst("p");
         return firstP != null ? firstP.text() : "";
