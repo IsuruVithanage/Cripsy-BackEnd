@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.NoSuchAlgorithmException;
 import java.time.LocalDate;
+import java.util.Map;
 import java.util.UUID;
 
 @RestController
@@ -77,9 +78,18 @@ public class PaymentController {
 
                 // Save the payment information in the database
                 paymentRepository.save(payment);
-                return ResponseEntity.ok("Payment processed successfully.");
+
+                Map<String, String> response = Map.of(
+                        "status", "SUCCESS",
+                        "message", "Payment processed successfully."
+                );
+                return ResponseEntity.ok(response.toString());
             } else {
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Payment verification failed.");
+                Map<String, String> response = Map.of(
+                        "status", "FAILURE",
+                        "message", "Payment verification failed."
+                );
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response.toString());
             }
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

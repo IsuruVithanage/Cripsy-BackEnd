@@ -8,29 +8,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpStatusCode;
-import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
+//import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-import org.springframework.http.HttpStatus;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Service
 public class AuthService {
 
+    private final WebClient webClient;
+
     @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    private AuthenticationManager authManager;
-
-    private final WebClient webClient;
+    private JwtService jwtService;
 
     @Value("${customer.service.url}")
     private String customerServiceUrl;
@@ -64,109 +62,112 @@ public class AuthService {
     }
 
 
-    public LoginDTO findUser(String username, String password) throws InvalidCredentialsException {
-        return validateUser(username, password);
-    }
-    //    private CustomerDTO validateUser(String username, String password) {
-//        // Create a request body containing the username
-//        Map<String, String> requestBody = Map.of("username", username);
-////        System.out.println(password);
-////        String decodedPassword = passwordEncoder.encode(requestBody.get("password"));
-////        System.out.println(decodedPassword);
-//
-//
-//        try {
-//            // Send a POST request with the username in the body
-//            CustomerDTO customer = webClient.post()
-//                    .uri("http://localhost:8081/api/customers/login")
-//                    .bodyValue(requestBody)
-//                    .retrieve()
-//                    .onStatus(HttpStatusCode::isError, response ->
-//                            Mono.error(new InvalidCredentialsException("Invalid credentials or user not found")))
-//                    .bodyToMono(new ParameterizedTypeReference<CustomerDTO>() {})
-//                    .block();
-//
-//            System.out.println("User-entered password: " + password);
-//            System.out.println("Stored (encoded) password: " + customer.getPassword());
-//            if (!passwordEncoder.matches(password, customer.getPassword())) {
-//                throw new InvalidCredentialsException("Invalid credentials or user not found");
-//            }
-//            return customer;
-//
-//        } catch (Exception e) {
-//            throw new RuntimeException("Failed to validate user: " + e.getMessage(), e);
-//        }
+//    public LoginDTO findUser(String username, String password) throws InvalidCredentialsException {
+//        return validateUser(username, password);
 //    }
-//    private CustomerDTO validateUser(String username, String password) {
-//        Map<String, String> requestBody = Map.of("username", username);
-//
-//        try {
-//            CustomerDTO customer = webClient.post()
-//                    .uri("http://localhost:8081/api/customers/login")
-//                    .bodyValue(requestBody)
-//                    .retrieve()
-//                    .onStatus(HttpStatusCode::isError, response ->
-//                            Mono.error(new InvalidCredentialsException("Invalid credentials or user not found")))
-//                    .bodyToMono(new ParameterizedTypeReference<CustomerDTO>() {})
-//                    .block();
-//
-//            System.out.println("User-entered password: " + password);
-//            System.out.println("Stored (encoded) password: " + customer.getPassword());
-//
-//            if (customer.getPassword() == null) {
-//                throw new RuntimeException("Password field is null for user: " + username);
-//            }
-//
-//            if (!passwordEncoder.matches(password, customer.getPassword())) {
-//                throw new InvalidCredentialsException("Invalid credentials or user not found");
-//            }
-//
-//            return customer;
-//
-//        } catch (Exception e) {
-//            System.err.println("Failed to validate user: " + e.getMessage());
-//            throw new RuntimeException("Failed to validate user: " + e.getMessage(), e);
-//        }
-//    }
-    private LoginDTO validateUser(String username, String password) throws InvalidCredentialsException {
+        /*private LoginDTO validateUser(String username, String password) {
+        // Create a request body containing the username
         Map<String, String> requestBody = Map.of("username", username);
+//        System.out.println(password);
+//        String decodedPassword = passwordEncoder.encode(requestBody.get("password"));
+//        System.out.println(decodedPassword);
 
-        // Attempt validation against Customer Service
-        LoginDTO customer = tryValidateWithService(customerServiceUrl + "/api/customers/login", requestBody, password);
-        if (customer != null) return customer;
 
-        // Attempt validation against Delivery Service
-        LoginDTO deliveryUser = tryValidateWithService(deliveryServiceUrl + "/api/delivery/login", requestBody, password);
-        if (deliveryUser != null) return deliveryUser;
-
-        // Attempt validation against Admin Service
-        LoginDTO adminUser = tryValidateWithService(adminServiceUrl + "/api/admin/login", requestBody, password);
-        if (adminUser != null) return adminUser;
-
-        // If none matched, throw an exception
-        throw new InvalidCredentialsException("Invalid credentials or user not found in any service");
-    }
-    // Helper method to try validation with a single service
-    private LoginDTO tryValidateWithService(String serviceUrl, Map<String, String> requestBody, String rawPassword) {
         try {
-            LoginDTO user = webClient.post()
-                    .uri(serviceUrl)
+            // Send a POST request with the username in the body
+            LoginDTO customer = webClient.post()
+                    .uri("http://localhost:8081/api/customers/login")
                     .bodyValue(requestBody)
                     .retrieve()
                     .onStatus(HttpStatusCode::isError, response ->
-                            Mono.error(new InvalidCredentialsException("Invalid credentials or user not found in service: " + serviceUrl)))
+                            Mono.error(new InvalidCredentialsException("Invalid credentials or user not found")))
                     .bodyToMono(new ParameterizedTypeReference<LoginDTO>() {})
                     .block();
-            if (user != null && user.getPassword() != null && passwordEncoder.matches(rawPassword, user.getPassword())) {
-                System.out.println("Password match result: true");
-                return user;
-            } else {
-                System.out.println("Password mismatch for service: " + serviceUrl);
+
+            System.out.println("User-entered password: " + password);
+            System.out.println("Stored (encoded) password: " + customer.getPassword());
+            if (!passwordEncoder.matches(password, customer.getPassword())) {
+                throw new InvalidCredentialsException("Invalid credentials or user not found");
             }
+            return customer;
+
         } catch (Exception e) {
-            System.out.println("Validation failed for service: " + serviceUrl + " - " + e.getMessage());
+            throw new RuntimeException("Failed to validate user: " + e.getMessage(), e);
         }
-        return null;
+    }*/
+    public LoginDTO findUser(String username, String password) {
+        System.out.println(username);
+        return validateUser(username,password);
     }
+
+    private LoginDTO validateUser(String username, String password) {
+        Map<String, String> requestBody = Map.of("username", username);
+
+            LoginDTO customer = webClient.post()
+                    .uri("http://localhost:8081/api/customers/login")
+                    .bodyValue(requestBody)
+                    .retrieve()
+                    .bodyToMono(new ParameterizedTypeReference<LoginDTO>() {})
+                    .block();
+
+            System.out.println("User-entered password: " + password);
+            System.out.println("Stored (encoded) password: " + customer.getPassword());
+
+            if (customer.getPassword() == null) {
+                throw new RuntimeException("Password field is null for user: " + username);
+            }
+
+            if (!passwordEncoder.matches(password, customer.getPassword())) {
+                System.out.println("misMatch");
+            }
+
+
+        String jwtToken = jwtService.generateJwtToken(customer.getId(), username);
+        System.out.println("Generated JWT: " + jwtToken);
+
+        customer.setToken(jwtToken);
+        return customer;
+    }
+//    private LoginDTO validateUser(String username, String password) throws InvalidCredentialsException {
+//        // Define service URLs to check
+//        String[] serviceUrls = {
+//                customerServiceUrl + "/api/customers/login",
+//                deliveryServiceUrl + "/api/delivery/login",
+//                adminServiceUrl + "/api/admin/login"
+//        };
+//
+//        Map<String, String> requestBody = Map.of("username", username);
+//
+//        // Attempt validation against each service
+//        for (String serviceUrl : serviceUrls) {
+//            LoginDTO user = tryValidateWithService(serviceUrl, requestBody, password);
+//            if (user != null) {
+//                return user; // Return as soon as a match is found
+//            }
+//        }
+//
+//        // If no service validated the user, throw exception
+//        throw new InvalidCredentialsException("Invalid credentials or user not found in any service");
+//    }
+//
+//    // Helper method to try validation with a single service
+//    private LoginDTO tryValidateWithService(String serviceUrl, Map<String, String> requestBody, String rawPassword) {
+//        try {
+//            return webClient.post()
+//                    .uri(serviceUrl)
+//                    .bodyValue(requestBody)
+//                    .retrieve()
+//                    .onStatus(HttpStatusCode::isError, response ->
+//                            Mono.error(new InvalidCredentialsException("Service validation failed: " + serviceUrl)))
+//                    .bodyToMono(LoginDTO.class)
+//                    .blockOptional()
+//                    .filter(user -> user.getPassword() != null && passwordEncoder.matches(rawPassword, user.getPassword()))
+//                    .orElse(null);
+//        } catch (Exception e) {
+//            System.out.println("Service validation failed for: " + serviceUrl + " - " + e.getMessage());
+//            return null;
+//        }
+//    }
+
 
 }

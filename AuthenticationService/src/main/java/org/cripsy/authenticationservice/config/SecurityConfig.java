@@ -1,3 +1,4 @@
+/*
 package org.cripsy.authenticationservice.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,9 +53,11 @@ public class SecurityConfig {
 //                .build();
 //    }
 
-    @Bean
+    */
+/*@Bean
     public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
-    }
+    }*//*
 
-}
+
+}*/
