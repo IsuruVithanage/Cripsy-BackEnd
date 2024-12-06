@@ -111,7 +111,7 @@ public class AdminService {
     //Get Total Customers
     public Long getTotalCustomers() {
         return webClient.get()
-                .uri("http://localhost:8083/api/orders/total")
+                .uri("http://localhost:8081/api/customers/total")
                 .retrieve()
                 .bodyToMono(Long.class)
                 .block();
