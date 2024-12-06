@@ -27,6 +27,6 @@ public class ProductItemDTO {
 
     @SuppressWarnings("unused")
     public double getAvgRatings(){
-        return Math.round(this.avgRatings * 10.0) / 10.0;
+        return this.avgRatings == null ? 0.0 : Math.round(this.avgRatings * 10.0) / 10.0;
     }
 }
