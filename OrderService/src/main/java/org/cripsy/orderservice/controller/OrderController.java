@@ -1,8 +1,11 @@
 package org.cripsy.orderservice.controller;
 
+import org.cripsy.orderservice.dto.BestSellingProductDTO;
+import org.cripsy.orderservice.dto.MonthlyTotalPriceDTO;
 import org.cripsy.orderservice.dto.OrderDTO;
 import org.cripsy.orderservice.service.OrderService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.Map;
 public class OrderController {
 
     private final OrderService orderService;
+
 
     @GetMapping("/getAllOrders")
     public List<OrderDTO> getAllOrders() {
@@ -64,4 +68,18 @@ public class OrderController {
     public List<Map<String, Object>> getOrderStats() {
         return orderService.getOrderStats();
     }
+
+    //Get bestselling items
+    @GetMapping("/best-selling")
+    public ResponseEntity<List<BestSellingProductDTO>> getBestSellingProducts() {
+        List<BestSellingProductDTO> bestSellingProducts = orderService.getBestSellingProducts();
+        return ResponseEntity.ok(bestSellingProducts);
+    }
+
+
+    @GetMapping("/monthly-totals")
+    public List<MonthlyTotalPriceDTO> getMonthlyTotals() {
+        return orderService.getMonthlyTotalPrices();
+    }
+
 }

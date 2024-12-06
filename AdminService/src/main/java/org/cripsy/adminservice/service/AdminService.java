@@ -7,6 +7,7 @@ import org.cripsy.adminservice.model.Admin;
 import org.cripsy.adminservice.repository.AdminRepository;
 import jakarta.transaction.Transactional;
 import org.cripsy.orderservice.dto.AdminDashbordDTO;
+import org.cripsy.orderservice.dto.MonthlyTotalPriceDTO;
 import org.cripsy.orderservice.dto.TotalItemDTO;
 import org.cripsy.orderservice.dto.TotalOrdersDTO;
 import org.modelmapper.ModelMapper;
@@ -96,14 +97,29 @@ public class AdminService {
 
     }
 
+    //Get MonthlyTotal price
+    public  List<MonthlyTotalPriceDTO> findMonthlyTotalPrices() {
+        return webClient.get()
+                .uri("http://localhost:8083/api/orders/monthly-totals")
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<MonthlyTotalPriceDTO>>() {})
+                .block();
+
+    }
+
+
     //Get Total Customers
     public Long getTotalCustomers() {
         return webClient.get()
-                .uri("http://localhost:8081/api/customers/total")
+                .uri("http://localhost:8083/api/orders/total")
                 .retrieve()
                 .bodyToMono(Long.class)
                 .block();
     }
+
+
+
+
 
 
 
