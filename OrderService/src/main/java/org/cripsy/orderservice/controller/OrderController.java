@@ -40,13 +40,28 @@ public class OrderController {
         orderService.deleteOrder(id);
     }
 
+
+    //Get Total Sells
     @GetMapping("/getSumTotal")
     public Double getTotalSumOfTotalPrice() {
         return orderService.getTotalSumOfTotalPrice();
     }
 
+    //Get Monthly Sells Total
     @GetMapping("/getMonthlySumTotal")
     public List<Map<String, Object>> getMonthlyTotalSumOfTotalPrice() {
         return orderService.getMonthlyTotalSumOfTotalPrice();
+    }
+
+    //Get Total Items Summery
+    @GetMapping("/getMonthlySumQty")
+    public List<Map<String, Object>> getMonthlyItemQuantityTotal(){
+        return orderService.getMonthlyItemQuantityTotal();
+    }
+
+    //Get order summery
+    @GetMapping("/orderSummery")
+    public List<Map<String, Object>> getOrderStats() {
+        return orderService.getOrderStats();
     }
 }
