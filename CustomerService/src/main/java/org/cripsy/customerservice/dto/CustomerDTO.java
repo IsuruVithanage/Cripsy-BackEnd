@@ -13,5 +13,6 @@ public class CustomerDTO {
     private String email;
     private String password;
     private String address;
+    private String contact;
     private String district;
 }
