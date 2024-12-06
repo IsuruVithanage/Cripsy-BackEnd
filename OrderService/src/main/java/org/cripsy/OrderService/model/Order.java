@@ -1,4 +1,4 @@
-package org.cripsy.orderservice.model;
+package org.cripsy.OrderService.model;
 
 import jakarta.persistence.*;
 import lombok.*;
@@ -35,11 +35,11 @@ public class Order {
 
         if (items != null && !items.isEmpty()) {
             this.totalPrice = items.stream()
-                .mapToDouble(item -> {
-                    double discountedPrice = item.getPrice() * (1 - (item.getDiscount() / 100));
-                    return discountedPrice * item.getQuantity();
-                })
-                .sum();
+                    .mapToDouble(item -> {
+                        double discountedPrice = item.getPrice() * (1 - (item.getDiscount() / 100));
+                        return discountedPrice * item.getQuantity();
+                    })
+                    .sum();
         } else {
             this.totalPrice = 0.0;
         }

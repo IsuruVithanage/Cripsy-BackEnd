@@ -1,5 +1,4 @@
-package org.cripsy.orderservice.dto;
-
+package org.cripsy.OrderService.dto;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -7,9 +6,8 @@ import lombok.Setter;
 @Getter
 @Setter
 public class AdminDashbordDTO {
-    private String  total;
+    private String total;
     private String month;
     private String year;
-
 
 }

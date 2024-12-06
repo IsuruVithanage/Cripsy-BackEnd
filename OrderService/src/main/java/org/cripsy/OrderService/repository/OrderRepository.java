@@ -1,6 +1,6 @@
-package org.cripsy.orderservice.repository;
+package org.cripsy.OrderService.repository;
 
-import org.cripsy.orderservice.model.Order;
+import org.cripsy.OrderService.model.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

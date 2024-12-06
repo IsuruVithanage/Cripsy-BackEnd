@@ -1,9 +1,9 @@
-package org.cripsy.orderservice.service;
+package org.cripsy.OrderService.service;
 
-import org.cripsy.orderservice.dto.OrderDTO;
-import org.cripsy.orderservice.model.Item;
-import org.cripsy.orderservice.model.Order;
-import org.cripsy.orderservice.repository.OrderRepository;
+import org.cripsy.OrderService.dto.OrderDTO;
+import org.cripsy.OrderService.model.Item;
+import org.cripsy.OrderService.model.Order;
+import org.cripsy.OrderService.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -59,9 +59,6 @@ public class OrderService {
         }
         return null;
     }
-
-
-
 
     public void deleteOrder(Integer id) {
         orderRepository.deleteById(id);
