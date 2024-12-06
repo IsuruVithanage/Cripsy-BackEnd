@@ -3,6 +3,7 @@ package org.cripsy.adminservice.controller;
 
 import lombok.AllArgsConstructor;
 import org.cripsy.adminservice.dto.AdminDTO;
+import org.cripsy.adminservice.dto.AuthDTO;
 import org.cripsy.adminservice.service.AdminService;
 
 import org.cripsy.orderservice.dto.AdminDashbordDTO;
@@ -10,6 +11,7 @@ import org.cripsy.orderservice.dto.MonthlyTotalPriceDTO;
 import org.cripsy.orderservice.dto.TotalItemDTO;
 import org.cripsy.orderservice.dto.TotalOrdersDTO;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -21,6 +23,16 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+
+    @PostMapping("login")
+    public ResponseEntity<AdminDTO> findAdminByUsername(@RequestBody AuthDTO authDTO) {
+        AdminDTO admin = adminService.findAdminByUsername(authDTO.getUsername());
+        if (admin != null) {
+            return ResponseEntity.ok(admin);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
     // Create Admin
     @PostMapping("/saveAdmin")

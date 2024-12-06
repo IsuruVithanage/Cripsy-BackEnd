@@ -23,7 +23,7 @@ public class DeliveryService {
         this.modelMapper = modelMapper;
     }
 
-    public DeliveryDTO findCustomerByUsername(String username) {
+    public DeliveryDTO findDeliveryByUsername(String username) {
         Delivery delivery = deliveryRepository.findUserByName(username);
         if (delivery != null) {
             DeliveryDTO dto = new DeliveryDTO();
