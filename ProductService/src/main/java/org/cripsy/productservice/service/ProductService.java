@@ -108,6 +108,11 @@ public class ProductService {
 
     public String updateProduct(UpdateProductDTO productDTO) {
         Product product = modelMapper.map(productDTO, Product.class);
+
+        Category existingCategory = categoryRepository.findById(productDTO.getCategory())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        product.setCategory(existingCategory);
         productRepo.save(product);
         return "Product updated";
     }

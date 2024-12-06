@@ -51,6 +51,8 @@ public interface OrderRepository extends JpaRepository<Order, Integer> {
             "ORDER BY EXTRACT(YEAR FROM o.purchasedDate), EXTRACT(MONTH FROM o.purchasedDate)")
     List<MonthlyTotalPriceDTO> findMonthlyTotalPrices();
 
+    List<Order> findByOrderStatus(String orderStatus);
+
 
 
 
