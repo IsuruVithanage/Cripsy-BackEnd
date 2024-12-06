@@ -8,7 +8,7 @@ import java.util.List;
 
 @Service
 @AllArgsConstructor
-public class WatchlistServiceService {
+public class WatchlistService {
     private final WatchlistRepository watchlistRepo;
 
 
