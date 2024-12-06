@@ -19,8 +19,11 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     void updatePassword(String email, String password);
 
 
+
     @Query("SELECT COUNT(c) FROM Customer c")
     long getTotalCustomers();
 
 
+
 }
+
