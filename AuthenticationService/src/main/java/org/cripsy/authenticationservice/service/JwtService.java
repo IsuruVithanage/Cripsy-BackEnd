@@ -24,9 +24,11 @@ public class JwtService {
 //        secretKey = Base64.getEncoder().encodeToString(sk.getEncoded());
 //    }
 
-    public String generateToken(String username) {
+    public String generateToken(Long id, String username) {
 
-        Map<String, Object> claims = new HashMap<String, Object>();
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("id", id);
+        claims.put("username", username);
 
         return Jwts.builder()
                 .claims()

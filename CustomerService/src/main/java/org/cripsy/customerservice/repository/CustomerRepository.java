@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, Long> {
+    Customer findUserByUsernameAndPassword(String username, String password);
     Customer findUserByUsername(String username);
     Optional<Customer> findByEmail(String email);
 
@@ -16,4 +17,5 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
     @Modifying
     @Query("update Customer c set c.password = ?2 where c.email = ?1")
     void updatePassword(String email, String password);
+
 }

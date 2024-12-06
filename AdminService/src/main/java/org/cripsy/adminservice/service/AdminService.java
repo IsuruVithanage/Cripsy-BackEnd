@@ -22,6 +22,23 @@ public class AdminService {
     @Autowired
     private ModelMapper modelMapper;
 
+
+    public AdminDTO findAdminByName(String username) {
+        //Customer customer = customerRepository.findUserByUsernameAndPassword(username,password);
+        Admin admin = adminRepository.findAdminByName(username);
+        if (admin != null) {
+            AdminDTO dto = new AdminDTO();
+            dto.setId((admin.getId()));
+            dto.setName(admin.getName());
+            dto.setPassword(admin.getPassword());
+            dto.setEmail(admin.getEmail());
+            return dto;
+        }
+        return null;
+    }
+
+
+
     // Save the Admin entity Service function
     public AdminDTO saveAdmin(AdminDTO adminDTO) {
         Admin admin = modelMapper.map(adminDTO, Admin.class);

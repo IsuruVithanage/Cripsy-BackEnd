@@ -22,6 +22,16 @@ public class CustomerController {
         return ResponseEntity.ok("Customer saved successfully!");
     }
 
+    @PostMapping("login")
+    public ResponseEntity<CustomerDTO> findCustomerByUsername(@RequestBody AuthDTO authDTO) {
+        CustomerDTO customer = customerService.findCustomerByUsername(authDTO.getUsername());
+        if (customer != null) {
+            return ResponseEntity.ok(customer);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping
     public List<CustomerDTO> getAllCustomers() {
         return customerService.getAllCustomers();
@@ -32,10 +42,10 @@ public class CustomerController {
         return customerService.getCustomerById(id);
     }
 
-    @PostMapping
-    public CustomerDTO createCustomer(@RequestBody CustomerDTO customerDTO) {
-        return customerService.createCustomer(customerDTO);
-    }
+//    @PostMapping
+//    public CustomerDTO createCustomer(@RequestBody CustomerDTO customerDTO) {
+//        return customerService.createCustomer(customerDTO);
+//    }
 
     @PutMapping("/{id}")
     public CustomerDTO updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {

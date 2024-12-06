@@ -23,6 +23,20 @@ public class DeliveryService {
         this.modelMapper = modelMapper;
     }
 
+    public DeliveryDTO findCustomerByUsername(String username) {
+        Delivery delivery = deliveryRepository.findUserByName(username);
+        if (delivery != null) {
+            DeliveryDTO dto = new DeliveryDTO();
+            dto.setPersonId((delivery.getPersonId()));
+            dto.setName(delivery.getName());
+            dto.setPassword(delivery.getPassword());
+            dto.setEmail(delivery.getEmail());
+            return dto;
+        }
+        return null;
+    }
+
+
     public List<DeliveryDTO> getAllDeliveryPersons() {
         List<Delivery> deliveryPersons = deliveryRepository.findAll();
         return modelMapper.map(deliveryPersons, new TypeToken<List<DeliveryDTO>>() {}.getType());

@@ -1,4 +1,4 @@
-package org.cripsy.customerservice.dto;
+package org.cripsy.authenticationservice.dto;
 
 import lombok.*;
 
