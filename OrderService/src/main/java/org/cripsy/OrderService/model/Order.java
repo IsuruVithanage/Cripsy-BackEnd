@@ -30,4 +30,8 @@ public class Order {
 
     private Integer deliveryPersonId;
 
+    // Custom setStatus method
+    public void setStatus(String status) {
+        this.orderStatus = status;
+    }
 }

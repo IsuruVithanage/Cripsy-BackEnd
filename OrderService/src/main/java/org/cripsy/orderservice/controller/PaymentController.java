@@ -1,11 +1,11 @@
-package org.cripsy.orderservice.controller;
+package org.cripsy.OrderService.controller;
 
-import org.cripsy.orderservice.dto.PaymentNotification;
-import org.cripsy.orderservice.dto.PaymentRequest;
-import org.cripsy.orderservice.dto.PaymentResponse;
-import org.cripsy.orderservice.model.Payment;
-import org.cripsy.orderservice.repository.PaymentRepository;
-import org.cripsy.orderservice.service.PaymentService;
+import org.cripsy.OrderService.dto.PaymentNotification;
+import org.cripsy.OrderService.dto.PaymentRequest;
+import org.cripsy.OrderService.dto.PaymentResponse;
+import org.cripsy.OrderService.model.Payment;
+import org.cripsy.OrderService.repository.PaymentRepository;
+import org.cripsy.OrderService.service.PaymentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -35,7 +35,8 @@ public class PaymentController {
     private PaymentRepository paymentRepository;
 
     @PostMapping("/start")
-    public ResponseEntity<PaymentResponse> startPayment(@RequestBody PaymentRequest request) throws NoSuchAlgorithmException {
+    public ResponseEntity<PaymentResponse> startPayment(@RequestBody PaymentRequest request)
+            throws NoSuchAlgorithmException {
         String orderId = request.getOrder_id();
         String amount = request.getAmount();
         String currency = request.getCurrency();
@@ -43,17 +44,18 @@ public class PaymentController {
         // Generate MD5 hash for the start payment request
         String hash = paymentService.generateHash(
                 MERCHANT_ID +
-                      orderId +
-                      amount +
-                      currency +
-                      paymentService.generateHash(MERCHANT_SECRET).toUpperCase()
-        ).toUpperCase();
+                        orderId +
+                        amount +
+                        currency +
+                        paymentService.generateHash(MERCHANT_SECRET).toUpperCase())
+                .toUpperCase();
 
         return ResponseEntity.ok(new PaymentResponse(MERCHANT_ID, hash));
     }
 
     @PostMapping(value = "/notify", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<String> paymentNotification(@ModelAttribute PaymentNotification notification) throws NoSuchAlgorithmException {
+    public ResponseEntity<String> paymentNotification(@ModelAttribute PaymentNotification notification)
+            throws NoSuchAlgorithmException {
         try {
             // Concatenate all values to create the hash string
             String hashString = MERCHANT_ID +
@@ -66,7 +68,8 @@ public class PaymentController {
             // Generate MD5 signature for the notification
             String localMd5Sig = paymentService.generateHash(hashString).toUpperCase();
 
-            // Compare the MD5 signature from the notification with the locally generated one
+            // Compare the MD5 signature from the notification with the locally generated
+            // one
             if (localMd5Sig.equals(notification.getMd5sig()) && "2".equals(notification.getStatus_code())) {
                 Payment payment = new Payment();
                 payment.setPaymentAmount(Integer.parseInt(notification.getPayhere_amount()));
@@ -90,5 +93,3 @@ public class PaymentController {
         }
     }
 }
-
-

@@ -1,0 +1,35 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-AuthenticationServiceApplication<AuthenticationService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "org.cripsy.authenticationservice.AuthenticationServiceApplication",
+            "projectName": "AuthenticationService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=62699 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=AuthenticationService"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-CustomerServiceApplication<CustomerService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "org.cripsy.customerservice.CustomerServiceApplication",
+            "projectName": "CustomerService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OrderServiceApplication<OrderService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "org.cripsy.OrderService.OrderServiceApplication",
+            "projectName": "OrderService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

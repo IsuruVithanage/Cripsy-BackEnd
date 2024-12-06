@@ -1,4 +1,4 @@
-package org.cripsy.orderservice.service;
+package org.cripsy.OrderService.service;
 
 import org.springframework.stereotype.Service;
 
@@ -15,7 +15,7 @@ public class PaymentService {
         for (byte b : hashBytes) {
             hexString.append(String.format("%02x", b));
         }
-        return hexString.toString().toUpperCase();  // Ensure it's uppercase
+        return hexString.toString().toUpperCase(); // Ensure it's uppercase
     }
 
 }
