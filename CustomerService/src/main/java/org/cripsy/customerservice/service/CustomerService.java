@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -66,4 +67,9 @@ public class CustomerService {
     // Optional<Customer> customer = customerRepository.findById(id);
     // return customer.orElse(null);
     // }
+    // Get the total numbers of customers
+    public long getTotalCustomers() {
+        return customerRepository.getTotalCustomers();
+    }
+
 }

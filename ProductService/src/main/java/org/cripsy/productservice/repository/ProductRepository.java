@@ -1,7 +1,7 @@
 package org.cripsy.productservice.repository;
 
+import org.cripsy.productservice.dto.GetProductInfoDTO;
 import org.cripsy.productservice.dto.ProductItemDTO;
-import org.cripsy.productservice.dto.UpdateProductDTO;
 import org.cripsy.productservice.model.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -53,6 +53,16 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
         WHERE i.product.productId = :productId
     """)
     List<String> findImageUrls(@Param("productId") int productId);
+
+
+    @Query("""
+        SELECT new org.cripsy.productservice.dto.GetProductInfoDTO(
+            p.productId, p.name, p.avgRatings
+        )
+        FROM Product p
+        WHERE p.productId IN :productIdList
+    """)
+    List<GetProductInfoDTO> getInfo(@Param("productIdList") List<Integer> productIdList);
 
 
     @Transactional

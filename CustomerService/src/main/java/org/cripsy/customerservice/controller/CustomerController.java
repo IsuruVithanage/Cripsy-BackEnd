@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -61,4 +62,10 @@ public class CustomerController {
         // Return the email
         return ResponseEntity.ok(customerDTO.getEmail());
     }
+
+    @GetMapping("/total")
+    public long getTotalCustomers() {
+        return customerService.getTotalCustomers();
+    }
+
 }

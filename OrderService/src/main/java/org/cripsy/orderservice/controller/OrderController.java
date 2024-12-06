@@ -13,6 +13,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/orders")
+@CrossOrigin("http://localhost:3000")
 public class OrderController {
 
     private final OrderService orderService;
@@ -56,5 +57,14 @@ public class OrderController {
     public ResponseEntity<OrderDTO> updateOrderStatus(@PathVariable Integer id, @RequestParam String orderStatus) {
         OrderDTO updatedOrder = orderService.updateOrderStatus(id, orderStatus);
         return ResponseEntity.ok(updatedOrder);
+    }
+
+    /**
+     * @param status
+     * @return
+     */
+    @GetMapping("/status/{status}")
+    public List<OrderDTO> getOrdersByStatus(@PathVariable String status) {
+        return orderService.getOrdersByStatus(status);
     }
 }
