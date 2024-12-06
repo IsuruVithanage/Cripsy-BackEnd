@@ -21,11 +21,17 @@ public class ConversationService {
     private ModelMapper modelMapper;
 
     public ConversationDTO createConversation(ConversationDTO conversationDTO){
-        Conversation conversation = modelMapper.map(conversationDTO, Conversation.class);
-        System.out.println(conversation.getAdminId());
-        System.out.println(conversation.getCustomerId());
-        Conversation savedConversation = conversationRepository.save(conversation);
-        return modelMapper.map(savedConversation, ConversationDTO.class);
+        Conversation existingConversation = conversationRepository.findConversationByCustomerId(conversationDTO.getCustomerId());
+
+        if(existingConversation == null){
+            Conversation conversation = modelMapper.map(conversationDTO, Conversation.class);
+            System.out.println(conversation.getAdminId());
+            System.out.println(conversation.getCustomerId());
+            Conversation savedConversation = conversationRepository.save(conversation);
+            return modelMapper.map(savedConversation, ConversationDTO.class);
+        }else{
+          return modelMapper.map(existingConversation, ConversationDTO.class);
+        }
     }
 
     public ConversationDTO getConversationById(Integer conversationId){
@@ -43,6 +49,11 @@ public class ConversationService {
 
     public ConversationDTO findMessagesByCustomerId(Integer customerId){
         Conversation conversation = conversationRepository.findMessagesByCustomerId(customerId);
+        return modelMapper.map(conversation, ConversationDTO.class);
+    }
+
+    public ConversationDTO findConversationByCustomerId(Integer customerId){
+        Conversation conversation = conversationRepository.findConversationByCustomerId(customerId);
         return modelMapper.map(conversation, ConversationDTO.class);
     }
 
