@@ -27,6 +27,10 @@ public class CartItemDTO {
 
     @SuppressWarnings("unused")
     public String getDescription(){
+        if(this.description == null || this.description.isEmpty()){
+            return null;
+        }
+
         Document document = Jsoup.parse(this.description);
         Element firstP = document.selectFirst("p");
         return firstP != null ? firstP.text() : "";
