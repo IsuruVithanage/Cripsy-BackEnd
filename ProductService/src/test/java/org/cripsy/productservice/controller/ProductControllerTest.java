@@ -79,7 +79,7 @@ class ProductControllerTest {
         GetProductInfoDTO getProductInfoDTO = new GetProductInfoDTO(1, "Test Product", 4.5);
         Mockito.when(productService.getInfo(anyList())).thenReturn(List.of(getProductInfoDTO));
 
-        mockMvc.perform(post("/api/product/getInfo/")
+        mockMvc.perform(post("/api/product/getInfo")
             .contentType("application/json")
             .content("[1]"))
             .andExpect(status().isOk())
