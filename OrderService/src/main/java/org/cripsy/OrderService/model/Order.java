@@ -1,8 +1,7 @@
-package org.cripsy.OrderService.model;
+package org.cripsy.orderservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,22 +15,33 @@ import java.util.List;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer orderId;
 
+    private Integer deliveryPersonId;
     private Integer customerID;
     private LocalDate purchasedDate;
     private LocalDate deliveredDate;
     private String orderStatus;
     private Double totalPrice;
 
-    @ElementCollection
-    private List<Integer> itemList; // Define as appropriate if using item IDs or a different structure
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Item> items;
 
-    private Integer deliveryPersonId;
+    @PrePersist
+    public void prePersist() {
+        this.purchasedDate = LocalDate.now();
+        this.orderStatus = "Placed";
 
-    // Custom setStatus method
-    public void setStatus(String status) {
-        this.orderStatus = status;
+        if (items != null && !items.isEmpty()) {
+            this.totalPrice = items.stream()
+                .mapToDouble(item -> {
+                    double discountedPrice = item.getPrice() * (1 - (item.getDiscount() / 100));
+                    return discountedPrice * item.getQuantity();
+                })
+                .sum();
+        } else {
+            this.totalPrice = 0.0;
+        }
     }
 }

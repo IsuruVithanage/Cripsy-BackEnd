@@ -20,7 +20,7 @@ public class ProductItemDTO {
     private Long ratingCount;
     private Long reviewCount;
     private Boolean isUserRated;
-    //    private Boolean isAddedToFavorites;
+    private Boolean isWatchlistAdded;
     private RatingStatsDTO ratingStats;
     private List<String> imageUrls;
     private List<ReviewDTO> initialReviews;

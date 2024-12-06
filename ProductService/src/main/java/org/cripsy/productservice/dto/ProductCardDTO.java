@@ -17,10 +17,18 @@ public class ProductCardDTO {
     private String name;
     private double price;
     private String description;
-    private boolean isAddedToFavorites;
     private long ratingCount;
     private double avgRatings;
-    private List<String> imageUrls;
+    private String imageUrl;
+
+    @SuppressWarnings("unused")
+    public void setImageUrls(List<String> imageUrls) {
+        if(imageUrls == null){
+            this.imageUrl = null;
+        } else {
+            this.imageUrl = imageUrls.get(0);
+        }
+    }
 
     @SuppressWarnings("unused")
     public double getAvgRatings(){

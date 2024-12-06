@@ -34,6 +34,12 @@ public class RefundController {
         return refundService.updateRefund(id, refundDTO);
     }
 
+    @PutMapping("/updateRefundRequestStatus")
+    public void updateRefundRequestStatus(@RequestParam Integer refundId, @RequestParam String status) {
+        refundService.updateRefundRequestStatus(refundId, status);
+    }
+
+
     @DeleteMapping("/deleteRefund/{id}")
     public void deleteRefund(@PathVariable Integer id) {
         refundService.deleteRefund(id);

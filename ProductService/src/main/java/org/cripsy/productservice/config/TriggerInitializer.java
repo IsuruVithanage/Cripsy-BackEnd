@@ -47,10 +47,34 @@ public class TriggerInitializer {
             EXECUTE FUNCTION update_product_ratings();
         """;
 
+
         try {
             jdbcTemplate.execute(updateRatingDetailsSQL);
         } catch (Exception e) {
             System.out.println("Failed to create updateRatingDetails trigger: " + e.getMessage());
+        }
+    }
+
+    @PostConstruct
+    private void createReserveItemsProcedure(){
+        /*
+            This PROCEDURE will insert bulk Products with Reserved stocks
+        */
+
+        String reserveItemsSQL = """
+            CREATE OR REPLACE PROCEDURE insertReservedStocks(
+                valuesToAdd TEXT
+            ) LANGUAGE plpgsql AS $$
+            BEGIN
+                EXECUTE format('INSERT INTO reserved_stock (transaction_id, product_id, quantity) VALUES %s', valuesToAdd);
+            END;
+            $$;
+        """;
+
+        try {
+            jdbcTemplate.execute(reserveItemsSQL);
+        } catch (Exception e) {
+            System.out.println("Failed to create insertReservedStocks function: " + e.getMessage());
         }
     }
 }

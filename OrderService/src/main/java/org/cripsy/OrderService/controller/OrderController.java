@@ -1,7 +1,7 @@
-package org.cripsy.OrderService.controller;
+package org.cripsy.orderservice.controller;
 
-import org.cripsy.OrderService.dto.OrderDTO;
-import org.cripsy.OrderService.service.OrderService;
+import org.cripsy.orderservice.dto.OrderDTO;
+import org.cripsy.orderservice.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,6 +10,7 @@ import org.cripsy.OrderService.service.EmailService;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -44,31 +45,13 @@ public class OrderController {
         orderService.deleteOrder(id);
     }
 
-    /**
-     * Endpoint to update order status and send a confirmation email.
-     */
-    // @PutMapping("/confirmOrder/{id}")
-    // public ResponseEntity<String> confirmOrder(@PathVariable Integer id) {
-    // // Fetch and update the order's status
-    // OrderDTO updatedOrder = orderService.updateOrderStatus(id, "confirmed");
+    @GetMapping("/getSumTotal")
+    public Double getTotalSumOfTotalPrice() {
+        return orderService.getTotalSumOfTotalPrice();
+    }
 
-    // // Send a confirmation email to the user
-    // MailBody mailBody = MailBody.builder()
-    // .to(updatedOrder.getCustomerEmail()) // Assuming OrderDTO contains
-    // customerEmail
-    // .subject("Order Confirmation")
-    // .body("Dear " + updatedOrder.getCustomerName() + ",\n\n" +
-    // "Your order with ID " + updatedOrder.getOrderId() + " has been successfully
-    // confirmed.\n\n" +
-    // "Thank you for shopping with us!\n\n" +
-    // "Best regards,\n" +
-    // "Team Crispy")
-    // .build();
-
-    // emailService.sendSimpleMail(mailBody);
-
-    // return ResponseEntity.ok("Order confirmed and confirmation email sent to " +
-    // updatedOrder.getCustomerEmail());
-    // }
-
+    @GetMapping("/getMonthlySumTotal")
+    public List<Map<String, Object>> getMonthlyTotalSumOfTotalPrice() {
+        return orderService.getMonthlyTotalSumOfTotalPrice();
+    }
 }

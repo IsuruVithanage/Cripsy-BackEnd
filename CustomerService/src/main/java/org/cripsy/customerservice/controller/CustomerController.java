@@ -1,8 +1,10 @@
 package org.cripsy.customerservice.controller;
 
+import org.cripsy.customerservice.dto.AuthDTO;
 import org.cripsy.customerservice.dto.CustomerDTO;
 import org.cripsy.customerservice.service.CustomerService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -13,6 +15,12 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
+
+    @PostMapping("signup")
+    public ResponseEntity<String> createCustomer(@RequestBody AuthDTO authDTO) {
+        customerService.saveCustomer(authDTO);
+        return ResponseEntity.ok("Customer saved successfully!");
+    }
 
     @GetMapping
     public List<CustomerDTO> getAllCustomers() {

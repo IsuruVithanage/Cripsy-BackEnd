@@ -38,6 +38,12 @@ public class Product {
     @OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Cart> cart;
 
+    @OneToMany(mappedBy = "id.product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Watchlist> watchlist;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<ReservedStock> reservedStocks;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
@@ -63,6 +69,11 @@ public class Product {
     /*
         This method takes a list of URL strings and converts them into `ImageUrls` entities,
     */
+        if(imageUrls == null){
+            this.imageUrls = null;
+            return;
+        }
+
         this.imageUrls = imageUrls
                 .stream()
                 .map(url -> new ImageUrls(this, url))

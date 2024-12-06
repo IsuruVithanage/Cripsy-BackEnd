@@ -1,6 +1,5 @@
 package org.cripsy.productservice.repository;
 
-import jakarta.transaction.Transactional;
 import org.cripsy.productservice.dto.AddToCartDTO;
 import org.cripsy.productservice.dto.CartItemDTO;
 import org.cripsy.productservice.model.Cart;
@@ -10,6 +9,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
 
 @Repository
