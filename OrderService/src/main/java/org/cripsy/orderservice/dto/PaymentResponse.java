@@ -1,4 +1,4 @@
-package org.cripsy.orderservice.dto;
+package org.cripsy.OrderService.dto;
 
 import lombok.Getter;
 import lombok.Setter;

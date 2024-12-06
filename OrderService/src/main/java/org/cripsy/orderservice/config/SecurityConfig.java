@@ -1,4 +1,4 @@
-package org.cripsy.orderservice.config;
+package org.cripsy.OrderService.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +15,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> request
-                        .anyRequest().permitAll()
-                )
+                        .anyRequest().permitAll())
                 .build();
     }
 }

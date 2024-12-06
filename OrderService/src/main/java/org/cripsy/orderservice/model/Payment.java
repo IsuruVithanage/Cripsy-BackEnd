@@ -1,4 +1,4 @@
-package org.cripsy.orderservice.model;
+package org.cripsy.OrderService.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

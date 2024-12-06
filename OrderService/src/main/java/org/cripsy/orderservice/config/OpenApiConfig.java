@@ -1,4 +1,4 @@
-package org.cripsy.orderservice.config;
+package org.cripsy.OrderService.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
@@ -15,9 +15,9 @@ public class OpenApiConfig {
     @Bean
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
-            .info(new Info()
-                .title(applicationName)
-                .version("v1.0")
-                .description("This is the API documentation for the " + applicationName));
+                .info(new Info()
+                        .title(applicationName)
+                        .version("v1.0")
+                        .description("This is the API documentation for the " + applicationName));
     }
 }
