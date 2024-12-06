@@ -41,7 +41,7 @@ public class ProductController {
     }
 
 
-    @PostMapping("/getInfo/")
+    @PostMapping("/getInfo")
     @Operation(summary = "Get Product Info", description = "Fetch Information for a List of Products", tags = "Product")
     public List<GetProductInfoDTO> getInfo(@RequestBody List<Integer> productIdList){
         return productService.getInfo(productIdList);

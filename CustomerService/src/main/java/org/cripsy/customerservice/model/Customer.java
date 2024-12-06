@@ -26,6 +26,10 @@ public class Customer {
     @Column(nullable = false)
     private String password;
 
+    private String address;
+
+    private String district;
+
     @OneToMany(mappedBy = "customer")
     private List<ForgotPassword> forgotPassword;
 }

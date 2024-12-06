@@ -3,13 +3,12 @@
 package org.cripsy.adminservice.service;
 
 import org.cripsy.adminservice.dto.AdminDTO;
+import org.cripsy.adminservice.dto.GetBestSellingDTO;
 import org.cripsy.adminservice.model.Admin;
 import org.cripsy.adminservice.repository.AdminRepository;
 import jakarta.transaction.Transactional;
-import org.cripsy.orderservice.dto.AdminDashbordDTO;
-import org.cripsy.orderservice.dto.MonthlyTotalPriceDTO;
-import org.cripsy.orderservice.dto.TotalItemDTO;
-import org.cripsy.orderservice.dto.TotalOrdersDTO;
+import org.cripsy.orderservice.dto.*;
+import org.cripsy.productservice.dto.GetProductInfoDTO;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,9 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional
@@ -130,6 +131,48 @@ public class AdminService {
                 .retrieve()
                 .bodyToMono(Long.class)
                 .block();
+    }
+
+
+    //Get the Best Selling Products
+    public List<GetBestSellingDTO> getBestSellingProducts() {
+        List<BestSellingProductDTO> bestSellingProductDTOList = webClient.get()
+                .uri("http://localhost:8083/api/orders/best-selling")
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<BestSellingProductDTO>>() {})
+                .block();
+
+        List<Integer> productIdList = bestSellingProductDTOList.stream().map(item -> item.getProductId()).toList();
+
+        List<GetProductInfoDTO> productInfoDTOS = webClient.post()
+                .uri("http://localhost:8082/api/product/getInfo")
+                .bodyValue(productIdList)
+                .retrieve()
+                .bodyToMono(new ParameterizedTypeReference<List<GetProductInfoDTO>>() {})
+                .block();
+
+
+        return bestSellingProductDTOList.stream()
+                .map(bestSellingProduct -> {
+                    GetProductInfoDTO productInfo = productInfoDTOS.stream()
+                            .filter(info -> info.getProductId() == bestSellingProduct.getProductId())
+                            .findFirst()
+                            .orElse(null);
+
+                    if (productInfo != null) {
+                        return new GetBestSellingDTO(
+                                bestSellingProduct.getProductId(),
+                                bestSellingProduct.getTotalQuantity(),
+                                bestSellingProduct.getTotalPrice(),
+                                bestSellingProduct.getTotalDiscountedPrice(),
+                                productInfo.getName(),
+                                productInfo.getAvgRatings()
+                        );
+                    }
+                    return null;
+                })
+                .filter(Objects::nonNull)
+                .collect(Collectors.toList());
     }
 
 

@@ -27,7 +27,7 @@ public class CartItemDTO {
 
     @SuppressWarnings("unused")
     public String getDescription(){
-        if(this.description == null || this.description.isEmpty()){
+        if(description == null || description.isEmpty()){
             return null;
         }
 
