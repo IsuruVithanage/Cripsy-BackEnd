@@ -6,10 +6,12 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/orders")
+@CrossOrigin("http://localhost:3000")
 public class OrderController {
 
     private final OrderService orderService;
@@ -42,5 +44,15 @@ public class OrderController {
     @GetMapping("/getSumTotal")
     public Double getTotalSumOfTotalPrice() {
         return orderService.getTotalSumOfTotalPrice();
+    }
+
+    @GetMapping("/getMonthlySumTotal")
+    public List<Map<String, Object>> getMonthlyTotalSumOfTotalPrice() {
+        return orderService.getMonthlyTotalSumOfTotalPrice();
+    }
+
+    @GetMapping("/status/{status}")
+    public List<OrderDTO> getOrdersByStatus(@PathVariable String status) {
+        return orderService.getOrdersByStatus(status);
     }
 }

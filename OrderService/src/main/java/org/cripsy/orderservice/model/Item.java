@@ -13,7 +13,7 @@ import lombok.*;
 public class Item {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     private Integer productId;
@@ -21,7 +21,10 @@ public class Item {
     private Double price;
     private Double discount;
 
-    @ManyToOne
+    @ManyToOne()
     @JoinColumn(name = "order_id", nullable = false)
+
+   
+
     private Order order; // Foreign key linking to the Order entity
 }

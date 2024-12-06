@@ -2,7 +2,6 @@ package org.cripsy.customerservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import reactor.core.publisher.Mono;
 
 import java.util.List;
 
@@ -29,5 +28,4 @@ public class Customer {
 
     @OneToMany(mappedBy = "customer")
     private List<ForgotPassword> forgotPassword;
-
 }

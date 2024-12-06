@@ -1,17 +1,13 @@
 package org.cripsy.authenticationservice.controller;
 
-import org.apache.http.auth.InvalidCredentialsException;
-import org.cripsy.customerservice.dto.AuthDTO;
+import org.cripsy.authenticationservice.dto.AuthDTO;
 import org.cripsy.authenticationservice.service.AuthService;
-import org.cripsy.customerservice.dto.CustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import reactor.core.publisher.Mono;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,8 +21,4 @@ public class AuthController {
         return authService.createUser(authDTO);
     }
 
-    @PostMapping("/login")
-    public CustomerDTO login(@RequestBody AuthDTO authDTO) throws InvalidCredentialsException {
-        return authService.findUser(authDTO.getUsername(), authDTO.getPassword());
-    }
 }

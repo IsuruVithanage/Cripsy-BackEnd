@@ -60,7 +60,6 @@ public class ProductService {
 
         return productDTOList;
 
-
     }
 
 
@@ -78,6 +77,11 @@ public class ProductService {
         productItem.setInitialReviews(reviews);
         productItem.setImageUrls(imageUrls);
         return productItem;
+    }
+
+
+    public List<GetProductInfoDTO> getInfo(List<Integer> productIdList){
+        return productRepo.getInfo(productIdList);
     }
 
 
@@ -104,6 +108,11 @@ public class ProductService {
 
     public String updateProduct(UpdateProductDTO productDTO) {
         Product product = modelMapper.map(productDTO, Product.class);
+
+        Category existingCategory = categoryRepository.findById(productDTO.getCategory())
+                .orElseThrow(() -> new RuntimeException("Category not found"));
+
+        product.setCategory(existingCategory);
         productRepo.save(product);
         return "Product updated";
     }

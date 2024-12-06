@@ -2,9 +2,9 @@ package org.cripsy.chatservice.controller;
 
 import lombok.AllArgsConstructor;
 import org.cripsy.chatservice.dto.ConversationDTO;
-import org.cripsy.chatservice.model.Conversation;
+import org.cripsy.chatservice.dto.MessageDTO;
 import org.cripsy.chatservice.service.ConversationService;
-import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.cripsy.chatservice.service.MessageService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,13 +16,11 @@ import java.util.List;
 public class ConversationController {
 
     private final ConversationService conversationService;
-    private final SimpMessagingTemplate messagingTemplate;
+    private final MessageService messageService;
 
     @PostMapping("/create")
     public ConversationDTO createConversation(@RequestBody ConversationDTO conversationDTO){
-        ConversationDTO createdConversation = conversationService.createConversation(conversationDTO);
-        messagingTemplate.convertAndSend("/topic/conversations", createdConversation);
-        return createdConversation;
+        return conversationService.createConversation(conversationDTO);
     }
 
     @GetMapping("/{conversationId}")
@@ -36,21 +34,15 @@ public class ConversationController {
     }
 
     @GetMapping("/getConversation/{customerId}")
-    public ConversationDTO findConversationByCustomerId(@PathVariable Integer customerId){
-        return conversationService.findConversationByCustomerId(customerId);
+    public List<MessageDTO> findConversationByCustomerId(@PathVariable Integer customerId){
+        ConversationDTO conversationDTO = conversationService.findMessagesByCustomerId(customerId);
+        return messageService.getMessagesByConversationId(conversationDTO.getConversationId());
     }
 
     @DeleteMapping("/delete/{conversationId}")
     public void deleteConversation(@PathVariable Integer conversationId){
         conversationService.deleteConversation(conversationId);
-        messagingTemplate.convertAndSend("/topic/conversations/deleted", conversationId);
     }
-
-
-
-
-
-
 
 
 }

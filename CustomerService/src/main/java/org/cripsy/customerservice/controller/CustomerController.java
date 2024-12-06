@@ -2,12 +2,14 @@ package org.cripsy.customerservice.controller;
 
 import org.cripsy.customerservice.dto.AuthDTO;
 import org.cripsy.customerservice.dto.CustomerDTO;
+import org.cripsy.customerservice.model.Customer;
 import org.cripsy.customerservice.service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @AllArgsConstructor
@@ -56,4 +58,11 @@ public class CustomerController {
     public boolean deleteCustomer(@PathVariable Long id) {
         return customerService.deleteCustomer(id);
     }
+
+    @GetMapping("/total")
+    public long getTotalCustomers() {
+        return customerService.getTotalCustomers();
+    }
+
+
 }

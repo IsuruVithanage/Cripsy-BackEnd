@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import reactor.core.publisher.Mono;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -77,4 +78,11 @@ public class CustomerService {
         }
         return false;
     }
+
+    //Get the total numbers of customers
+    public long getTotalCustomers() {
+        return customerRepository.getTotalCustomers();
+    }
+
+
 }
