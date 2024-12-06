@@ -1,10 +1,10 @@
-package org.cripsy.customerservice.dto;
+package org.cripsy.authenticationservice.dto;
 
 import lombok.Getter;
 import lombok.Setter;
 
-@Getter
 @Setter
+@Getter
 public class AuthDTO {
     private String username;
     private String email;
