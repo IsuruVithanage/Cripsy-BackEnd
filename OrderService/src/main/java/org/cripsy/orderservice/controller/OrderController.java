@@ -3,6 +3,8 @@ package org.cripsy.orderservice.controller;
 import org.cripsy.orderservice.dto.OrderDTO;
 import org.cripsy.orderservice.service.OrderService;
 import lombok.AllArgsConstructor;
+
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -48,5 +50,11 @@ public class OrderController {
     @GetMapping("/getMonthlySumTotal")
     public List<Map<String, Object>> getMonthlyTotalSumOfTotalPrice() {
         return orderService.getMonthlyTotalSumOfTotalPrice();
+    }
+
+    @PutMapping("/{id}/status")
+    public ResponseEntity<OrderDTO> updateOrderStatus(@PathVariable Integer id, @RequestParam String orderStatus) {
+        OrderDTO updatedOrder = orderService.updateOrderStatus(id, orderStatus);
+        return ResponseEntity.ok(updatedOrder);
     }
 }

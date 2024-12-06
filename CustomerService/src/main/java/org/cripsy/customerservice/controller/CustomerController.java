@@ -2,6 +2,7 @@ package org.cripsy.customerservice.controller;
 
 import org.cripsy.customerservice.dto.AuthDTO;
 import org.cripsy.customerservice.dto.CustomerDTO;
+import org.cripsy.customerservice.model.Customer;
 import org.cripsy.customerservice.service.CustomerService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +46,19 @@ public class CustomerController {
     @DeleteMapping("/{id}")
     public boolean deleteCustomer(@PathVariable Long id) {
         return customerService.deleteCustomer(id);
+    }
+
+    @GetMapping("/{id}/email")
+    public ResponseEntity<String> getCustomerEmail(@PathVariable Long id) {
+        // Fetch customer by ID using the service
+        CustomerDTO customerDTO = customerService.getCustomerById(id);
+
+        // Check if customer exists
+        if (customerDTO == null || customerDTO.getEmail() == null) {
+            return ResponseEntity.status(404).body("Customer not found or email not available.");
+        }
+
+        // Return the email
+        return ResponseEntity.ok(customerDTO.getEmail());
     }
 }

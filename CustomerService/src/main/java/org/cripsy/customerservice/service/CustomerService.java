@@ -29,7 +29,8 @@ public class CustomerService {
 
     public List<CustomerDTO> getAllCustomers() {
         List<Customer> customers = customerRepository.findAll();
-        return modelMapper.map(customers, new TypeToken<List<CustomerDTO>>() {}.getType());
+        return modelMapper.map(customers, new TypeToken<List<CustomerDTO>>() {
+        }.getType());
     }
 
     public CustomerDTO getCustomerById(Long id) {
@@ -60,4 +61,9 @@ public class CustomerService {
         }
         return false;
     }
+
+    // public Customer getCustomerById(Integer id) {
+    // Optional<Customer> customer = customerRepository.findById(id);
+    // return customer.orElse(null);
+    // }
 }

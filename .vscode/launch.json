@@ -8,6 +8,59 @@
             "mainClass": "org.cripsy.OrderService.OrderServiceApplication",
             "projectName": "OrderService",
             "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=49348 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=OrderService"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-OrderServiceApplication<OrderService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "org.cripsy.orderservice.OrderServiceApplication",
+            "projectName": "OrderService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=58008 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=OrderService"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-DeliveryServiceApplication<DeliveryService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "org.cripsy.deliveryservice.DeliveryServiceApplication",
+            "projectName": "DeliveryService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=53033 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=DeliveryService"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-CustomerServiceApplication<CustomerService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "org.cripsy.customerservice.CustomerServiceApplication",
+            "projectName": "CustomerService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-EmailServiceApplication<EmailService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "org.cripsy.emailservice.EmailServiceApplication",
+            "projectName": "EmailService",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-AuthenticationServiceApplication<AuthenticationService>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "org.cripsy.authenticationservice.AuthenticationServiceApplication",
+            "projectName": "AuthenticationService",
+            "args": "",
             "envFile": "${workspaceFolder}/.env"
         }
     ]
