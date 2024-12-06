@@ -41,6 +41,13 @@ public class ProductController {
     }
 
 
+    @PostMapping("/getInfo/")
+    @Operation(summary = "Get Product Info", description = "Fetch Information for a List of Products", tags = "Product")
+    public List<GetProductInfoDTO> getInfo(@RequestBody List<Integer> productIdList){
+        return productService.getInfo(productIdList);
+    }
+
+
     @PostMapping("/review")
     @Operation(summary = "Add a Review", description = "Add a Rating to an existing product", tags = "Reviews")
     public ResponseEntity<List<ReviewDTO>> addReview(@Valid @RequestBody AddReviewDTO addReviewDTO){
