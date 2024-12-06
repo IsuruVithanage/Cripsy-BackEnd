@@ -31,7 +31,9 @@ public class OrderService {
     }
 
     public OrderDTO createOrder(OrderDTO orderDTO) {
+
         Order order = modelMapper.map(orderDTO, Order.class);
+
         Order savedOrder = orderRepository.save(order);
         return modelMapper.map(savedOrder, OrderDTO.class);
     }
@@ -53,23 +55,99 @@ public class OrderService {
         orderRepository.deleteById(id);
     }
 
+    //Get Fully Total Price
     public double getTotalSumOfTotalPrice() {
         return orderRepository.getTotalSumOfTotalPrice();
     }
 
+    //Get Monthly Total  of Total Price
     public List<Map<String, Object>> getMonthlyTotalSumOfTotalPrice() {
-        List<Object[]> results = orderRepository.getMonthlyTotalSumOfTotalPrice();
-        List<Map<String, Object>> monthlySums = new ArrayList<>();
+        Double thisMonthTotalPrice = orderRepository.getTotalPriceForCurrentMonth();
+        Double lastMonthTotalPrice = orderRepository.getTotalPriceForLastMonth();
 
-        for (Object[] result : results) {
-            Map<String, Object> monthData = new HashMap<>();
-            monthData.put("year", result[0]); // Year
-            monthData.put("month", result[1]); // Month
-            monthData.put("total", result[2]); // Total sum for that month
-            monthlySums.add(monthData);
+        // Default to 0.0 if null
+        thisMonthTotalPrice = thisMonthTotalPrice != null ? thisMonthTotalPrice : 0.0;
+        lastMonthTotalPrice = lastMonthTotalPrice != null ? lastMonthTotalPrice : 0.0;
+
+        // Calculate the percentage difference
+        double percentageDifference = 0.0;
+        if (lastMonthTotalPrice > 0) {
+            percentageDifference = ((thisMonthTotalPrice - lastMonthTotalPrice) / lastMonthTotalPrice) * 100;
+        } else if (thisMonthTotalPrice > 0) {
+            percentageDifference = 100.0; // If last month was 0 and this month has price, difference is 100%
         }
 
-        return monthlySums;
+        // Prepare response map
+        Map<String, Object> statsMap = new HashMap<>();
+        statsMap.put("thisMonthTotalPrice", thisMonthTotalPrice);
+        statsMap.put("lastMonthTotalPrice", lastMonthTotalPrice);
+        statsMap.put("percentageDifference", percentageDifference);
+
+        // Wrap in a list and return
+        List<Map<String, Object>> stats = new ArrayList<>();
+        stats.add(statsMap);
+
+        return stats;
     }
+
+
+    //Get Monthly Items Qty
+    public List<Map<String, Object>> getMonthlyItemQuantityTotal() {
+        Long thisMonthQuantity = orderRepository.getTotalItemQuantityForCurrentMonth();
+        Long lastMonthQuantity = orderRepository.getTotalItemQuantityForLastMonth();
+
+        // Default to 0 if null
+        thisMonthQuantity = thisMonthQuantity != null ? thisMonthQuantity : 0L;
+        lastMonthQuantity = lastMonthQuantity != null ? lastMonthQuantity : 0L;
+
+        // Calculate the percentage difference
+        double percentageDifference = 0.0;
+        if (lastMonthQuantity > 0) {
+            percentageDifference = ((double) (thisMonthQuantity - lastMonthQuantity) / lastMonthQuantity) * 100;
+        } else if (thisMonthQuantity > 0) {
+            percentageDifference = 100.0; // If last month was 0 and this month has quantity, difference is 100%
+        }
+
+        // Prepare response map
+        Map<String, Object> statsMap = new HashMap<>();
+        statsMap.put("thisMonthQuantity", thisMonthQuantity);
+        statsMap.put("lastMonthQuantity", lastMonthQuantity);
+        statsMap.put("percentageDifference", percentageDifference);
+
+        // Wrap in a list and return
+        List<Map<String, Object>> stats = new ArrayList<>();
+        stats.add(statsMap);
+
+        return stats;
+    }
+
+
+
+    public List<Map<String, Object>> getOrderStats() {
+        long thisMonthOrders = orderRepository.getTotalOrdersForCurrentMonth();
+        long lastMonthOrders = orderRepository.getTotalOrdersForLastMonth();
+
+        // Calculate the difference percentage
+        double percentageDifference = 0;
+        if (lastMonthOrders > 0) {
+            percentageDifference = ((double) (thisMonthOrders - lastMonthOrders) / lastMonthOrders) * 100;
+        }
+
+        // Prepare response
+        Map<String, Object> statsMap = new HashMap<>();
+        statsMap.put("thisMonthOrders", thisMonthOrders);
+        statsMap.put("lastMonthOrders", lastMonthOrders);
+        statsMap.put("percentageDifference", percentageDifference);
+
+        // Create a list and add the map
+        List<Map<String, Object>> stats = new ArrayList<>();
+        stats.add(statsMap);
+
+        return stats;
+    }
+
+
+
+
 
 }
