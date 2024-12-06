@@ -80,6 +80,11 @@ public class ProductService {
     }
 
 
+    public List<GetProductInfoDTO> getInfo(List<Integer> productIdList){
+        return productRepo.getInfo(productIdList);
+    }
+
+
     public List<ReviewDTO> getReviews(Integer productId, Integer pageNo) {
         return ratingsRepo.findReviewsByProductId(productId, PageRequest.of(pageNo - 1, 5));
     }
