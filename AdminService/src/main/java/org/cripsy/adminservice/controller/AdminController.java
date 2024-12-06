@@ -6,6 +6,7 @@ import org.cripsy.adminservice.dto.AdminDTO;
 import org.cripsy.adminservice.service.AdminService;
 
 import org.cripsy.orderservice.dto.AdminDashbordDTO;
+import org.cripsy.orderservice.dto.MonthlyTotalPriceDTO;
 import org.cripsy.orderservice.dto.TotalItemDTO;
 import org.cripsy.orderservice.dto.TotalOrdersDTO;
 import org.springframework.graphql.data.method.annotation.QueryMapping;
@@ -69,6 +70,10 @@ public class AdminController {
         return adminService.getTotalCustomers();
     }
 
+
+    //Get Monthly Total Price
+    @GetMapping("/monthly-totals")
+    public List<MonthlyTotalPriceDTO> findMonthlyTotalPrices() {return adminService.findMonthlyTotalPrices();}
 
 
 
