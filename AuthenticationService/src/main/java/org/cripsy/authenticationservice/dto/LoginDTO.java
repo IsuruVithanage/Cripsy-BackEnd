@@ -1,4 +1,4 @@
-package org.cripsy.customerservice.dto;
+package org.cripsy.authenticationservice.dto;
 
 import lombok.*;
 
@@ -7,11 +7,10 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CustomerDTO {
+public class LoginDTO {
     private Long id;
     private String userName;
     private String email;
     private String password;
-    private String address;
-    private String district;
+    private String token;
 }
