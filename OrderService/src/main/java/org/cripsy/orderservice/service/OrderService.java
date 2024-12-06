@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 @AllArgsConstructor
@@ -38,6 +39,14 @@ public class OrderService {
 
         Order savedOrder = orderRepository.save(order);
         return modelMapper.map(savedOrder, OrderDTO.class);
+    }
+
+    public List<OrderDTO> getOrdersByStatus(String status) {
+        List<Order> orders = orderRepository.findByOrderStatus(status);
+        return orders.stream()
+                .map(order -> modelMapper.map(order, OrderDTO.class))
+                .collect(Collectors.toList());
+
     }
 
     public OrderDTO updateOrder(Integer id, OrderDTO orderDTO) {
