@@ -12,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(value = "http://localhost:3000")
 public class AuthController {
 
     @Autowired
