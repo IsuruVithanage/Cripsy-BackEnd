@@ -1,14 +1,22 @@
 package org.cripsy.authenticationservice.service;
 
+import org.apache.http.auth.InvalidCredentialsException;
 import org.cripsy.authenticationservice.dto.AuthDTO;
+import org.cripsy.authenticationservice.dto.LoginDTO;
+import org.cripsy.customerservice.dto.CustomerDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
+import org.springframework.http.HttpStatus;
+
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,5 +64,109 @@ public class AuthService {
     }
 
 
+    public LoginDTO findUser(String username, String password) throws InvalidCredentialsException {
+        return validateUser(username, password);
+    }
+    //    private CustomerDTO validateUser(String username, String password) {
+//        // Create a request body containing the username
+//        Map<String, String> requestBody = Map.of("username", username);
+////        System.out.println(password);
+////        String decodedPassword = passwordEncoder.encode(requestBody.get("password"));
+////        System.out.println(decodedPassword);
+//
+//
+//        try {
+//            // Send a POST request with the username in the body
+//            CustomerDTO customer = webClient.post()
+//                    .uri("http://localhost:8081/api/customers/login")
+//                    .bodyValue(requestBody)
+//                    .retrieve()
+//                    .onStatus(HttpStatusCode::isError, response ->
+//                            Mono.error(new InvalidCredentialsException("Invalid credentials or user not found")))
+//                    .bodyToMono(new ParameterizedTypeReference<CustomerDTO>() {})
+//                    .block();
+//
+//            System.out.println("User-entered password: " + password);
+//            System.out.println("Stored (encoded) password: " + customer.getPassword());
+//            if (!passwordEncoder.matches(password, customer.getPassword())) {
+//                throw new InvalidCredentialsException("Invalid credentials or user not found");
+//            }
+//            return customer;
+//
+//        } catch (Exception e) {
+//            throw new RuntimeException("Failed to validate user: " + e.getMessage(), e);
+//        }
+//    }
+//    private CustomerDTO validateUser(String username, String password) {
+//        Map<String, String> requestBody = Map.of("username", username);
+//
+//        try {
+//            CustomerDTO customer = webClient.post()
+//                    .uri("http://localhost:8081/api/customers/login")
+//                    .bodyValue(requestBody)
+//                    .retrieve()
+//                    .onStatus(HttpStatusCode::isError, response ->
+//                            Mono.error(new InvalidCredentialsException("Invalid credentials or user not found")))
+//                    .bodyToMono(new ParameterizedTypeReference<CustomerDTO>() {})
+//                    .block();
+//
+//            System.out.println("User-entered password: " + password);
+//            System.out.println("Stored (encoded) password: " + customer.getPassword());
+//
+//            if (customer.getPassword() == null) {
+//                throw new RuntimeException("Password field is null for user: " + username);
+//            }
+//
+//            if (!passwordEncoder.matches(password, customer.getPassword())) {
+//                throw new InvalidCredentialsException("Invalid credentials or user not found");
+//            }
+//
+//            return customer;
+//
+//        } catch (Exception e) {
+//            System.err.println("Failed to validate user: " + e.getMessage());
+//            throw new RuntimeException("Failed to validate user: " + e.getMessage(), e);
+//        }
+//    }
+    private LoginDTO validateUser(String username, String password) throws InvalidCredentialsException {
+        Map<String, String> requestBody = Map.of("username", username);
+
+        // Attempt validation against Customer Service
+        LoginDTO customer = tryValidateWithService(customerServiceUrl + "/api/customers/login", requestBody, password);
+        if (customer != null) return customer;
+
+        // Attempt validation against Delivery Service
+        LoginDTO deliveryUser = tryValidateWithService(deliveryServiceUrl + "/api/delivery/login", requestBody, password);
+        if (deliveryUser != null) return deliveryUser;
+
+        // Attempt validation against Admin Service
+        LoginDTO adminUser = tryValidateWithService(adminServiceUrl + "/api/admin/login", requestBody, password);
+        if (adminUser != null) return adminUser;
+
+        // If none matched, throw an exception
+        throw new InvalidCredentialsException("Invalid credentials or user not found in any service");
+    }
+    // Helper method to try validation with a single service
+    private LoginDTO tryValidateWithService(String serviceUrl, Map<String, String> requestBody, String rawPassword) {
+        try {
+            LoginDTO user = webClient.post()
+                    .uri(serviceUrl)
+                    .bodyValue(requestBody)
+                    .retrieve()
+                    .onStatus(HttpStatusCode::isError, response ->
+                            Mono.error(new InvalidCredentialsException("Invalid credentials or user not found in service: " + serviceUrl)))
+                    .bodyToMono(new ParameterizedTypeReference<LoginDTO>() {})
+                    .block();
+            if (user != null && user.getPassword() != null && passwordEncoder.matches(rawPassword, user.getPassword())) {
+                System.out.println("Password match result: true");
+                return user;
+            } else {
+                System.out.println("Password mismatch for service: " + serviceUrl);
+            }
+        } catch (Exception e) {
+            System.out.println("Validation failed for service: " + serviceUrl + " - " + e.getMessage());
+        }
+        return null;
+    }
 
 }

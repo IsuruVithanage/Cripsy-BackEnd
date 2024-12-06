@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @Getter
 @Setter
-public class CustomerDTO {
+public class LoginDTO {
     private Long id;
     private String userName;
     private String email;
