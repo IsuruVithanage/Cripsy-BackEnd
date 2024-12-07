@@ -21,7 +21,7 @@ public class AdminController {
 
     private final AdminService adminService;
 
-    //login
+    //Admin login
     @PostMapping("/login")
     public AdminDTO findCustomerByUsername(@RequestBody AuthDTO authDTO) {
         return adminService.findAdminByUsername(authDTO.getUsername());
