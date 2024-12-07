@@ -3,6 +3,7 @@ package org.cripsy.adminservice.controller;
 
 import lombok.AllArgsConstructor;
 import org.cripsy.adminservice.dto.AdminDTO;
+import org.cripsy.adminservice.dto.AuthDTO;
 import org.cripsy.adminservice.dto.GetBestSellingDTO;
 import org.cripsy.adminservice.service.AdminService;
 
@@ -19,6 +20,12 @@ import java.util.List;
 public class AdminController {
 
     private final AdminService adminService;
+
+    //login
+    @PostMapping("/login")
+    public AdminDTO findCustomerByUsername(@RequestBody AuthDTO authDTO) {
+        return adminService.findAdminByUsername(authDTO.getUsername());
+    }
 
     // Create Admin
     @PostMapping("/saveAdmin")

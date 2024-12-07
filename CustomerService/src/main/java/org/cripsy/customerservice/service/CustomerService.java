@@ -8,7 +8,9 @@ import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.Map;
@@ -28,6 +30,21 @@ public class CustomerService {
         customerRepository.save(customer);
     }
 
+    public CustomerDTO findCustomerByUsername(String username) {
+        //Customer customer = customerRepository.findUserByUsernameAndPassword(username,password);
+        Customer customer = customerRepository.findUserByUsername(username);
+        if (customer != null) {
+            CustomerDTO dto = new CustomerDTO();
+            dto.setId((customer.getId()));
+            dto.setUserName(customer.getUsername());
+            dto.setPassword(customer.getPassword());
+            dto.setEmail(customer.getEmail());
+            return dto;
+        }
+        return null;
+    }
+
+
     public List<CustomerDTO> getAllCustomers() {
         List<Customer> customers = customerRepository.findAll();
         return modelMapper.map(customers, new TypeToken<List<CustomerDTO>>() {}.getType());
@@ -38,11 +55,11 @@ public class CustomerService {
         return customer.map(value -> modelMapper.map(value, CustomerDTO.class)).orElse(null);
     }
 
-    public CustomerDTO createCustomer(CustomerDTO customerDTO) {
-        Customer customer = modelMapper.map(customerDTO, Customer.class);
-        customer = customerRepository.save(customer);
-        return modelMapper.map(customer, CustomerDTO.class);
-    }
+//    public CustomerDTO createCustomer(CustomerDTO customerDTO) {
+//        Customer customer = modelMapper.map(customerDTO, Customer.class);
+//        customer = customerRepository.save(customer);
+//        return modelMapper.map(customer, CustomerDTO.class);
+//    }
 
     public CustomerDTO updateCustomer(Long id, CustomerDTO customerDTO) {
         if (customerRepository.existsById(id)) {

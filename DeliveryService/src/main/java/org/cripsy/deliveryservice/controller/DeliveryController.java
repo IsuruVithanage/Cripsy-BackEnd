@@ -1,8 +1,10 @@
 package org.cripsy.deliveryservice.controller;
 
 import lombok.AllArgsConstructor;
+import org.cripsy.deliveryservice.dto.AuthDTO;
 import org.cripsy.deliveryservice.dto.DeliveryDTO;
 import org.cripsy.deliveryservice.service.DeliveryService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,6 +16,12 @@ import java.util.List;
 public class DeliveryController {
 
     private final DeliveryService deliveryService;
+
+    @PostMapping("login")
+    public DeliveryDTO findDeliveryByUsername(@RequestBody AuthDTO authDTO) {
+        return deliveryService.findDeliveryByUsername(authDTO.getUsername());
+
+    }
 
     @GetMapping("/getAll")
     public List<DeliveryDTO> getAll() {
