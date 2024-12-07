@@ -19,20 +19,15 @@ public class CustomerController {
 
     private final CustomerService customerService;
 
-    @PostMapping("signup")
+    @PostMapping("/signup")
     public ResponseEntity<String> createCustomer(@RequestBody AuthDTO authDTO) {
         customerService.saveCustomer(authDTO);
         return ResponseEntity.ok("Customer saved successfully!");
     }
 
-    @PostMapping("login")
-    public ResponseEntity<CustomerDTO> findCustomerByUsername(@RequestBody AuthDTO authDTO) {
-        CustomerDTO customer = customerService.findCustomerByUsername(authDTO.getUsername());
-        if (customer != null) {
-            return ResponseEntity.ok(customer);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @PostMapping("/login")
+    public CustomerDTO findCustomerByUsername(@RequestBody AuthDTO authDTO) {
+        return customerService.findCustomerByUsername(authDTO.getUsername());
     }
 
     @GetMapping

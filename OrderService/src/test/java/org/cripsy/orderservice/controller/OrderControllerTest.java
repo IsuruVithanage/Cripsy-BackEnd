@@ -101,8 +101,17 @@ public class OrderControllerTest {
     }
 
     @Test
+    void testGetAllByCustomerId() throws Exception {
+        Mockito.when(orderService.getAllByCustomerId(anyInt())).thenReturn(List.of(new OrderDetailDTO()));
+
+        mockMvc.perform(get("/api/orders/getAllByCustomer/{customerID}", 1)
+            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().isOk());
+    }
+
+    @Test
     void testGetTotalSumOfTotalPrice() throws Exception {
-        Mockito.when(orderService.getTotalSumOfTotalPrice()).thenReturn(1000.0);
+        Mockito.when(orderService.getMonthlyTotalSumOfTotalPrice()).thenReturn(1000.0);
 
         mockMvc.perform(get("/api/orders/getSumTotal")
             .contentType(MediaType.APPLICATION_JSON))

@@ -50,6 +50,14 @@ public class OrderService {
 
     }
 
+    public List<OrderDetailDTO> getAllByCustomerId(Integer customerID) {
+        List<Order> orders = orderRepository.findOrderByCustomerID(customerID);
+        return orders.stream()
+                .map(order -> modelMapper.map(order, OrderDetailDTO.class))
+                .collect(Collectors.toList());
+
+    }
+
     public OrderDTO updateOrder(Integer id, OrderDTO orderDTO) {
         if (orderRepository.existsById(id)) {
             Order order = modelMapper.map(orderDTO, Order.class);
@@ -67,12 +75,8 @@ public class OrderService {
         orderRepository.deleteById(id);
     }
 
-    //Get Fully Total Price
-    public double getTotalSumOfTotalPrice() {
-        return orderRepository.getTotalSumOfTotalPrice();
-    }
 
-    //Get Monthly Total  of Total Price
+    //Get Total Price Summary
     public List<Map<String, Object>> getMonthlyTotalSumOfTotalPrice() {
         Double thisMonthTotalPrice = orderRepository.getTotalPriceForCurrentMonth();
         Double lastMonthTotalPrice = orderRepository.getTotalPriceForLastMonth();
@@ -103,8 +107,8 @@ public class OrderService {
     }
 
 
-    //Get Monthly Items Qty
-    public List<Map<String, Object>> getMonthlyItemQuantityTotal() {
+    //Get Total Qty Summary
+    public List<Map<String, Object>> getMonthlySumQty() {
         Long thisMonthQuantity = orderRepository.getTotalItemQuantityForCurrentMonth();
         Long lastMonthQuantity = orderRepository.getTotalItemQuantityForLastMonth();
 
@@ -134,7 +138,7 @@ public class OrderService {
     }
 
 
-
+    //Get Order Summary
     public List<Map<String, Object>> getOrderStats() {
         long thisMonthOrders = orderRepository.getTotalOrdersForCurrentMonth();
         long lastMonthOrders = orderRepository.getTotalOrdersForLastMonth();
@@ -158,12 +162,14 @@ public class OrderService {
         return stats;
     }
 
-    //Get Mothly Total Price
-    public List<MonthlyTotalPriceDTO> getMonthlyTotalPrices() {
+    //Get Monthly Total Selling(Chart Data)
+    public List<MonthlyTotalPriceDTO> findMonthlyTotalPrices() {
         return orderRepository.findMonthlyTotalPrices();
     }
 
 
+
+    //Get Best Selling Details
     public List<BestSellingProductDTO> getBestSellingProducts() {
         // Call the repository method to fetch data
         return itemRepository.findBestSellingProducts();

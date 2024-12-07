@@ -13,7 +13,6 @@ public class DeliveryDTO {
     private  String email;
     private  String password;
     private  String contact;
-    private  boolean availability;
-
+    private  Boolean availability;
 }
 

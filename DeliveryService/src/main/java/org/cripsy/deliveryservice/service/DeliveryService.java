@@ -72,4 +72,15 @@ public class DeliveryService {
         }
         return false;
     }
+
+    public void updateAvailability(Integer personId, Boolean availability) {
+        int rowsAffected = deliveryRepository.updateAvailabilityByPersonId(personId, availability);
+        if (rowsAffected > 0) {
+            System.out.println("Availability updated successfully.");
+        } else {
+            System.out.println("No matching person found.");
+        }
+    }
+
+
 }

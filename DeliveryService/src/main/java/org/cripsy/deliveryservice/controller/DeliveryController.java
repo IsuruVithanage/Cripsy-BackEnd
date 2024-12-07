@@ -12,18 +12,16 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/delivery")
+@CrossOrigin("http://localhost:3000")
 public class DeliveryController {
 
     private final DeliveryService deliveryService;
 
+
     @PostMapping("login")
-    public ResponseEntity<DeliveryDTO> findDeliveryByUsername(@RequestBody AuthDTO authDTO) {
-        DeliveryDTO delivery = deliveryService.findDeliveryByUsername(authDTO.getUsername());
-        if (delivery != null) {
-            return ResponseEntity.ok(delivery);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public DeliveryDTO findDeliveryByUsername(@RequestBody AuthDTO authDTO) {
+        return deliveryService.findDeliveryByUsername(authDTO.getUsername());
+
     }
 
     @GetMapping("/getAll")
@@ -49,5 +47,11 @@ public class DeliveryController {
     @DeleteMapping("/{id}")
     public boolean deleteDeliveryPerson(@PathVariable Integer id) {
         return deliveryService.deleteDeliveryPerson(id);
+    }
+
+    @PutMapping("/{personId}/availability")
+    public String updateAvailability(@PathVariable Integer personId, @RequestParam Boolean availability) {
+        deliveryService.updateAvailability(personId, availability);
+        return "Update request processed.";
     }
 }
