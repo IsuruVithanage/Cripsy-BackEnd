@@ -3,6 +3,7 @@ package org.cripsy.orderservice.controller;
 import org.cripsy.orderservice.dto.BestSellingProductDTO;
 import org.cripsy.orderservice.dto.MonthlyTotalPriceDTO;
 import org.cripsy.orderservice.dto.OrderDTO;
+import org.cripsy.orderservice.dto.OrderDetailDTO;
 import org.cripsy.orderservice.service.OrderService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -19,12 +20,12 @@ public class OrderController {
     private final OrderService orderService;
 
     @GetMapping("/getAllOrders")
-    public List<OrderDTO> getAllOrders() {
+    public List<OrderDetailDTO> getAllOrders() {
         return orderService.getAllOrders();
     }
 
     @GetMapping("/{id}")
-    public OrderDTO getOrderById(@PathVariable Integer id) {
+    public OrderDetailDTO getOrderById(@PathVariable Integer id) {
         return orderService.getOrderById(id);
     }
 
@@ -43,10 +44,7 @@ public class OrderController {
         orderService.deleteOrder(id);
     }
 
-//    @GetMapping("/getSumTotal")
-//    public Double getTotalSumOfTotalPrice() {
-//        return orderService.getTotalSumOfTotalPrice();
-//    }
+
 
     //Get Total Price Summary
     @GetMapping("/getMonthlySumTotal")
@@ -78,17 +76,16 @@ public class OrderController {
         return orderService.findMonthlyTotalPrices();
     }
 
-
-
-
-
+    
 
     //Order States
     @GetMapping("/status/{status}")
-    public List<OrderDTO> getOrdersByStatus(@PathVariable String status) {
+    public List<OrderDetailDTO> getOrdersByStatus(@PathVariable String status) {
         return orderService.getOrdersByStatus(status);
     }
-
-
+    @GetMapping("/getAllByCustomer/{customerID}")
+    public List<OrderDetailDTO> getAllByCustomerId(@PathVariable Integer customerID) {
+        return orderService.getAllByCustomerId(customerID);
+    }
 
 }

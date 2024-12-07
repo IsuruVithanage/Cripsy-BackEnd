@@ -89,11 +89,11 @@ public class ReservedStockService {
     }
 
 
-    @Scheduled(fixedRate = 30000) // Run every 10 minutes 600000
+    @Scheduled(fixedRate = 60000) // Run every minute
     @Transactional
     public void rollbackExpiredReservations() {
-        ZonedDateTime expiryTime = ZonedDateTime.now(ZoneId.of("UTC")).minusMinutes(1);
-
+        System.out.println("Checking For Rollback Transactions...");
+        ZonedDateTime expiryTime = ZonedDateTime.now(ZoneId.of("UTC")).minusMinutes(3);
         List<Transaction> expiredTransactions = transactionRepo.findExpiredTransactions(expiryTime);
 
         for (Transaction transaction : expiredTransactions) {

@@ -8,10 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface DeliveryRepository extends JpaRepository<Delivery, Integer>{
 
+
     @Transactional
     @Modifying
     @Query("UPDATE Delivery d SET d.availability = :availability WHERE d.personId = :personId")
     int updateAvailabilityByPersonId(Integer personId, Boolean availability);
+
+    Delivery findUserByName(String username);
+
 }
 
 

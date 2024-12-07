@@ -14,14 +14,20 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/customers")
+@CrossOrigin("http://localhost:3000")
 public class CustomerController {
 
     private final CustomerService customerService;
 
-    @PostMapping("signup")
+    @PostMapping("/signup")
     public ResponseEntity<String> createCustomer(@RequestBody AuthDTO authDTO) {
         customerService.saveCustomer(authDTO);
         return ResponseEntity.ok("Customer saved successfully!");
+    }
+
+    @PostMapping("/login")
+    public CustomerDTO findCustomerByUsername(@RequestBody AuthDTO authDTO) {
+        return customerService.findCustomerByUsername(authDTO.getUsername());
     }
 
     @GetMapping
@@ -34,10 +40,10 @@ public class CustomerController {
         return customerService.getCustomerById(id);
     }
 
-    @PostMapping
-    public CustomerDTO createCustomer(@RequestBody CustomerDTO customerDTO) {
-        return customerService.createCustomer(customerDTO);
-    }
+//    @PostMapping
+//    public CustomerDTO createCustomer(@RequestBody CustomerDTO customerDTO) {
+//        return customerService.createCustomer(customerDTO);
+//    }
 
     @PutMapping("/{id}")
     public CustomerDTO updateCustomer(@PathVariable Long id, @RequestBody CustomerDTO customerDTO) {
