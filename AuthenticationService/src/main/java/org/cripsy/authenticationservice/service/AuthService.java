@@ -13,10 +13,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
-
-
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 @Service
@@ -61,40 +57,6 @@ public class AuthService {
         }
     }
 
-
-//    public LoginDTO findUser(String username, String password) throws InvalidCredentialsException {
-//        return validateUser(username, password);
-//    }
-        /*private LoginDTO validateUser(String username, String password) {
-        // Create a request body containing the username
-        Map<String, String> requestBody = Map.of("username", username);
-//        System.out.println(password);
-//        String decodedPassword = passwordEncoder.encode(requestBody.get("password"));
-//        System.out.println(decodedPassword);
-
-
-        try {
-            // Send a POST request with the username in the body
-            LoginDTO customer = webClient.post()
-                    .uri("http://localhost:8081/api/customers/login")
-                    .bodyValue(requestBody)
-                    .retrieve()
-                    .onStatus(HttpStatusCode::isError, response ->
-                            Mono.error(new InvalidCredentialsException("Invalid credentials or user not found")))
-                    .bodyToMono(new ParameterizedTypeReference<LoginDTO>() {})
-                    .block();
-
-            System.out.println("User-entered password: " + password);
-            System.out.println("Stored (encoded) password: " + customer.getPassword());
-            if (!passwordEncoder.matches(password, customer.getPassword())) {
-                throw new InvalidCredentialsException("Invalid credentials or user not found");
-            }
-            return customer;
-
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to validate user: " + e.getMessage(), e);
-        }
-    }*/
     public LoginDTO findUser(String username, String password) {
         System.out.println(username);
         return validateUser(username,password);
@@ -168,46 +130,5 @@ public class AuthService {
         user.setToken(jwtToken);
         return user;
     }
-//    private LoginDTO validateUser(String username, String password) throws InvalidCredentialsException {
-//        // Define service URLs to check
-//        String[] serviceUrls = {
-//                customerServiceUrl + "/api/customers/login",
-//                deliveryServiceUrl + "/api/delivery/login",
-//                adminServiceUrl + "/api/admin/login"
-//        };
-//
-//        Map<String, String> requestBody = Map.of("username", username);
-//
-//        // Attempt validation against each service
-//        for (String serviceUrl : serviceUrls) {
-//            LoginDTO user = tryValidateWithService(serviceUrl, requestBody, password);
-//            if (user != null) {
-//                return user; // Return as soon as a match is found
-//            }
-//        }
-//
-//        // If no service validated the user, throw exception
-//        throw new InvalidCredentialsException("Invalid credentials or user not found in any service");
-//    }
-//
-//    // Helper method to try validation with a single service
-//    private LoginDTO tryValidateWithService(String serviceUrl, Map<String, String> requestBody, String rawPassword) {
-//        try {
-//            return webClient.post()
-//                    .uri(serviceUrl)
-//                    .bodyValue(requestBody)
-//                    .retrieve()
-//                    .onStatus(HttpStatusCode::isError, response ->
-//                            Mono.error(new InvalidCredentialsException("Service validation failed: " + serviceUrl)))
-//                    .bodyToMono(LoginDTO.class)
-//                    .blockOptional()
-//                    .filter(user -> user.getPassword() != null && passwordEncoder.matches(rawPassword, user.getPassword()))
-//                    .orElse(null);
-//        } catch (Exception e) {
-//            System.out.println("Service validation failed for: " + serviceUrl + " - " + e.getMessage());
-//            return null;
-//        }
-//    }
-
 
 }
