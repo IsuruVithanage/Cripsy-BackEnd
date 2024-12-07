@@ -56,4 +56,9 @@ public class OrderController {
     public List<OrderDetailDTO> getOrdersByStatus(@PathVariable String status) {
         return orderService.getOrdersByStatus(status);
     }
+
+    @GetMapping("/getAllByCustomer/{customerID}")
+    public List<OrderDetailDTO> getOrdersByStatus(@PathVariable Integer customerID) {
+        return orderService.getOrdersByStatus(customerID);
+    }
 }
