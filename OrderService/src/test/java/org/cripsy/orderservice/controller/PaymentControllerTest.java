@@ -33,16 +33,8 @@ public class PaymentControllerTest {
         String requestBody = """
         {
             "order_id": "12345",
-            "items": "Sample Item",
             "amount": "100.00",
-            "currency": "LKR",
-            "first_name": "John",
-            "last_name": "Doe",
-            "email": "john.doe@example.com",
-            "phone": "0771234567",
-            "address": "123 Main Street",
-            "city": "Colombo",
-            "country": "Sri Lanka"
+            "currency": "LKR"
         }
         """;
 
