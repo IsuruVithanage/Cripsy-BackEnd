@@ -50,7 +50,7 @@ public class OrderService {
 
     }
 
-    public List<OrderDetailDTO> getOrdersByStatus(Integer customerID) {
+    public List<OrderDetailDTO> getAllByCustomerId(Integer customerID) {
         List<Order> orders = orderRepository.findOrderByCustomerID(customerID);
         return orders.stream()
                 .map(order -> modelMapper.map(order, OrderDetailDTO.class))
