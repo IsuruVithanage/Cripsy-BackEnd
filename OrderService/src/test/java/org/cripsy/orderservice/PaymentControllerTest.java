@@ -1,11 +1,11 @@
-package org.cripsy.orderservice.controller;
+package org.cripsy.orderservice;
 
-import org.cripsy.orderservice.repository.PaymentRepository;
 import org.cripsy.orderservice.service.PaymentService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -15,7 +15,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 
-@WebMvcTest(PaymentController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class PaymentControllerTest {
 
     @Autowired
@@ -23,10 +24,6 @@ public class PaymentControllerTest {
 
     @MockBean
     private PaymentService paymentService;
-
-    @MockBean
-    private PaymentRepository paymentRepository;
-
 
     @Test
     void testStartPayment() throws Exception {

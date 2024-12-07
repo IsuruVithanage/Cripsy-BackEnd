@@ -1,13 +1,13 @@
-package org.cripsy.customerservice.controller;
+package org.cripsy.customerservice;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.cripsy.customerservice.dto.AuthDTO;
 import org.cripsy.customerservice.dto.CustomerDTO;
 import org.cripsy.customerservice.service.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
@@ -18,7 +18,8 @@ import static org.mockito.ArgumentMatchers.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@WebMvcTest(CustomerController.class)
+@SpringBootTest
+@AutoConfigureMockMvc
 public class CustomerControllerTest {
 
     @Autowired
