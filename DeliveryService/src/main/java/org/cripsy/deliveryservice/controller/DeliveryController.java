@@ -17,13 +17,9 @@ public class DeliveryController {
     private final DeliveryService deliveryService;
 
     @PostMapping("login")
-    public ResponseEntity<DeliveryDTO> findDeliveryByUsername(@RequestBody AuthDTO authDTO) {
-        DeliveryDTO delivery = deliveryService.findDeliveryByUsername(authDTO.getUsername());
-        if (delivery != null) {
-            return ResponseEntity.ok(delivery);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public DeliveryDTO findDeliveryByUsername(@RequestBody AuthDTO authDTO) {
+        return deliveryService.findDeliveryByUsername(authDTO.getUsername());
+
     }
 
     @GetMapping("/getAll")
