@@ -1,5 +1,7 @@
 package org.cripsy.orderservice.controller;
 
+import org.cripsy.orderservice.dto.BestSellingProductDTO;
+import org.cripsy.orderservice.dto.MonthlyTotalPriceDTO;
 import org.cripsy.orderservice.dto.OrderDTO;
 import org.cripsy.orderservice.service.OrderService;
 import lombok.AllArgsConstructor;
@@ -41,18 +43,52 @@ public class OrderController {
         orderService.deleteOrder(id);
     }
 
-    @GetMapping("/getSumTotal")
-    public Double getTotalSumOfTotalPrice() {
-        return orderService.getTotalSumOfTotalPrice();
-    }
+//    @GetMapping("/getSumTotal")
+//    public Double getTotalSumOfTotalPrice() {
+//        return orderService.getTotalSumOfTotalPrice();
+//    }
 
+    //Get Total Price Summary
     @GetMapping("/getMonthlySumTotal")
     public List<Map<String, Object>> getMonthlyTotalSumOfTotalPrice() {
         return orderService.getMonthlyTotalSumOfTotalPrice();
     }
 
+    //Get Total Qty Summary
+    @GetMapping("/getMonthlySumQty")
+    public List<Map<String, Object>> getMonthlySumQty() {
+        return orderService.getMonthlySumQty();
+    }
+
+    //Get Order Summary
+    @GetMapping("/best-orderSummery")
+    public List<Map<String, Object>> getOrderStats() {
+        return orderService.getOrderStats();
+    }
+
+    //Get Best Selling Details
+    @GetMapping("/best-selling")
+    public List<BestSellingProductDTO> getBestSellingProducts() {
+        return orderService.getBestSellingProducts();
+    }
+
+    //Get Monthly Selling Details(Chart Data)
+    @GetMapping("/monthly-selling")
+    public List<MonthlyTotalPriceDTO> findMonthlyTotalPrices() {
+        return orderService.findMonthlyTotalPrices();
+    }
+
+
+
+
+
+
+    //Order States
     @GetMapping("/status/{status}")
     public List<OrderDTO> getOrdersByStatus(@PathVariable String status) {
         return orderService.getOrdersByStatus(status);
     }
+
+
+
 }

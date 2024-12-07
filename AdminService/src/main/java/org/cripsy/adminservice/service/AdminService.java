@@ -70,7 +70,7 @@ public class AdminService {
     }
 
 
-    //Get the Monthly Revenue
+    //Get Total Price Summary
     public List<AdminDashbordDTO> getMonthlySumTotal() {
         return webClient.get()
                 .uri("http://localhost:8083/api/orders/getMonthlySumTotal")
@@ -79,7 +79,7 @@ public class AdminService {
                 .block();
     }
 
-    //Get the Mothly Total Selling Items
+    ////Get Total Qty Summary
     public List<TotalItemDTO> getMonthlySumQty(){
         return webClient.get()
                 .uri("http://localhost:8083/api/orders/getMonthlySumQty")
@@ -88,7 +88,7 @@ public class AdminService {
                 .block();
     }
 
-    //Get Total Orders
+    //Get Total Orders Summary
     public  List<TotalOrdersDTO> getOrderStats() {
          return webClient.get()
                 .uri("http://localhost:8083/api/orders/orderSummery")
@@ -98,10 +98,10 @@ public class AdminService {
 
     }
 
-    //Get MonthlyTotal price
+    //Get Monthly Selling (Chart Data)
     public  List<MonthlyTotalPriceDTO> findMonthlyTotalPrices() {
         return webClient.get()
-                .uri("http://localhost:8083/api/orders/monthly-totals")
+                .uri("http://localhost:8083/api/orders/monthly-selling")
                 .retrieve()
                 .bodyToMono(new ParameterizedTypeReference<List<MonthlyTotalPriceDTO>>() {})
                 .block();
@@ -119,7 +119,7 @@ public class AdminService {
     }
 
 
-    //Get the Best Selling Products
+    ////Get Best Selling Details
     public List<GetBestSellingDTO> getBestSellingProducts() {
         List<BestSellingProductDTO> bestSellingProductDTOList = webClient.get()
                 .uri("http://localhost:8083/api/orders/best-selling")
