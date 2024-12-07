@@ -50,6 +50,14 @@ public class OrderService {
 
     }
 
+    public List<OrderDetailDTO> getOrdersByStatus(Integer customerID) {
+        List<Order> orders = orderRepository.findOrderByCustomerID(customerID);
+        return orders.stream()
+                .map(order -> modelMapper.map(order, OrderDetailDTO.class))
+                .collect(Collectors.toList());
+
+    }
+
     public OrderDTO updateOrder(Integer id, OrderDTO orderDTO) {
         if (orderRepository.existsById(id)) {
             Order order = modelMapper.map(orderDTO, Order.class);
