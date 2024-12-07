@@ -1,4 +1,4 @@
-package org.cripsy.orderservice.controller;
+package org.cripsy.orderservice;
 
 import org.cripsy.orderservice.dto.BestSellingProductDTO;
 import org.cripsy.orderservice.dto.MonthlyTotalPriceDTO;

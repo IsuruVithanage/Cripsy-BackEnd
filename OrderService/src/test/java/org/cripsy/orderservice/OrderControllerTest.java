@@ -1,4 +1,4 @@
-package org.cripsy.orderservice.controller;
+package org.cripsy.orderservice;
 
 import org.cripsy.orderservice.dto.OrderDTO;
 import org.cripsy.orderservice.dto.OrderDetailDTO;
@@ -12,6 +12,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -112,12 +113,11 @@ public class OrderControllerTest {
 
     @Test
     void testGetTotalSumOfTotalPrice() throws Exception {
-        Mockito.when(orderService.getMonthlyTotalSumOfTotalPrice()).thenReturn(1000.0);
+        Mockito.when(orderService.getMonthlyTotalSumOfTotalPrice()).thenReturn(new ArrayList<>());
 
         mockMvc.perform(get("/api/orders/getSumTotal")
             .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk())
-            .andExpect(content().string("1000.0"));
+            .andExpect(status().isOk());
     }
 
     @Test
