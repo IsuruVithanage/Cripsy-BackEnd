@@ -57,17 +57,22 @@ public class AdminController {
         return adminService.getAdminById(id);
     }
 
-    //Get Total Revenue with Moth and Year
+    //Get Total Price Summary
     @GetMapping("/getMonthlySumTotal")
     public List<AdminDashbordDTO> getMonthlySumTotal() {return adminService.getMonthlySumTotal();}
 
-    //Get Total Quatity Month and Year
+    //Get Total Qty Summary
     @GetMapping("/getMonthlySumQty")
     public List<TotalItemDTO> getMonthlySumQty() {return adminService.getMonthlySumQty();}
 
     //Get  Orders Summery
     @GetMapping("/orderSummery")
     public List<TotalOrdersDTO> getOrderStats() {return adminService.getOrderStats();}
+
+    //Get Monthly Selling Details
+    @GetMapping("/monthly-selling")
+    public List<MonthlyTotalPriceDTO> findMonthlyTotalPrices() {return adminService.findMonthlyTotalPrices();}
+
 
     //Get Total Customer
     @GetMapping("/totalCustomer")
@@ -76,10 +81,7 @@ public class AdminController {
     }
 
 
-    //Get Monthly Total Price
-    @GetMapping("/monthly-totals")
-    public List<MonthlyTotalPriceDTO> findMonthlyTotalPrices() {return adminService.findMonthlyTotalPrices();}
-
+    //Get Best Selling Details
     @GetMapping("/best-selling")
     public List<GetBestSellingDTO> getBestSellingProducts() {return adminService.getBestSellingProducts();}
 

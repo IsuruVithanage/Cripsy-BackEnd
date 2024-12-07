@@ -111,7 +111,7 @@ public class OrderControllerTest {
 
     @Test
     void testGetTotalSumOfTotalPrice() throws Exception {
-        Mockito.when(orderService.getTotalSumOfTotalPrice()).thenReturn(1000.0);
+        Mockito.when(orderService.getMonthlyTotalSumOfTotalPrice()).thenReturn(1000.0);
 
         mockMvc.perform(get("/api/orders/getSumTotal")
             .contentType(MediaType.APPLICATION_JSON))
