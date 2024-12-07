@@ -1,0 +1,64 @@
+version: '3.8'
+
+services:
+  product-service:
+    build:
+      context: ./ProductService
+    ports:
+      - "8082:8082"
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+
+  order-service:
+    build:
+      context: ./OrderService
+    ports:
+      - "8083:8083"
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+
+  eureka-server:
+    build:
+      context: ./EurekaServer
+    ports:
+      - "8761:8761"
+    networks:
+      - app-network
+
+  delivery-service:
+    build:
+      context: ./DeliveryService
+    ports:
+      - "8087:8087"
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+
+  customer-service:
+    build:
+      context: ./CustomerService
+    ports:
+      - "8081:8081"
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+
+  chat-service:
+    build:
+      context: ./ChatService
+    ports:
+      - "8085:8085"
+    networks:
+      - app-network
+    depends_on:
+      - eureka-server
+
+networks:
+  app-network:
+    driver: bridge

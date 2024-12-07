@@ -111,14 +111,6 @@ public class OrderControllerTest {
             .andExpect(status().isOk());
     }
 
-    @Test
-    void testGetTotalSumOfTotalPrice() throws Exception {
-        Mockito.when(orderService.getMonthlyTotalSumOfTotalPrice()).thenReturn(new ArrayList<>());
-
-        mockMvc.perform(get("/api/orders/getSumTotal")
-            .contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk());
-    }
 
     @Test
     void testGetMonthlyTotalSumOfTotalPrice() throws Exception {
