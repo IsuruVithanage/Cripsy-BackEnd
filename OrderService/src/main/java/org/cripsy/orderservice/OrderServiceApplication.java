@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
-@RestController
 @EnableDiscoveryClient
 public class OrderServiceApplication {
 

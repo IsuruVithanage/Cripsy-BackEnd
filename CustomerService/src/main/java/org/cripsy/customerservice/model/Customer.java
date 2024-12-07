@@ -30,6 +30,8 @@ public class Customer {
 
     private String district;
 
+    private String contact;
+
     @OneToMany(mappedBy = "customer")
     private List<ForgotPassword> forgotPassword;
 }

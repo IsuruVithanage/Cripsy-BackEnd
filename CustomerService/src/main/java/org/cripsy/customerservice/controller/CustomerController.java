@@ -14,6 +14,7 @@ import java.util.Map;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/customers")
+@CrossOrigin("http://localhost:3000")
 public class CustomerController {
 
     private final CustomerService customerService;
