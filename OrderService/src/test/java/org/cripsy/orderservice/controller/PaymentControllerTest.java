@@ -1,4 +1,4 @@
-package org.cripsy.orderservice;
+package org.cripsy.orderservice.controller;
 
 import org.cripsy.orderservice.service.PaymentService;
 import org.junit.jupiter.api.Test;

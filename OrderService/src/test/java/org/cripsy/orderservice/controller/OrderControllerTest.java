@@ -1,4 +1,4 @@
-package org.cripsy.orderservice;
+package org.cripsy.orderservice.controller;
 
 import org.cripsy.orderservice.dto.OrderDTO;
 import org.cripsy.orderservice.dto.OrderDetailDTO;
