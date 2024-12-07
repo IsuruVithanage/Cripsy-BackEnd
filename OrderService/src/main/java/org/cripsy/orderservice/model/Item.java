@@ -22,9 +22,6 @@ public class Item {
     private Double discount;
 
     @ManyToOne()
-    @JoinColumn(name = "order_id", nullable = false)
-
-   
-
+    @JoinColumn(name = "order_id")
     private Order order; // Foreign key linking to the Order entity
 }

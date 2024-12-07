@@ -1,4 +1,4 @@
-package org.cripsy.orderservice.controller;
+package org.cripsy.orderservice;
 
 import org.cripsy.orderservice.dto.PaymentNotification;
 import org.cripsy.orderservice.dto.PaymentRequest;
