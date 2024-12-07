@@ -103,30 +103,57 @@ public class AuthService {
     private LoginDTO validateUser(String username, String password) {
         Map<String, String> requestBody = Map.of("username", username);
 
-            LoginDTO customer = webClient.post()
+            LoginDTO user = webClient.post()
                     .uri("http://localhost:8081/api/customers/login")
                     .bodyValue(requestBody)
                     .retrieve()
                     .bodyToMono(new ParameterizedTypeReference<LoginDTO>() {})
                     .block();
 
-            System.out.println("User-entered password: " + password);
-            System.out.println("Stored (encoded) password: " + customer.getPassword());
 
-            if (customer.getPassword() == null) {
+        // If not found in CustomerService, search in DeliveryService
+        if (user == null) {
+            try {
+                 user = webClient.post()
+                        .uri("http://localhost:8087/api/delivery/login")
+                        .bodyValue(requestBody)
+                        .retrieve()
+                        .bodyToMono(new ParameterizedTypeReference<LoginDTO>() {})
+                        .block();
+            } catch (Exception ex) {
+                throw new RuntimeException("User not found in both CustomerService and DeliveryService: " + username);
+            }
+        }
+
+
+        // If not found in CustomerService, search in AdminService
+        if (user == null) {
+            try {
+                 user = webClient.post()
+                        .uri("http://localhost:8084/api/admin/login")
+                        .bodyValue(requestBody)
+                        .retrieve()
+                        .bodyToMono(new ParameterizedTypeReference<LoginDTO>() {})
+                        .block();
+            } catch (Exception ex) {
+                throw new RuntimeException("User not found in both CustomerService, Admin service and DeliveryService: " + username);
+            }
+        }
+
+            if (user.getPassword() == null) {
                 throw new RuntimeException("Password field is null for user: " + username);
             }
 
-            if (!passwordEncoder.matches(password, customer.getPassword())) {
+            if (!passwordEncoder.matches(password, user.getPassword())) {
                 System.out.println("misMatch");
             }
 
 
-        String jwtToken = jwtService.generateJwtToken(customer.getId(), username);
+        String jwtToken = jwtService.generateJwtToken(user.getId(), username);
         System.out.println("Generated JWT: " + jwtToken);
 
-        customer.setToken(jwtToken);
-        return customer;
+        user.setToken(jwtToken);
+        return user;
     }
 //    private LoginDTO validateUser(String username, String password) throws InvalidCredentialsException {
 //        // Define service URLs to check
