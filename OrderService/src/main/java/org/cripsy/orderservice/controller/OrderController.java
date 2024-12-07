@@ -6,6 +6,8 @@ import org.cripsy.orderservice.dto.OrderDTO;
 import org.cripsy.orderservice.dto.OrderDetailDTO;
 import org.cripsy.orderservice.service.OrderService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -86,6 +88,27 @@ public class OrderController {
     @GetMapping("/getAllByCustomer/{customerID}")
     public List<OrderDetailDTO> getAllByCustomerId(@PathVariable Integer customerID) {
         return orderService.getAllByCustomerId(customerID);
+    }
+
+    @GetMapping("/getAllByDeliveryPersonId/{deliveryPersonId}")
+    public List<OrderDetailDTO> getAllByDeliveryPersonId(@PathVariable Integer deliveryPersonId) {
+        return orderService.getAllByDeliveryId(deliveryPersonId);
+    }
+
+    @PutMapping("/updateStatus/{orderId}/{newStatus}")
+    public ResponseEntity<String> updateOrderStatus(
+            @PathVariable Integer orderId,
+            @PathVariable String newStatus) {
+        try {
+            boolean isUpdated = orderService.updateOrderStatus(orderId, newStatus);
+            if (isUpdated) {
+                return ResponseEntity.ok("Order status updated successfully!");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Order not found!");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error updating order status!");
+        }
     }
 
 }

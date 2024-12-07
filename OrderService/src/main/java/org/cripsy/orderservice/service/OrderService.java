@@ -10,6 +10,7 @@ import org.cripsy.orderservice.repository.OrderRepository;
 import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -56,6 +57,20 @@ public class OrderService {
                 .map(order -> modelMapper.map(order, OrderDetailDTO.class))
                 .collect(Collectors.toList());
 
+    }
+
+    public List<OrderDetailDTO> getAllByDeliveryId(Integer deliveryPersonId) {
+        List<Order> orders = orderRepository.findOrderByDeliveryPersonId(deliveryPersonId);
+        return orders.stream()
+                .map(order -> modelMapper.map(order, OrderDetailDTO.class))
+                .collect(Collectors.toList());
+
+    }
+
+    @Transactional
+    public boolean updateOrderStatus(Integer orderId, String newStatus) {
+        int rowsUpdated = orderRepository.updateOrderStatus(orderId, newStatus);
+        return rowsUpdated > 0; // Returns true if the update was successful
     }
 
     public OrderDTO updateOrder(Integer id, OrderDTO orderDTO) {
