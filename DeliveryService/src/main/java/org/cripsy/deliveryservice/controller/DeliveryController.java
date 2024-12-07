@@ -12,6 +12,7 @@ import java.util.List;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/delivery")
+@CrossOrigin("http://localhost:3000")
 public class DeliveryController {
 
     private final DeliveryService deliveryService;
@@ -45,5 +46,11 @@ public class DeliveryController {
     @DeleteMapping("/{id}")
     public boolean deleteDeliveryPerson(@PathVariable Integer id) {
         return deliveryService.deleteDeliveryPerson(id);
+    }
+
+    @PutMapping("/{personId}/availability")
+    public String updateAvailability(@PathVariable Integer personId, @RequestParam Boolean availability) {
+        deliveryService.updateAvailability(personId, availability);
+        return "Update request processed.";
     }
 }
