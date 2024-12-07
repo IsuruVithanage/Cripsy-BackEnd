@@ -110,6 +110,9 @@ public class AuthService {
                     .bodyToMono(new ParameterizedTypeReference<LoginDTO>() {})
                     .block();
 
+        if (user != null) {
+            user.setRole("Customer");
+        }
 
         // If not found in CustomerService, search in DeliveryService
         if (user == null) {
@@ -120,6 +123,11 @@ public class AuthService {
                         .retrieve()
                         .bodyToMono(new ParameterizedTypeReference<LoginDTO>() {})
                         .block();
+
+                if (user != null) {
+                    user.setRole("Delivery");
+                }
+
             } catch (Exception ex) {
                 throw new RuntimeException("User not found in both CustomerService and DeliveryService: " + username);
             }
@@ -135,6 +143,11 @@ public class AuthService {
                         .retrieve()
                         .bodyToMono(new ParameterizedTypeReference<LoginDTO>() {})
                         .block();
+
+                if (user != null) {
+                    user.setRole("Admin");
+                }
+
             } catch (Exception ex) {
                 throw new RuntimeException("User not found in both CustomerService, Admin service and DeliveryService: " + username);
             }
@@ -149,7 +162,7 @@ public class AuthService {
             }
 
 
-        String jwtToken = jwtService.generateJwtToken(user.getId(), username);
+        String jwtToken = jwtService.generateJwtToken(user.getId(), username, user.getRole());
         System.out.println("Generated JWT: " + jwtToken);
 
         user.setToken(jwtToken);

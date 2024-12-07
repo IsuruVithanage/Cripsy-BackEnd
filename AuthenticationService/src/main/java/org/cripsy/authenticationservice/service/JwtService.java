@@ -19,10 +19,11 @@ public class JwtService {
 
     private String secretKey = "TjFi9qfRQFz9Ydq6AeatTuojzhdgBbadomU28z19rJg=";
 
-    public String generateJwtToken(Long userId, String username) {
+    public String generateJwtToken(Long userId, String username, String role) {
         Map<String, Object> claims = new HashMap<>();
         claims.put("id", userId);
         claims.put("username", username);
+        claims.put("role", role);
 
         return Jwts.builder()
                 .claims()
